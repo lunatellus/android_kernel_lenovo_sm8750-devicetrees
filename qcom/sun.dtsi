@@ -2269,6 +2269,16 @@
 		compatible = "qcom,logbuf-vendor-hooks";
 	};
 
+	sys_temp_support {
+		compatible = "lenovo,sys-temp";
+		lenovo,temperature-names = "front_temp", "back_temp", "user_temp",
+					  "user_front_temp", "user_back_temp";
+		lenovo,sensor-listener-names = "front-cam-therm", "quiet-therm",
+					       "usb2-conn-therm", "cam-flash-therm",
+					       "batt1-therm", "usb1-conn-therm",
+					       "cpuss-0", "lcm-thermal";
+	};
+
 	qcom,mpm2-sleep-counter@c221000 {
 		compatible = "qcom,mpm2-sleep-counter";
 		reg = <0xc221000 0x1000>;
@@ -4055,9 +4065,9 @@
 		size = <0 0x1000000>;
 	};
 
-	ramoops_mem: ramoops-region {
-		alloc-ranges = <0x1 0x00000000 0xfffffffe 0xffffffff>;
-		size = <0x0 0x200000>;
+	ramoops_mem: ramoops-region@0xc2000000 {
+		alloc-ranges = <0x0 0xc2000000 0x0 0x400000>;
+		size = <0x0 0x400000>;
 		no-map;
 	};
 

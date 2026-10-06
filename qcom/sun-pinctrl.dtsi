@@ -1598,6 +1598,19 @@
 				bias-pull-down;
 			};
 		};
+
+		qupv3_se4_spi_cs_sleep: qupv3_se4_spi_cs_sleep {
+			mux {
+				pins = "gpio51";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio51";
+				drive-strength = <2>;
+				bias-pull-down;
+			};
+		};
 	};
 
 	qupv3_se5_i2c_pins: qupv3_se5_i2c_pins {
