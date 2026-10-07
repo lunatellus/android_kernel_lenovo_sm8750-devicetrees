@@ -492,6 +492,12 @@ sun-dtb-$(CONFIG_ARCH_SUN) += \
 	$(call add-overlays, $(SUN_BOARDS) $(NOAPQ_SUN_BOARDS),$(SUN_BASE_DTB))\
 	$(call add-overlays, $(SUN_BOARDS) $(APQ_SUN_BOARDS),$(SUN_APQ_BASE_DTB))
 sun-overlays-dtb-$(CONFIG_ARCH_SUN) += $(SUN_BOARDS) $(NOAPQ_SUN_BOARDS) $(SUN_BASE_DTB) $(SUN_APQ_BASE_DTB)
+
+# The elden overlay already contains the techpack board nodes and is
+# applied only after the SoC techpack overlays have been merged.
+ELDEN_BOARDS := sun-elden-overlay.dtbo
+sun-dtb-$(CONFIG_ARCH_SUN) += $(ELDEN_BOARDS)
+sun-overlays-dtb-$(CONFIG_ARCH_SUN) += $(ELDEN_BOARDS)
 dtb-y += $(sun-dtb-y) $(sun-overlays-dtb-y)
 
 PINEAPPLE_BASE_DTB += pineapple.dtb pineapple-v2.dtb

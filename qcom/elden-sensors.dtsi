@@ -1,0 +1,52 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/* stock fragment@49 */
+&soc {
+
+	st54spi_gpio {
+		gpio-power_nreset = <&tlmm 0x2e 0x0>;
+		compatible = "st,st54spi_gpio";
+		status = "ok";
+	};
+};
+
+/* stock fragment@50 */
+&soc {
+
+	st54spi_gpio {
+		gpio-power_nreset = <&tlmm 0x2e 0x0>;
+		compatible = "st,st54spi_gpio";
+		status = "ok";
+	};
+};
+
+/* stock fragment@51 */
+&soc {
+
+	st54spi_gpio {
+		gpio-power_nreset = <&tlmm 0x2e 0x0>;
+		compatible = "st,st54spi_gpio";
+		status = "ok";
+	};
+};
+
+/* stock fragment@68 */
+&qupv3_se0_i2c {
+	#size-cells = <0x0>;
+	#address-cells = <0x1>;
+	qcom,clk-freq-out = <0xf4240>;
+	status = "disabled";
+
+	st21nfc: st21nfc@08 {
+		pinctrl-1 = <&nfc_int_suspend &nfc_enable_suspend>;
+		pinctrl-0 = <&nfc_int_active &nfc_enable_active>;
+		pinctrl-names = "nfc_active", "nfc_suspend";
+		interrupt-names = "nfc_irq";
+		interrupts = <0x4b 0x0>;
+		interrupt-parent = <&tlmm>;
+		clkreq-gpios = <&tlmm 0x23 0x0>;
+		reset-gpios = <&tlmm 0x22 0x0>;
+		irq-gpios = <&tlmm 0x4b 0x0>;
+		reg = <0x8>;
+		compatible = "st,st21nfc";
+	};
+};

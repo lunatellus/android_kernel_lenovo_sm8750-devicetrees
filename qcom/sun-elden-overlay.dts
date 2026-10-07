@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/dts-v1/;
+/plugin/;
+
+#include "elden-audio.dtsi"
+#include "elden-camera.dtsi"
+#include "elden-charger.dtsi"
+#include "elden-display.dtsi"
+#include "elden-haptics.dtsi"
+#include "elden-misc.dtsi"
+#include "elden-regulators.dtsi"
+#include "elden-sensors.dtsi"
+#include "elden-thermal.dtsi"
+#include "elden-touch.dtsi"
+#include "elden-usb.dtsi"
+#include "elden-wireless.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Sun QRD SKU2 V8 Power Grid";
+	compatible = "qcom,sun-qrd", "qcom,sun", "qcom,sunp-qrd", "qcom,sunp", "qcom,qrd";
+	qcom,msm-id = <0x100026a 0x20000 0x27f 0x10000 0x26a 0x10000 0x27f 0x20000 0x26a 0x20000 0x100027f 0x10000 0x100026a 0x10000 0x100027f 0x20000>;
+	qcom,board-id = <0x2000b 0x0>;
+};

@@ -1,0 +1,77 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/* stock fragment@27 */
+&pmic_glink_adc {
+	status = "ok";
+
+	smb1501_1_iin {
+		reg = <0x1066801>;
+		label = "smb1501_1_iin";
+	};
+
+	smb1501_1_ichg {
+		reg = <0x1066802>;
+		label = "smb1501_1_ichg";
+	};
+
+	smb1501_1_die_temp {
+		reg = <0x1066803>;
+		label = "smb1501_1_die_temp";
+	};
+
+	smb1501_2_iin {
+		reg = <0x1066901>;
+		label = "smb1501_2_iin";
+	};
+
+	smb1501_2_ichg {
+		reg = <0x1066902>;
+		label = "smb1501_2_ichg";
+	};
+
+	smb1501_2_die_temp {
+		reg = <0x1066903>;
+		label = "smb1501_2_die_temp";
+	};
+};
+
+/* stock fragment@28 */
+&battery_charger {
+	qcom,thermal-mitigation-step = <0x7a120>;
+	#cooling-cells = <0x2>;
+	qcom,wireless-fw-name = "idt9418.bin";
+	qcom,ship-mode-immediate;
+};
+
+/* stock fragment@29 */
+&pmic_glink_debug {
+
+	i2c@106 {
+		reg = <0x106>;
+		#address-cells = <0x1>;
+		#size-cells = <0x0>;
+		qcom,bus-type = "i2c";
+
+		qcom,smb1501@68 {
+			compatible = "qcom,i2c-pmic";
+			reg = <0x68>;
+			qcom,can-sleep;
+		};
+
+		qcom,smb1501@69 {
+			compatible = "qcom,i2c-pmic";
+			reg = <0x69>;
+			qcom,can-sleep;
+		};
+
+		qcom,idt9418@3b {
+			compatible = "qcom,i2c-pmic";
+			reg = <0x3b>;
+			qcom,can-sleep;
+		};
+	};
+};
+
+/* stock fragment@67 */
+&battery_charger {
+	qcom,display-panels = <&elden_nt36523_csot_3k_dsc_vid &elden_nt36523_csot_dsc_vid>;
+};

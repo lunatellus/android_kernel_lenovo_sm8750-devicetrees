@@ -892,6 +892,7 @@ _platform_map = {
             {"name": "sun-qrd-sku1-overlay.dtbo"},
             {"name": "sun-qrd-sku1-v8-overlay.dtbo"},
             {"name": "sun-qrd-sku2-v8-overlay.dtbo"},
+            {"name": "sun-elden-overlay.dtbo"},
             {"name": "sun-rcm-kiwi-overlay.dtbo"},
             {"name": "sun-rcm-kiwi-v8-overlay.dtbo"},
             {"name": "sun-rcm-overlay.dtbo"},
@@ -899,6 +900,7 @@ _platform_map = {
             {"name": "sunp-hdk-overlay.dtbo"},
             {"name": "sun-rumi-overlay.dtbo"},
         ],
+
     },
     "sun-tuivm": {
         "dtb_list": [

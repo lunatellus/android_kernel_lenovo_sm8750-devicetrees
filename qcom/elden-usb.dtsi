@@ -1,0 +1,91 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/* stock fragment@22 */
+&wcd_usbss {
+	interrupt-parent = <&spmi_bus>;
+	interrupts = <0x0 0xb6 0x1 0x3>;
+	interrupt-names = "usb_wcd";
+	nvmem-cells = <&usb_mode>;
+	nvmem-cell-names = "usb_mode";
+};
+
+/* stock fragment@24 */
+&battery_charger {
+	qcom,thermal-mitigation = <0xc65d40 0xbebc20 0xb71b00 0xaf79e0 0xa7d8c0 0xa037a0 0x989680 0x90f560 0x895440 0x81b320 0x7a1200 0x6acfc0 0x5b8d80 0x4c4b40 0x3d0900 0x2dc6c0 0x2625a0 0x1e8480 0x16e360 0x7a120>;
+};
+
+/* stock fragment@25 */
+&usb0 {
+	usb-role-switch;
+
+	ports {
+
+		port@0 {
+
+			usb_port0: endpoint {
+				remote-endpoint = <&usb_port0_connector>;
+			};
+		};
+
+		port@1 {
+
+			usb_port1: endpoint {
+				remote-endpoint = <&usb_port1_connector>;
+			};
+		};
+	};
+};
+
+/* stock fragment@26 */
+&ucsi {
+
+	connector {
+
+		port {
+
+			usb_port0_connector: endpoint {
+				remote-endpoint = <&usb_port0>;
+			};
+		};
+	};
+
+	connector1 {
+
+		port {
+
+			usb_port1_connector: endpoint {
+				remote-endpoint = <&usb_port1>;
+			};
+		};
+	};
+};
+
+/* stock fragment@32 */
+&qupv3_se5_i2c {
+	status = "ok";
+	#address-cells = <0x1>;
+	#size-cells = <0x0>;
+
+	nxp_eusb2_repeater: eusb2_repeater@4f {
+		status = "ok";
+		compatible = "nxp,eusb2-repeater";
+		reg = <0x4f>;
+		vdd18-supply = <&pm_humu_l15>;
+		vdd3-supply = <&pm_humu_l5>;
+		reset-gpio = <&pm8550ve_i_gpios 0x6 0x0>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&eusb2_reset_ctrl_default>;
+		qcom,param-override-seq-c1 = <0x40 0x6 0x22 0x7 0x65 0x8 0x3 0xa>;
+		qcom,param-override-seq-c2 = <0x40 0x6 0x22 0x7 0x65 0x8 0x3 0xa>;
+	};
+};
+
+/* stock fragment@33 */
+&ucsi {
+	gpios = <&tlmm 0x1d 0x0>;
+};
+
+/* stock fragment@34 */
+&eusb2_phy0 {
+	dummy-supply = <&nxp_eusb2_repeater>;
+	usb-repeater = <&nxp_eusb2_repeater>;
+};

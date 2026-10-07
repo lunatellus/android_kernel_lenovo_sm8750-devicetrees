@@ -1,0 +1,90 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/* stock fragment@30 */
+&tlmm {
+
+	vib_reset_l: vib_reset_l {
+
+		mux {
+			pins = "gpio127";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio127";
+			bias-pull-up;
+		};
+	};
+
+	vib_reset_r: vib_reset_r {
+
+		mux {
+			pins = "gpio119";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio119";
+			bias-pull-up;
+		};
+	};
+};
+
+/* stock fragment@31 */
+&qupv3_se6_i2c {
+	status = "ok";
+	qcom,clk-freq-out = <0xf4240>;
+
+	haptic_hv_l@5A {
+		compatible = "awinic,haptic_hv_l";
+		reg = <0x5a>;
+		irq-gpio = <&tlmm 0x63 0x0>;
+		reset-gpio = <&tlmm 0x7f 0x0>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&vib_reset_l>;
+		f0_pre = <0x6a4>;
+		mode = [05];
+		aw8693x_f0_cali_percent = [0f];
+		aw8693x_gain_bypass = [01];
+		aw8693x_uvlo_vol_default = [00];
+		aw8693x_cont_smart_loop = [00];
+		aw8693x_cont_drv1_lvl = [7f];
+		aw8693x_cont_lra_vrms = <0x3e8>;
+		aw8693x_cont_drv1_time = [04];
+		aw8693x_cont_drv2_time = [14];
+		aw8693x_cont_track_margin = [0f];
+		aw8693x_cont_brk_gain = [08];
+		aw8693x_cont_brk_time = [04];
+		aw8693x_duration_time = [14 1e 3c];
+		aw8693x_d2s_gain = [02];
+		aw8693x_trig_config = <0x1 0x20000 0x1 0x20000 0x1 0x20000>;
+		aw8693x_bst_vol_default = <0x2134>;
+		aw8693x_is_enabled_track_en;
+	};
+
+	haptic_hv_r@5B {
+		compatible = "awinic,haptic_hv_r";
+		reg = <0x5b>;
+		irq-gpio = <&tlmm 0x5f 0x0>;
+		reset-gpio = <&tlmm 0x77 0x0>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&vib_reset_r>;
+		f0_pre = <0x6a4>;
+		mode = [05];
+		aw8693x_f0_cali_percent = [0f];
+		aw8693x_gain_bypass = [01];
+		aw8693x_uvlo_vol_default = [00];
+		aw8693x_cont_smart_loop = [00];
+		aw8693x_cont_drv1_lvl = [7f];
+		aw8693x_cont_lra_vrms = <0x3e8>;
+		aw8693x_cont_drv1_time = [04];
+		aw8693x_cont_drv2_time = [14];
+		aw8693x_cont_track_margin = [0f];
+		aw8693x_cont_brk_gain = [08];
+		aw8693x_cont_brk_time = [04];
+		aw8693x_duration_time = [14 1e 3c];
+		aw8693x_d2s_gain = [02];
+		aw8693x_trig_config = <0x1 0x20000 0x1 0x20000 0x1 0x20000>;
+		aw8693x_bst_vol_default = <0x2134>;
+		aw8693x_is_enabled_track_en;
+	};
+};

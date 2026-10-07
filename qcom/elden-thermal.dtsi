@@ -1,0 +1,1342 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/* stock fragment@1 */
+&thermal_zones {
+
+	pm8010m_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pm8010m_tz>;
+
+		trips {
+
+			trip0 {
+				temperature = <0x17318>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			trip1 {
+				temperature = <0x1c138>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+
+	pm8010n_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pm8010n_tz>;
+
+		trips {
+
+			trip0 {
+				temperature = <0x17318>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			trip1 {
+				temperature = <0x1c138>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+};
+
+/* stock fragment@3 */
+&thermal_zones {
+
+	pm8550_temp_alarm: pm8550_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pm8550_tz>;
+
+		trips {
+
+			pm8550_trip0: trip0 {
+				temperature = <0x17318>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			pm8550_trip1: trip1 {
+				temperature = <0x1c138>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			pm8550_trip2: trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+
+	pm8550-bcl-lvl0 {
+		polling-delay-passive = <0x32>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pm8550_bcl 0x5>;
+
+		trips {
+
+			bcl_lvl0: bcl-lvl0 {
+				temperature = <0x1>;
+				hysteresis = <0x1>;
+				type = "passive";
+			};
+		};
+	};
+
+	pm8550-bcl-lvl1 {
+		polling-delay-passive = <0x32>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pm8550_bcl 0x6>;
+
+		trips {
+
+			bcl_lvl1: bcl-lvl1 {
+				temperature = <0x1>;
+				hysteresis = <0x1>;
+				type = "passive";
+			};
+		};
+	};
+
+	pm8550-bcl-lvl2 {
+		polling-delay-passive = <0x32>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pm8550_bcl 0x7>;
+
+		trips {
+
+			bcl_lvl2: bcl-lvl2 {
+				temperature = <0x1>;
+				hysteresis = <0x1>;
+				type = "passive";
+			};
+		};
+	};
+};
+
+/* stock fragment@5 */
+&thermal_zones {
+
+	pm8550ve_d_temp_alarm: pm8550ve_d_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pm8550ve_d_tz>;
+		status = "ok";
+
+		trips {
+
+			pm8550ve_d_trip0: trip0 {
+				temperature = <0x17318>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			pm8550ve_d_trip1: trip1 {
+				temperature = <0x1c138>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			pm8550ve_d_trip2: trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+
+	pm8550ve_f_temp_alarm: pm8550ve_f_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pm8550ve_f_tz>;
+		status = "ok";
+
+		trips {
+
+			pm8550ve_f_trip0: trip0 {
+				temperature = <0x17318>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			pm8550ve_f_trip1: trip1 {
+				temperature = <0x1c138>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			pm8550ve_f_trip2: trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+
+	pm8550ve_g_temp_alarm: pm8550ve_g_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pm8550ve_g_tz>;
+		status = "ok";
+
+		trips {
+
+			pm8550ve_g_trip0: trip0 {
+				temperature = <0x17318>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			pm8550ve_g_trip1: trip1 {
+				temperature = <0x1c138>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			pm8550ve_g_trip2: trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+
+	pm8550ve_i_temp_alarm: pm8550ve_i_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pm8550ve_i_tz>;
+		status = "ok";
+
+		trips {
+
+			pm8550ve_i_trip0: trip0 {
+				temperature = <0x17318>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			pm8550ve_i_trip1: trip1 {
+				temperature = <0x1c138>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			pm8550ve_i_trip2: trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+};
+
+/* stock fragment@7 */
+&thermal_zones {
+
+	pm8550vs_c_temp_alarm: pm8550vs_c_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pm8550vs_c_tz>;
+		status = "disabled";
+
+		trips {
+
+			pm8550vs_c_trip0: trip0 {
+				temperature = <0x17318>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			pm8550vs_c_trip1: trip1 {
+				temperature = <0x1c138>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			pm8550vs_c_trip2: trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+
+	pm8550vs_d_temp_alarm: pm8550vs_d_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pm8550vs_d_tz>;
+		status = "disabled";
+
+		trips {
+
+			pm8550vs_d_trip0: trip0 {
+				temperature = <0x17318>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			pm8550vs_d_trip1: trip1 {
+				temperature = <0x1c138>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			pm8550vs_d_trip2: trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+
+	pm8550vs_e_temp_alarm: pm8550vs_e_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pm8550vs_e_tz>;
+		status = "disabled";
+
+		trips {
+
+			pm8550vs_e_trip0: trip0 {
+				temperature = <0x17318>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			pm8550vs_e_trip1: trip1 {
+				temperature = <0x1c138>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			pm8550vs_e_trip2: trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+
+	pm8550vs_f_temp_alarm: pm8550vs_f_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pm8550vs_f_tz>;
+		status = "disabled";
+
+		trips {
+
+			pm8550vs_f_trip0: trip0 {
+				temperature = <0x17318>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			pm8550vs_f_trip1: trip1 {
+				temperature = <0x1c138>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			pm8550vs_f_trip2: trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+
+	pm8550vs_g_temp_alarm: pm8550vs_g_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pm8550vs_g_tz>;
+		status = "disabled";
+
+		trips {
+
+			pm8550vs_g_trip0: trip0 {
+				temperature = <0x17318>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			pm8550vs_g_trip1: trip1 {
+				temperature = <0x1c138>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			pm8550vs_g_trip2: trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+
+	pm8550vs_j_temp_alarm: pm8550vs_j_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pm8550vs_j_tz>;
+		status = "ok";
+
+		trips {
+
+			pm8550vs_j_trip0: trip0 {
+				temperature = <0x17318>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			pm8550vs_j_trip1: trip1 {
+				temperature = <0x1c138>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			pm8550vs_j_trip2: trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+};
+
+/* stock fragment@9 */
+&thermal_zones {
+
+	pmd802x_temp_alarm: pmd802x_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pmd802x_tz>;
+
+		trips {
+
+			pmd802x_trip0: trip0 {
+				temperature = <0x17318>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			pmd802x_trip1: trip1 {
+				temperature = <0x1c138>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			pmd802x_trip2: trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+};
+
+/* stock fragment@11 */
+&thermal_zones {
+
+	pmih010x_temp_alarm: pmih010x_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pmih010x_tz>;
+
+		trips {
+
+			pmih010x_trip0: trip0 {
+				temperature = <0x17318>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			pmih010x_trip1: trip1 {
+				temperature = <0x1c138>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			pmih010x_trip2: trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+
+	pmih010x_lite_temp_alarm: pmih010x_lite_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pmih010x_lite_tz>;
+
+		trips {
+
+			pmih010x_lite_trip0: trip0 {
+				temperature = <0x1e848>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			pmih010x_lite_trip1: trip1 {
+				temperature = <0x20f58>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			pmih010x_lite_trip2: trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+
+	pmih010x-ibat-lvl0 {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmih010x_bcl 0x0>;
+
+		trips {
+
+			ibat_lvl0: ibat-lvl0 {
+				temperature = <0x34bc>;
+				hysteresis = <0xc8>;
+				type = "passive";
+			};
+		};
+	};
+
+	pmih010x-ibat-lvl1 {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmih010x_bcl 0x1>;
+
+		trips {
+
+			ibat_lvl1: ibat-lvl1 {
+				temperature = <0x3a98>;
+				hysteresis = <0xc8>;
+				type = "passive";
+			};
+		};
+	};
+
+	vbat {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmih010x_bcl 0x2>;
+
+		trips {
+
+			vbat_lvl0: vbat-lvl0 {
+				temperature = <0xaf0>;
+				hysteresis = <0x64>;
+				type = "passive";
+			};
+
+			vbat_lvl1: vbat-lvl1 {
+				temperature = <0xa28>;
+				hysteresis = <0x64>;
+				type = "passive";
+			};
+
+			vbat_lvl2: vbat-lvl2 {
+				temperature = <0x8fc>;
+				hysteresis = <0x64>;
+				type = "passive";
+			};
+		};
+	};
+
+	pmih010x-bcl-lvl0 {
+		polling-delay-passive = <0x32>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmih010x_bcl 0x5>;
+
+		trips {
+
+			thermal-engine-trip {
+				temperature = <0x64>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			thermal-hal-trip {
+				temperature = <0x64>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			b_bcl_lvl0: b-bcl-lvl0 {
+				temperature = <0x1>;
+				hysteresis = <0x1>;
+				type = "passive";
+			};
+		};
+	};
+
+	pmih010x-bcl-lvl1 {
+		polling-delay-passive = <0x32>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmih010x_bcl 0x6>;
+
+		trips {
+
+			thermal-engine-trip {
+				temperature = <0x64>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			thermal-hal-trip {
+				temperature = <0x64>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			b_bcl_lvl1: b-bcl-lvl1 {
+				temperature = <0x1>;
+				hysteresis = <0x1>;
+				type = "passive";
+			};
+		};
+	};
+
+	pmih010x-bcl-lvl2 {
+		polling-delay-passive = <0x32>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmih010x_bcl 0x7>;
+
+		trips {
+
+			thermal-engine-trip {
+				temperature = <0x64>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			thermal-hal-trip {
+				temperature = <0x64>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			b_bcl_lvl2: b-bcl-lvl2 {
+				temperature = <0x1>;
+				hysteresis = <0x1>;
+				type = "passive";
+			};
+		};
+	};
+
+	socd {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&bcl_soc>;
+
+		trips {
+
+			thermal-engine-trip {
+				temperature = <0x64>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			thermal-hal-trip {
+				temperature = <0x64>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			socd_trip: socd-trip {
+				temperature = <0x5a>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+		};
+	};
+};
+
+/* stock fragment@14 */
+&thermal_zones {
+
+	pmr735d_temp_alarm: pmr735d_tz {
+		polling-delay-passive = <0x64>;
+		polling-delay = <0x0>;
+		thermal-governor = "step_wise";
+		thermal-sensors = <&pmr735d_tz>;
+
+		trips {
+
+			pmr735d_trip0: trip0 {
+				temperature = <0x17318>;
+				hysteresis = <0x0>;
+				type = "passive";
+			};
+
+			pmr735d_trip1: trip1 {
+				temperature = <0x1c138>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			pmr735d_trip2: trip2 {
+				temperature = <0x23668>;
+				hysteresis = <0x0>;
+				type = "critical";
+			};
+		};
+	};
+};
+
+/* stock fragment@16 */
+&thermal_zones {
+};
+
+/* stock fragment@18 */
+&thermal_zones {
+
+	socd {
+
+		cooling-maps {
+		};
+	};
+
+	pmih010x-bcl-lvl0 {
+
+		cooling-maps {
+
+			lbat_modem0 {
+				trip = <&b_bcl_lvl0>;
+				cooling-device = <&modem_bcl 0x1 0x1>;
+			};
+
+			lbat_gpu0 {
+				trip = <&b_bcl_lvl0>;
+				cooling-device = <&msm_gpu 0x1 0x1>;
+			};
+		};
+	};
+
+	pmih010x-bcl-lvl1 {
+
+		cooling-maps {
+
+			lbat_modem1 {
+				trip = <&b_bcl_lvl1>;
+				cooling-device = <&modem_bcl 0x2 0x2>;
+			};
+
+			lbat_gpu1 {
+				trip = <&b_bcl_lvl1>;
+				cooling-device = <&msm_gpu 0x2 0x2>;
+			};
+		};
+	};
+
+	pmih010x-bcl-lvl2 {
+
+		cooling-maps {
+
+			lbat_gpu2 {
+				trip = <&b_bcl_lvl2>;
+				cooling-device = <&msm_gpu 0x3 0x3>;
+			};
+		};
+	};
+
+	pm8550-bcl-lvl0 {
+
+		cooling-maps {
+
+			vph_modem0 {
+				trip = <&bcl_lvl0>;
+				cooling-device = <&modem_bcl 0x1 0x1>;
+			};
+
+			vph_gpu0 {
+				trip = <&bcl_lvl0>;
+				cooling-device = <&msm_gpu 0x1 0x1>;
+			};
+		};
+	};
+
+	pm8550-bcl-lvl1 {
+
+		cooling-maps {
+
+			vph_modem1 {
+				trip = <&bcl_lvl1>;
+				cooling-device = <&modem_bcl 0x2 0x2>;
+			};
+
+			vph_gpu1 {
+				trip = <&bcl_lvl1>;
+				cooling-device = <&msm_gpu 0x2 0x2>;
+			};
+		};
+	};
+
+	pm8550-bcl-lvl2 {
+
+		cooling-maps {
+
+			vph_gpu2 {
+				trip = <&bcl_lvl2>;
+				cooling-device = <&msm_gpu 0x3 0x3>;
+			};
+		};
+	};
+
+	pm8550vs_f_tz {
+
+		cooling-maps {
+
+			pm8550vs_f_apc1 {
+				trip = <&pm8550vs_f_trip0>;
+				cooling-device = <&APC1_MX_CX_PAUSE 0x1 0x1>;
+			};
+		};
+	};
+
+	pm8550ve_f_tz {
+
+		cooling-maps {
+
+			pm8550ve_f_apc1 {
+				trip = <&pm8550ve_f_trip0>;
+				cooling-device = <&APC1_MX_CX_PAUSE 0x1 0x1>;
+			};
+		};
+	};
+
+	pm8550vs_j_tz {
+
+		cooling-maps {
+
+			pm8550vs_j_apc0 {
+				trip = <&pm8550vs_j_trip0>;
+				cooling-device = <&APC0_MX_CX_PAUSE 0x1 0x1>;
+			};
+		};
+	};
+
+	pm8550ve_d_tz {
+
+		cooling-maps {
+
+			pm8550ve_d_gpu {
+				trip = <&pm8550ve_d_trip0>;
+				cooling-device = <&msm_gpu 0x5 0xffffffff>;
+			};
+		};
+	};
+
+	pm8550ve_g_tz {
+
+		cooling-maps {
+
+			pm8550ve_g_hvx {
+				trip = <&pm8550ve_g_trip0>;
+				cooling-device = <&cdsp_sw_hvx 0x5 0xffffffff>;
+			};
+
+			pm8550ve_g_modem_lte {
+				trip = <&pm8550ve_g_trip0>;
+				cooling-device = <&modem_lte_dsc 0xff 0xff>;
+			};
+
+			pm8550ve_g_modem_nr {
+				trip = <&pm8550ve_g_trip0>;
+				cooling-device = <&modem_nr_dsc 0xff 0xff>;
+			};
+		};
+	};
+
+	pm8550ve_i_tz {
+
+		cooling-maps {
+
+			pm8550ve_i_hmx {
+				trip = <&pm8550ve_i_trip0>;
+				cooling-device = <&cdsp_sw_hmx 0x5 0xffffffff>;
+			};
+		};
+	};
+};
+
+/* stock fragment@35 */
+&soc {
+
+	sys_temp_support {
+		compatible = "lenovo,sys-temp";
+		lenovo,temperature-names = "front_temp", "back_temp", "user_temp", "user_front_temp", "user_back_temp";
+		lenovo,sensor-listener-names = "fcam-ntc", "quiet-therm", "usb2-conn-therm", "flash-led-ntc", "batt-pack-therm", "batt2-pack-therm", "ap-therm", "lcm-thermal";
+		cust,all-ntc-names = "ap-therm", "flash-led-ntc", "wlan-therm", "usb2-conn-therm", "rear-cam-ntc", "xo-therm", "quiet-therm", "fast-chg-therm", "ufs-therm", "fcam-ntc", "top-chg-therm", "batt2-pack-therm", "batt-pack-therm", "usb1-conn-therm", "lcm-thermal";
+	};
+};
+
+/* stock fragment@36 */
+&thermal_zones {
+
+	ap-therm {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmk8550_vadc 0x144>;
+
+		trips {
+
+			active-config0 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			active-config1 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+		};
+	};
+
+	flash-led-ntc {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmk8550_vadc 0x145>;
+
+		trips {
+
+			active-config0 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			active-config1 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+		};
+	};
+
+	wlan-therm {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmk8550_vadc 0x146>;
+
+		trips {
+
+			active-config0 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			active-config1 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+		};
+	};
+
+	usb2-conn-therm {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmk8550_vadc 0x147>;
+
+		trips {
+
+			active-config0 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			active-config1 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+		};
+	};
+
+	rear-cam-ntc {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmk8550_vadc 0x148>;
+
+		trips {
+
+			active-config0 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			active-config1 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+		};
+	};
+
+	xo-therm {
+		polling-delay-passive = <0x1388>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmk8550_vadc 0x14d>;
+
+		trips {
+
+			active-config0 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			active-config1 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			trip_config0_cust: trip-config0 {
+				temperature = <0x130b0>;
+				hysteresis = <0x1f40>;
+				type = "passive";
+			};
+
+			trip_config1_cust: trip-config1 {
+				temperature = <0x13880>;
+				hysteresis = <0x2710>;
+				type = "passive";
+			};
+
+			shutdown-trip_cust {
+				temperature = <0x15f90>;
+				hysteresis = <0x0>;
+				type = "hot";
+			};
+
+			display_test_config1_cust: display-test-config1 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			display_test_config2_cust: display-test-config2 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			display_test_config3_cust: display-test-config3 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+		};
+
+		cooling-maps {
+
+			apc1_cdev {
+				trip = <&trip_config0_cust>;
+				cooling-device = <&APC1_MX_CX_PAUSE 0x1 0x1>;
+			};
+
+			apc0_cdev {
+				trip = <&trip_config0_cust>;
+				cooling-device = <&APC0_MX_CX_PAUSE 0x1 0x1>;
+			};
+
+			cdsp_cdev {
+				trip = <&trip_config0_cust>;
+				cooling-device = <&cdsp_sw 0x5 0xffffffff>;
+			};
+
+			gpu_cdev {
+				trip = <&trip_config0_cust>;
+				cooling-device = <&msm_gpu 0x5 0xffffffff>;
+			};
+
+			cpu3_hot_cdev {
+				trip = <&trip_config1_cust>;
+				cooling-device = <&cpu3_hotplug 0x1 0x1>;
+			};
+
+			cpu4_hot_cdev {
+				trip = <&trip_config1_cust>;
+				cooling-device = <&cpu4_hotplug 0x1 0x1>;
+			};
+
+			cpu5_hot_cdev {
+				trip = <&trip_config1_cust>;
+				cooling-device = <&cpu5_hotplug 0x1 0x1>;
+			};
+
+			cpu6_hot_cdev {
+				trip = <&trip_config1_cust>;
+				cooling-device = <&cpu6_hotplug 0x1 0x1>;
+			};
+
+			cpu7_hot_cdev {
+				trip = <&trip_config1_cust>;
+				cooling-device = <&cpu7_hotplug 0x1 0x1>;
+			};
+
+			lte_cdev {
+				trip = <&trip_config1_cust>;
+				cooling-device = <&modem_lte_dsc 0xff 0xff>;
+			};
+
+			nr_cdev {
+				trip = <&trip_config1_cust>;
+				cooling-device = <&modem_nr_scg_dsc 0xff 0xff>;
+			};
+
+			display_cdev1 {
+				trip = <&display_test_config1_cust>;
+				cooling-device = <&display_fps 0x1 0x1>;
+			};
+
+			display_cdev2 {
+				trip = <&display_test_config2_cust>;
+				cooling-device = <&display_fps 0x2 0x2>;
+			};
+
+			display_cdev3 {
+				trip = <&display_test_config3_cust>;
+				cooling-device = <&display_fps 0x3 0x3>;
+			};
+		};
+	};
+
+	quiet-therm {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmk8550_vadc 0x14b>;
+
+		trips {
+
+			active-config0 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			active-config1 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+		};
+	};
+
+	fast-chg-therm {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmk8550_vadc 0x14a>;
+
+		trips {
+
+			active-config0 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			active-config1 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+		};
+	};
+
+	ufs-therm {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmk8550_vadc 0x74b>;
+
+		trips {
+
+			active-config0 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			active-config1 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+		};
+	};
+
+	fcam-ntc {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmk8550_vadc 0x75e>;
+
+		trips {
+
+			active-config0 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			active-config1 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+		};
+	};
+
+	top-chg-therm {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmk8550_vadc 0x74d>;
+
+		trips {
+
+			active-config0 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			active-config1 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+		};
+	};
+
+	batt2-pack-therm {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmk8550_vadc 0x74c>;
+
+		trips {
+
+			active-config0 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			active-config1 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+		};
+	};
+
+	batt-pack-therm {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmk8550_vadc 0x744>;
+
+		trips {
+
+			active-config0 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			active-config1 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+		};
+	};
+
+	usb1-conn-therm {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmk8550_vadc 0x747>;
+
+		trips {
+
+			active-config0 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			active-config1 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+		};
+	};
+
+	lcm-thermal {
+		polling-delay-passive = <0x0>;
+		polling-delay = <0x0>;
+		thermal-sensors = <&pmk8550_vadc 0x46>;
+
+		trips {
+
+			active-config0 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+
+			active-config1 {
+				temperature = <0x1e848>;
+				hysteresis = <0x3e8>;
+				type = "passive";
+			};
+		};
+	};
+};

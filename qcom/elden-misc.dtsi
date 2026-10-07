@@ -1,0 +1,121 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/* stock fragment@17 */
+&soc {
+
+	gpu_dump_skip_cdev: qcom,gpu-dump-skip-cdev {
+		compatible = "qcom,gpu-dump-skip-cdev";
+		nvmem-cells = <&wr_thermal_flag>;
+		nvmem-cell-names = "wr_thermal_flag";
+		#cooling-cells = <0x2>;
+	};
+};
+
+/* stock fragment@19 */
+&soc {
+
+	gpio_keys {
+		compatible = "gpio-keys";
+		label = "gpio-keys";
+		pinctrl-names = "default";
+		pinctrl-0 = <&key_vol_up_default>;
+
+		vol_up {
+			label = "volume_up";
+			gpios = <&pm8550_gpios 0x6 0x1>;
+			linux,input-type = <0x1>;
+			linux,code = <0x73>;
+			gpio-key,wakeup;
+			debounce-interval = <0xf>;
+			linux,can-disable;
+		};
+	};
+};
+
+/* stock fragment@20 */
+&ufsphy_mem {
+	compatible = "qcom,ufs-phy-qmp-v4-sun";
+	vdda-phy-supply = <&pm_v6j_l1>;
+	vdda-phy-max-microamp = <0x34008>;
+	vdda-phy-min-microvolt = <0xdea80>;
+	vdda-pll-supply = <&pm_v8g_l3>;
+	vdda-pll-max-microamp = <0x477c>;
+	vdd-phy-gdsc-supply = <&gcc_ufs_mem_phy_gdsc>;
+	vdda-qref-supply = <&pm_v8i_l3>;
+	vdda-qref-max-microamp = <0xfbf4>;
+	vdda-refgen-supply = <&pm_v6f_l1>;
+	vdda-refgen-max-microamp = <0x324b0>;
+	status = "ok";
+};
+
+/* stock fragment@21 */
+&ufshc_mem {
+	vdd-hba-supply = <&gcc_ufs_phy_gdsc>;
+	vcc-supply = <&pm_humu_l17>;
+	vcc-max-microamp = <0x13d620>;
+	vccq-supply = <&pm_v8d_l1>;
+	vccq-max-microamp = <0x124f80>;
+	qcom,vccq-proxy-vote-supply = <&pm_v8d_l1>;
+	qcom,vccq-proxy-vote-max-microamp = <0x124f80>;
+	qcom,vddp-ref-clk-supply = <&pm_v8i_l2>;
+	qcom,vddp-ref-clk-max-microamp = <0x64>;
+	qcom,vccq-parent-supply = <&pm_v8i_s7>;
+	qcom,vccq-parent-max-microamp = <0x33450>;
+	reset-gpios = <&tlmm 0xd7 0x1>;
+	resets = <&gcc 0x17>;
+	reset-names = "rst";
+	status = "ok";
+};
+
+/* stock fragment@23 */
+&sdhc_2 {
+	status = "ok";
+	vdd-supply = <&pm_humu_l9>;
+	qcom,vdd-voltage-level = <0x2d0370 0x2d2a80>;
+	qcom,vdd-current-level = <0x0 0xc3500>;
+	vdd-io-supply = <&pm_humu_l8>;
+	qcom,vdd-io-voltage-level = <0x1b7740 0x2d2a80>;
+	qcom,vdd-io-current-level = <0x0 0x55f0>;
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&sdc2_on>;
+	pinctrl-1 = <&sdc2_off>;
+	cd-gpios = <&tlmm 0x37 0x0>;
+	resets = <&gcc 0x15>;
+	reset-names = "core_reset";
+	cap-sd-highspeed;
+	sd-uhs-sdr12;
+	sd-uhs-sdr25;
+	sd-uhs-sdr50;
+	sd-uhs-sdr104;
+	qcom,uses_level_shifter;
+};
+
+/* stock fragment@56 */
+&soc {
+
+	msm_hw_fence: qcom,hw-fence {
+		qcom,hw-fence-client-type-ife0-extra = <0x14 0x1c 0x1 0x1>;
+		qcom,hw-fence-client-type-ife0 = <0x1 0x1 0x80 0x1>;
+		qcom,hw-fence-client-type-vpu = <0x1 0x2 0x320 0x0>;
+		qcom,hw-fence-client-type-ipe = <0x1 0x2 0x320 0x0>;
+		qcom,hw-fence-client-type-dpu = <0x6 0x2 0x80 0x1>;
+		qcom,hw-fence-ipc-ver = <0x20a02>;
+		qcom,qtime-reg = <0xc221000 0x1000>;
+		qcom,ipcc-reg = <0x400000 0x140000>;
+		qcom,hw-fence-queue-entries = <0x320>;
+		qcom,hw-fence-table-entries = <0x2000>;
+		soccp_controller = <&soccp_pas>;
+		dma-coherent;
+		iommus = <&apps_smmu 0x562 0x1>;
+		#interrupt-cells = <0x1>;
+		interrupt-controller;
+		interrupts = <0x0 0x46 0x4>;
+		status = "ok";
+		compatible = "qcom,msm-hw-fence";
+
+		hw_fence@1 {
+			shared-buffer = <&hwfence_shbuf>;
+			qcom,master;
+			compatible = "qcom,msm-hw-fence-mem";
+		};
+	};
+};
