@@ -7,12 +7,9 @@ dtbo-y += sun-ese-cdp-kiwi-v8.dtbo
 dtbo-y += sun-ese-atp.dtbo
 dtbo-y += sun-ese-qrd-sku1.dtbo
 dtbo-y += sun-ese-qrd-sku1-v8.dtbo
-dtbo-y += sun-ese-qrd-sku2-v8.dtbo
 dtbo-y += sun-ese-cdp.dtbo
-dtbo-y += sun-ese-qrd.dtbo
 dtbo-y += sun-v2-ese-mtp.dtbo
 dtbo-y += sun-v2-ese-cdp.dtbo
-dtbo-y += sun-v2-ese-qrd.dtbo
 endif
 
 ifeq ($(CONFIG_ARCH_ALOR),y)
