@@ -37,6 +37,19 @@ properties:
               - qcom,rumi
           - const: qcom,pineapple
 
+      - description: |
+          Lenovo Legion Y700 Gen4 (TB322FC, elden), board-id <0x2000b 0>.
+          The complete board overlay includes the Lenovo techpack board nodes
+          and applies to sun bases after their SoC techpack overlays are merged.
+          Package sun-elden-overlay.dtbo without the QRD SKU2 board overlays,
+          which share its board-id but describe different hardware.
+        items:
+          - const: qcom,sun-qrd
+          - const: qcom,sun
+          - const: qcom,sunp-qrd
+          - const: qcom,sunp
+          - const: qcom,qrd
+
       - description: Qualcomm Technologies, Inc. SUN RUMI
         items:
           - enum:

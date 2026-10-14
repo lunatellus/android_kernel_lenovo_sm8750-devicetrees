@@ -460,44 +460,11 @@ dtb-y += $(gen3auto-dtb-y)
 SUN_BASE_DTB += sun.dtb sun-v2.dtb sun-tp.dtb sun-tp-v2.dtb
 SUN_APQ_BASE_DTB += sunp.dtb sunp-v2.dtb sunp-tp.dtb sunp-tp-v2.dtb
 
-SUN_BOARDS += \
-		sun-mtp-3.5mm-overlay.dtbo \
-		sun-mtp-kiwi-overlay.dtbo \
-		sun-mtp-kiwi-v8-overlay.dtbo \
-		sun-mtp-nfc-overlay.dtbo \
-		sun-mtp-overlay.dtbo \
-		sun-mtp-qmp1000-overlay.dtbo \
-		sun-mtp-qmp1000-v8-overlay.dtbo \
-		sun-mtp-v8-overlay.dtbo \
-		sun-cdp-kiwi-overlay.dtbo \
-		sun-cdp-kiwi-v8-overlay.dtbo \
-		sun-cdp-nfc-overlay.dtbo \
-		sun-cdp-no-display-overlay.dtbo \
-		sun-cdp-overlay.dtbo \
-		sun-cdp-v8-overlay.dtbo \
-		sun-qrd-sku1-overlay.dtbo \
-		sun-qrd-sku1-v8-overlay.dtbo \
-		sun-qrd-sku2-v8-overlay.dtbo \
-		sun-rcm-kiwi-overlay.dtbo \
-		sun-rcm-kiwi-v8-overlay.dtbo \
-		sun-rcm-overlay.dtbo \
-		sun-rcm-v8-overlay.dtbo \
-		sun-atp-overlay.dtbo \
-		sunp-hdk-overlay.dtbo
-
-NOAPQ_SUN_BOARDS += \
-		 sun-rumi-overlay.dtbo
-
-sun-dtb-$(CONFIG_ARCH_SUN) += \
-	$(call add-overlays, $(SUN_BOARDS) $(NOAPQ_SUN_BOARDS),$(SUN_BASE_DTB))\
-	$(call add-overlays, $(SUN_BOARDS) $(APQ_SUN_BOARDS),$(SUN_APQ_BASE_DTB))
-sun-overlays-dtb-$(CONFIG_ARCH_SUN) += $(SUN_BOARDS) $(NOAPQ_SUN_BOARDS) $(SUN_BASE_DTB) $(SUN_APQ_BASE_DTB)
-
 # The elden overlay already contains the techpack board nodes and is
 # applied only after the SoC techpack overlays have been merged.
 ELDEN_BOARDS := sun-elden-overlay.dtbo
 sun-dtb-$(CONFIG_ARCH_SUN) += $(ELDEN_BOARDS)
-sun-overlays-dtb-$(CONFIG_ARCH_SUN) += $(ELDEN_BOARDS)
+sun-overlays-dtb-$(CONFIG_ARCH_SUN) += $(SUN_BASE_DTB) $(SUN_APQ_BASE_DTB) $(ELDEN_BOARDS)
 dtb-y += $(sun-dtb-y) $(sun-overlays-dtb-y)
 
 PINEAPPLE_BASE_DTB += pineapple.dtb pineapple-v2.dtb
@@ -1278,6 +1245,10 @@ dtb-y += $(autogvm-dtb-y)
 
 endif
 endif
+
+# Keep the inline dtb.img within vendor_boot: elden ships only sun bases
+# and its complete board overlay, not the reference-board combinations.
+dtb-y := $(SUN_BASE_DTB) $(SUN_APQ_BASE_DTB) $(ELDEN_BOARDS)
 
 always-y        := $(dtb-y)
 subdir-y        := $(dts-dirs)
