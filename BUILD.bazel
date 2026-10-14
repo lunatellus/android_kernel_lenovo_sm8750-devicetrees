@@ -1,5 +1,5 @@
 load("//build/kernel/kleaf:kernel.bzl", "kernel_dtstree")
-load("//vendor/qcom/sm8850-modules/kleaf:repo_paths.bzl", "modules_label")
+load("//vendor/lenovo/sm8750-modules/kleaf:repo_paths.bzl", "modules_label")
 
 exports_files(glob(["qcom/*.config"]))
 
