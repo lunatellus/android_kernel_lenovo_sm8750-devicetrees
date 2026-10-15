@@ -1,6 +1,10 @@
+-include $(srctree)/../vendor/lenovo/sm8750-devicetrees/qcom/dts-overlay-compat.mk
 ifeq ($(CONFIG_ARCH_SUN),y)
-dtbo-y += nxp/sun-nfc.dtbo \
-          nxp/sun-nfc-cdp.dtbo \
+# NOTE: nxp/sun-nfc.dtbo carries the same pinctrl states as st/sun-nfc.dtbo
+# with a narrower msm-id list, and both share the sun-nfc.dtbo basename, which
+# kleaf's kernel_build cannot disambiguate. elden carries STMicro NFC, so only
+# build the STMicro SoC overlay here (board overlays are unaffected).
+dtbo-y += nxp/sun-nfc-cdp.dtbo \
           nxp/sun-nfc-mtp.dtbo \
           nxp/sun-nfc-qrd.dtbo \
           nxp/tuna-nfc.dtbo \

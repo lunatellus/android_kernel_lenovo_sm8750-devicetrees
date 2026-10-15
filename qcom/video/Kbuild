@@ -1,3 +1,4 @@
+-include $(srctree)/../vendor/lenovo/sm8750-devicetrees/qcom/dts-overlay-compat.mk
 
 ifeq ($(CONFIG_ARCH_WAIPIO), y)
 dtbo-y += waipio-vidc.dtbo

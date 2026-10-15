@@ -1,3 +1,4 @@
+-include $(srctree)/../vendor/lenovo/sm8750-devicetrees/qcom/dts-overlay-compat.mk
 ifeq ($(CONFIG_ARCH_X1P42100), y)
 dtbo-y += x1p42100-kiwi-bt.dtbo
 endif

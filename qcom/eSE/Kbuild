@@ -1,3 +1,4 @@
+-include $(srctree)/../vendor/lenovo/sm8750-devicetrees/qcom/dts-overlay-compat.mk
 ifeq ($(CONFIG_ARCH_SUN),y)
 dtbo-y += sun-ese-mtp.dtbo
 dtbo-y += sun-ese-rcm-v8.dtbo

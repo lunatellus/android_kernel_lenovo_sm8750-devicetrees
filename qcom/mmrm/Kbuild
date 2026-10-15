@@ -1,3 +1,4 @@
+-include $(srctree)/../vendor/lenovo/sm8750-devicetrees/qcom/dts-overlay-compat.mk
 ifeq ($(CONFIG_ARCH_CANOE), y)
 dtbo-y += canoe/canoe-mmrm.dtbo
 dtbo-y += canoe/canoe-alana-mmrm.dtbo
