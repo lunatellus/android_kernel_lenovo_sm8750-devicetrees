@@ -791,6 +791,26 @@
 		};
 	};
 
+	qcom,glink {
+		compatible = "qcom,glink";
+	};
+
+	smem_mailbox {
+		compatible = "qcom,smem_mailbox";
+
+		qcom,smem-states = <&smp2p_smem_mailbox_1_out 0>;
+		qcom,smem-state-names = "smem-mailbox-smp2p-out";
+
+		interrupts-extended = <&smp2p_smem_mailbox_1_in 0 0>,
+					<&smp2p_smem_mailbox_1_in 1 0>,
+					<&smp2p_smem_mailbox_1_in 2 0>,
+					<&smp2p_smem_mailbox_1_in 3 0>;
+		interrupt-names = "smem-mailbox-smp2p-1-in",
+					"smem-mailbox-smp2p-2-in",
+					"smem-mailbox-smp2p-3-in",
+					"smem-mailbox-smp2p-4-in";
+	};
+
 	qcom,qsee_ipc_irq_bridge {
 		compatible = "qcom,qsee-ipc-irq-bridge";
 
