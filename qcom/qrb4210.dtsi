@@ -1,0 +1,41 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "bengal.dtsi"
+#include "bengal-pmi632.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. BENGAL";
+	compatible = "qcom,bengal";
+	qcom,msm-id = <523 0x10000>;
+	qcom,msm-name = "BENGAL";
+};
+
+/delete-node/ &video_mem;
+
+&reserved_memory {
+
+	/delete-node/ hyp_region@0x44600000;
+	/delete-node/ hyp_region1@0x45400000;
+	/delete-node/ pvmfw_region@0x48000000;
+
+	hyp_mem: hyp_region@45700000 {
+		no-map;
+		reg = <0x0 0x45700000 0x0 0x600000>;
+	};
+
+	video_mem: video_region@51400000 {
+		no-map;
+		reg = <0x0 0x51400000 0x0 0x500000>;
+	};
+};
+
+&qcom_cedev {
+	status = "okay";
+};
+
+&qcom_crypto {
+	status = "disabled";
+};

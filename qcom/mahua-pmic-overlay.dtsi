@@ -1,0 +1,338 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/iio/qcom,spmi-adc5-gen4-pmh0101.h>
+#include <dt-bindings/iio/qcom,spmi-adc5-gen4-pmh0110.h>
+#include <dt-bindings/iio/qcom,spmi-adc5-gen4-pmk8850.h>
+
+#define PMK8850_SID     0
+#define PMH0101_SID     1
+#define PMH0110_F_SID   5
+#define PMH0110_H_SID   7
+
+#include "pmcx0102-mahua.dtsi"
+#include "pmh0110-mahua.dtsi"
+#include "pmh0104-mahua.dtsi"
+
+&spmi0_bus {
+	#include "pmk8850.dtsi"
+	#include "pmh0101.dtsi"
+};
+
+&battery_charger {
+	qcom,wireless-charging-not-supported;
+	qcom,multiport-usb = <2>;
+};
+
+&pmh0101_gpios {
+	key_vol_up {
+		key_vol_up_default: key_vol_up_default {
+			pins = "gpio6";
+			function = "normal";
+			input-enable;
+			bias-pull-up;
+			power-source = <1>;
+		};
+	};
+};
+
+&soc {
+	gpio_key {
+		compatible = "gpio-keys";
+		label = "gpio-keys";
+		pinctrl-names = "default";
+		pinctrl-0 = <&key_vol_up_default>;
+		vol_up {
+			label = "volume_up";
+			gpios = <&pmh0101_gpios 6 GPIO_ACTIVE_LOW>;
+			linux,input-type = <1>;
+			linux,code = <KEY_VOLUMEUP>;
+			gpio-key,wakeup;
+			debounce-interval = <15>;
+			linux,can-disable;
+		};
+	};
+
+	reboot_reason {
+		compatible = "qcom,reboot-reason";
+		nvmem-cells = <&restart_reason>;
+		nvmem-cell-names = "restart_reason";
+	};
+
+	pmic-pon-log {
+		compatible = "qcom,pmic-pon-log";
+		nvmem = <&pmk8850_sdam_5>, <&pmk8850_sdam_6>;
+		nvmem-names = "pon_log0", "pon_log1";
+	};
+};
+
+&thermal_zones {
+	pm8010m-thermal {
+		polling-delay-passive = <100>;
+		thermal-sensors = <&pm8010m>;
+
+		trips {
+			trip0 {
+				temperature = <95000>;
+				hysteresis = <0>;
+				type = "passive";
+			};
+
+			trip1 {
+				temperature = <115000>;
+				hysteresis = <0>;
+				type = "critical";
+			};
+		};
+	};
+};
+
+&tlmm {
+	pm8010_reset: pm8010_reset {
+		mux {
+			pins = "gpio106";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio106";
+			bias-pull-up;
+			output-high;
+			drive-strength = <2>;
+		};
+	};
+
+	pm8010_interrupt: pm8010_interrupt {
+		mux {
+			pins = "gpio242";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio242";
+			bias-disable;
+			input-enable;
+		};
+	};
+};
+
+&gcc {
+	qcom,critical-devices = <&qupv3_se5_i2c>;
+};
+
+&qupv3_se5_i2c {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	clock-frequency = <400000>;
+	qcom,leica-used-i2c;
+	status = "okay";
+
+	pm8010m: pmic@8 {
+		compatible = "qcom,pm8008";
+		reg = <0x8>;
+
+		interrupts-extended = <&tlmm 242 IRQ_TYPE_EDGE_RISING>;
+		reset-gpios = <&tlmm 106 GPIO_ACTIVE_LOW>;
+
+		vdd-l1-l2-supply = <&L6M>;
+		vdd-l3-l4-supply = <&BOB1>;
+		vdd-l5-supply = <&BOB1>;
+		vdd-l6-supply = <&BOB1>;
+		vdd-l7-supply = <&BOB1>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&pm8010_reset>, <&pm8010_interrupt>;
+
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-ranges = <&pm8010m 0 0 2>;
+
+		interrupt-controller;
+		#interrupt-cells = <2>;
+
+		#thermal-sensor-cells = <0>;
+
+		regulators {
+			L1M: L1_I0: pm8010m_l1: ldo1 {
+				regulator-name = "pm8010m_l1";
+				regulator-min-microvolt = <1104000>;
+				regulator-max-microvolt = <1200000>;
+			};
+
+			L2M: L2_I0: pm8010m_l2: ldo2 {
+				regulator-name = "pm8010m_l2";
+				regulator-min-microvolt = <1104000>;
+				regulator-max-microvolt = <1544000>;
+			};
+
+			L3M: L3_I0: pm8010m_l3: ldo3 {
+				regulator-name = "pm8010m_l3";
+				regulator-min-microvolt = <2800000>;
+				regulator-max-microvolt = <3312000>;
+			};
+
+			L4M: L4_I0: pm8010m_l4: ldo4 {
+				regulator-name = "pm8010m_l4";
+				regulator-min-microvolt = <1800000>;
+				regulator-max-microvolt = <1960000>;
+			};
+
+			L5M: L5_I0: pm8010m_l5: ldo5 {
+				regulator-name = "pm8010m_l5";
+				regulator-min-microvolt = <2800000>;
+				regulator-max-microvolt = <3000000>;
+			};
+
+			L6M: L6_I0: pm8010m_l6: ldo6 {
+				regulator-name = "pm8010m_l6";
+				regulator-min-microvolt = <1800000>;
+				regulator-max-microvolt = <1960000>;
+			};
+
+			L7M: L7_I0: pm8010m_l7: ldo7 {
+				regulator-name = "pm8010m_l7";
+				regulator-min-microvolt = <2800000>;
+				regulator-max-microvolt = <2904000>;
+			};
+		};
+	};
+};
+
+&pmk8850_vadc {
+	/* PMK8850 ADC Channels */
+	pmk8850_offset_ref	{
+		reg = <PMK8850_ADC5_GEN4_OFFSET_REF(0, PMK8850_SID)>;
+		label = "pmk8850_offset_ref";
+	};
+
+	pmk8850_vref_1p25 {
+		reg = <PMK8850_ADC5_GEN4_1P25VREF(0, PMK8850_SID)>;
+		label = "pmk8850_vref_1p25";
+	};
+
+	pmk8850_die_temp {
+		reg = <PMK8850_ADC5_GEN4_DIE_TEMP(0, PMK8850_SID)>;
+		label = "pmk8850_die_temp";
+	};
+
+	pmk8850_xo_therm {
+		reg = <PMK8850_ADC5_GEN4_AMUX_THM1_XO_THERM_100K_PU(0, PMK8850_SID)>;
+		label = "pmk8850_xo_therm";
+		qcom,ratiometric;
+		qcom,hw-settle-time = <200>;
+		qcom,adc-tm-type = <1>;
+	};
+
+	/* PMH0101 ADC Channels */
+	pmh0101_offset_ref {
+		reg = <PMH0101_ADC5_GEN4_OFFSET_REF(0, PMH0101_SID)>;
+		label = "pmh0101_offset_ref";
+	};
+
+	pmh0101_vref_1p25 {
+		reg = <PMH0101_ADC5_GEN4_1P25VREF(0, PMH0101_SID)>;
+		label = "pmh0101_vref_1p25";
+	};
+
+	pmh0101_die_temp {
+		reg = <PMH0101_ADC5_GEN4_DIE_TEMP(0, PMH0101_SID)>;
+		label = "pmh0101_die_temp";
+	};
+
+	pmh0101_vph_pwr {
+		reg = <PMH0101_ADC5_GEN4_VPH_PWR(0, PMH0101_SID)>;
+		label = "pmh0101_vph_pwr";
+	};
+
+	/* PMH0110 ADC Channels */
+	pmh0110_f_die_temp {
+		reg = <PMH0110_ADC5_GEN4_DIE_TEMP(0, PMH0110_F_SID)>;
+		label = "pmh0110_f_die_temp";
+	};
+
+	pmh0110_f_vph_pwr {
+		reg = <PMH0110_ADC5_GEN4_VPH_PWR(0, PMH0110_F_SID)>;
+		label = "pmh0110_f_vph_pwr";
+	};
+
+	pmh0110_h_die_temp {
+		reg = <PMH0110_ADC5_GEN4_DIE_TEMP(0, PMH0110_H_SID)>;
+		label = "pmh0110_h_die_temp";
+	};
+
+	pmh0110_h_vph_pwr {
+		reg = <PMH0110_ADC5_GEN4_VPH_PWR(0, PMH0110_H_SID)>;
+		label = "pmh0110_h_vph_pwr";
+	};
+};
+
+&spmi2_bus {
+	smb2370_j_e2: pmic@9 {
+		compatible = "qcom,spmi-pmic";
+		reg = <9 SPMI_USID>;
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		smb2370_0_eusb2_repeater: phy@fd00 {
+			compatible = "qcom,smb2370-eusb2-repeater";
+			reg = <0xfd00>;
+			#phy-cells = <0>;
+		};
+	};
+
+	smb2370_k_e2: pmic@a {
+		compatible = "qcom,spmi-pmic";
+		reg = <10 SPMI_USID>;
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		smb2370_1_eusb2_repeater: phy@fd00 {
+			compatible = "qcom,smb2370-eusb2-repeater";
+			reg = <0xfd00>;
+			#phy-cells = <0>;
+		};
+	};
+
+	smb2370_l_e2: pmic@b {
+		compatible = "qcom,spmi-pmic";
+		reg = <11 SPMI_USID>;
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		smb2370_2_eusb2_repeater: phy@fd00 {
+			compatible = "qcom,smb2370-eusb2-repeater";
+			reg = <0xfd00>;
+			#phy-cells = <0>;
+		};
+	};
+};
+
+&pmic_glink_debug {
+	spmi@2 {
+		reg = <2>;
+		#address-cells = <2>;
+		#size-cells = <0>;
+
+		smb2370_0_debug: pmic@9 {
+			compatible = "qcom,spmi-pmic";
+			reg = <9 SPMI_USID>;
+			qcom,can-sleep;
+		};
+
+		smb2370_1_debug: pmic@a {
+			compatible = "qcom,spmi-pmic";
+			reg = <10 SPMI_USID>;
+			qcom,can-sleep;
+		};
+
+		smb2370_2_debug: pmic@b {
+			compatible = "qcom,spmi-pmic";
+			reg = <11 SPMI_USID>;
+			qcom,can-sleep;
+		};
+
+	};
+};

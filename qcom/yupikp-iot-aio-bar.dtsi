@@ -1,0 +1,552 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/clock/qcom,rpmh.h>
+#include <dt-bindings/iio/qcom,spmi-vadc.h>
+#include <dt-bindings/interconnect/qcom,yupik.h>
+
+#include "yupik-pmic-overlay.dtsi"
+#include "pm7250b.dtsi"
+#include "yupik-pm7250b-thermal-overlay.dtsi"
+#include "yupikp-iot-cpe.dtsi"
+
+/ {
+	chosen {
+		bootargs = "firmware_class.path=/vendor/firmware";
+	};
+};
+
+/*==============================*/
+/*     UFS Related Start        */
+/*==============================*/
+&ufsphy_mem {
+	compatible = "qcom,ufs-phy-qmp-v4-yupik";
+
+	vdda-phy-supply = <&L10C>;
+	vdda-pll-supply = <&L6B>;
+	vdda-phy-max-microamp = <97500>;
+	vdda-pll-max-microamp = <18400>;
+
+	status = "ok";
+};
+
+&ufshc_mem {
+	vdd-hba-supply = <&gcc_ufs_phy_gdsc>;
+	vdd-hba-fixed-regulator;
+
+	vcc-supply = <&L7B>;
+	vcc-voltage-level = <2504000 2952000>;
+	vcc-low-voltage-sup;
+	vcc-max-microamp = <800000>;
+
+	/*
+	 * Yupik target supports both UFS2.2 & UFS3.1, here
+	 * vccq2 is supplied via eLDO, and that is controlled via
+	 * L9B which supports a max voltage of 1.2V, but eLDO would
+	 * supply 1.8V. and same L9B acts as vccq voltage for UFS3.1
+	 * devices.
+	 * Here L9B can max support for 1.2V but UFS GKI driver code
+	 * votes for 1.8V, which is leading to failure from pmic
+	 * regulator.
+	 *
+	 * Now since vccq and control of eLDO are common that is L9B
+	 * we can use vccq vote as control of eLDO for vccq2.
+	 * Hence vccq entries shall be used for both type of UFS
+	 * devices only. And vccq entries should not be changed/removed
+	 * for any design alteration.
+	 */
+	vccq-supply = <&L9B>;
+	vccq-max-microamp = <900000>;
+	vccq-min-microamp = <10000>;
+
+	qcom,vddp-ref-clk-supply = <&L9B>;
+	qcom,vddp-ref-clk-max-microamp = <100>;
+
+	status = "ok";
+
+};
+
+/*==============================*/
+/*     UFS Related End          */
+/*==============================*/
+&tlmm {
+	qcom,reserved-dt-high-priority = <1>;
+	qcom,gpios-reserved = <33 50 51>;
+};
+
+/*==============================*/
+/*     PMIC Related Start       */
+/*==============================*/
+&spmi_glink_debug {
+	spmi@0 {
+		qcom,pm8350b-debug@3 {
+			status = "disabled";
+		};
+
+		qcom,pm7250b-debug@8 {
+			compatible = "qcom,spmi-pmic";
+			reg = <8 SPMI_USID>;
+			qcom,can-sleep;
+		};
+	};
+
+};
+
+&spmi_debug_bus {
+	qcom,pm8350b-debug@3 {
+		status = "disabled";
+	};
+
+	qcom,pm7250b-debug@8 {
+		compatible = "qcom,spmi-pmic";
+		reg = <8 SPMI_USID>;
+		#address-cells = <2>;
+		#size-cells = <0>;
+		qcom,can-sleep;
+	};
+
+	qcom,pm7250b-debug@9 {
+		compatible = "qcom,spmi-pmic";
+		reg = <9 SPMI_USID>;
+		#address-cells = <2>;
+		#size-cells = <0>;
+		qcom,can-sleep;
+	};
+
+};
+
+&pm7250b_2 {
+	/* Slave ID - 8 */
+	reg = <8 SPMI_USID>;
+};
+
+&pm7250b_3 {
+	/* Slave ID - 9 */
+	reg = <9 SPMI_USID>;
+};
+
+&pm7250b_tz {
+	interrupts = <0x8 0x24 0x0 IRQ_TYPE_EDGE_BOTH>;
+};
+
+&pm7250b_bcl {
+	interrupts = <0x8 0x1d 0x0 IRQ_TYPE_NONE>,
+			<0x8 0x1d 0x1 IRQ_TYPE_NONE>,
+			<0x8 0x1d 0x2 IRQ_TYPE_NONE>;
+};
+
+&pm7250b_clkdiv {
+	clocks = <&rpmhcc RPMH_CXO_CLK>;
+};
+
+&pm7250b_charger {
+	status = "disabled";
+};
+
+&pm7250b_qg {
+	status = "disabled";
+};
+
+&pm7250b_pdphy {
+	status = "disabled";
+};
+
+&pmk8350_sdam_23 {
+	adc_scaling: scaling@bf {
+		reg = <0xbf 0x1>;
+		bits = <0 2>;
+	};
+};
+
+&spmi_debug_bus {
+	status = "ok";
+};
+
+&spmi_glink_debug {
+	status = "ok";
+};
+
+&pm8350c_pwm {
+	status = "ok";
+};
+
+&pm8350c_switch0 {
+	qcom,led-mask = <9>; /* Channels 1 & 4 */
+	qcom,symmetry-en;
+};
+
+&pm8350c_switch1 {
+	qcom,led-mask = <6>; /* Channels 2 & 3 */
+	qcom,symmetry-en;
+};
+
+&pm8350c_switch2 {
+	qcom,led-mask = <15>; /* All Channels */
+	qcom,symmetry-en;
+};
+
+&pm8350c_flash {
+	status = "ok";
+};
+
+&battery_charger {
+	status = "disabled";
+
+};
+
+/*==============================*/
+/*     PMIC Related End         */
+/*==============================*/
+/*==============================*/
+/*     USB Related Start        */
+/*==============================*/
+&soc {
+	extcon_ktm5000: extcon_ktm5000 {
+		compatible = "kinetic,ktm5000b0t";
+		status = "ok";
+		kinetic,irq-gpio = <&tlmm 159 GPIO_ACTIVE_HIGH>;
+		kinetic,power-3v3-en = <&tlmm 128 0x00>;
+		kinetic,reset-gpio = <&tlmm 63 0x00>;
+		usb-controller = <&usb0>;
+	};
+};
+
+&usb0 {
+	/delete-property/ qcom,usb-charger;
+	/delete-property/ usb-role-switch;
+	qcom,charging-disabled;
+	qcom,usb-dp-concurrent-mode-enable;
+
+	extcon = <&extcon_ktm5000>;
+
+	qcom,core-clk-rate = <200000000>;
+	qcom,interconnect-values-nom = /* NOMINAL Votes */
+		<1000000 2500000>,
+		<0 2400>,
+		<0 40000>;
+	qcom,interconnect-values-svs = /* SVS Votes */
+		<240000 700000>,
+		<0 2400>,
+		<0 40000>;
+	dwc3@a600000 {
+		qcom,use-rt-thread;
+		snps,is-utmi-l1-suspend;
+		snps,dis-u1-entry-quirk;
+		snps,dis-u2-entry-quirk;
+		snps,dis_u2_susphy_quirk;
+	};
+};
+
+
+&fsa4480 {
+	status = "disabled";
+};
+
+&usb1 {
+	/delete-property/ usb-role-switch;
+	/delete-property/ qcom,default-mode-none;
+	qcom,default-mode-host;
+	dwc3@8c00000 {
+		/delete-property/ usb-role-switch;
+		dr_mode = "host";
+	};
+};
+
+/*==============================*/
+/*     USB Related End          */
+/*==============================*/
+/*==============================*/
+/*     Unwanted Modules Start   */
+/*==============================*/
+
+&modem_pas {
+	status = "disabled";
+};
+
+&pil_mpss_mem {
+	status = "disabled";
+};
+
+/*==============================*/
+/*     Unwanted Modules End     */
+/*==============================*/
+/*==============================*/
+/*     Display Related Start    */
+/*==============================*/
+/*==============================*/
+/*     Display Related End      */
+/*==============================*/
+/*==============================*/
+/*     PCIe Related Start       */
+/*==============================*/
+&tlmm {
+	qps615_enable_default: qps615_enable_default {
+		mux {
+			pins = "gpio136";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio136";
+			drive-strength = <2>;
+			bias-pull-down;
+		};
+	};
+
+	YT8521_default: YT8521_default {
+		mux {
+			pins = "gpio117";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio117";
+			drive-strength = <2>;
+			bias-pull-down;
+		};
+	};
+
+	RTL8211_default: RTL8211_default {
+		mux {
+			pins = "gpio123";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio123";
+			drive-strength = <2>;
+			bias-pull-down;
+		};
+	};
+
+	qps615_intn_wol {
+		RTL8211_intn_wol_sig: RTL8211_intn_wol_sig {
+			mux {
+				pins = "gpio32";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio32";
+				input-enable;
+				bias-disable;
+			};
+		};
+	};
+
+	upd_enable_default: upd_enable_default {
+		mux {
+			pins = "gpio127";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio127";
+			drive-strength = <2>;
+			bias-pull-down;
+		};
+	};
+
+	upd_ponrest_default: upd_ponrest_default {
+		mux {
+			pins = "gpio125";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio125";
+			drive-strength = <2>;
+			bias-pull-down;
+		};
+	};
+};
+
+&soc {
+	qps615_enable_vreg: qps615_enable_vreg {
+		compatible = "regulator-fixed";
+		regulator-name = "qps615_enable_vreg";
+		pinctrl-names = "default";
+		pinctrl-0 = <&qps615_enable_default>;
+		gpio = <&tlmm 136 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+		regulator-enable-ramp-delay = <10000>;
+	};
+
+	YT8521_enable_vreg: YT8521_enable_vreg {
+		compatible = "regulator-fixed";
+		regulator-name = "YT8521_enable_vreg";
+		pinctrl-names = "default";
+		pinctrl-0 = <&YT8521_default>;
+		gpio = <&tlmm 117 GPIO_ACTIVE_HIGH>;
+		vin-supply = <&qps615_enable_vreg>;
+		enable-active-high;
+		regulator-always-on;
+		regulator-boot-on;
+	};
+
+	RTL8211_enable_vreg: RTL8211_enable_vreg {
+		compatible = "regulator-fixed";
+		regulator-name = "RTL8211_enable_vreg";
+		pinctrl-names = "default";
+		pinctrl-0 = <&RTL8211_default>;
+		gpio = <&tlmm 123 GPIO_ACTIVE_HIGH>;
+		vin-supply = <&qps615_enable_vreg>;
+		enable-active-high;
+		regulator-always-on;
+		regulator-boot-on;
+	};
+
+	upd_enable_vreg: upd_enable_vreg {
+		compatible = "regulator-fixed";
+		regulator-name = "upd_enable_vreg";
+		pinctrl-names = "default";
+		pinctrl-0 = <&upd_enable_default>;
+		gpio = <&tlmm 127 GPIO_ACTIVE_HIGH>;
+		vin-supply = <&qps615_enable_vreg>;
+		enable-active-high;
+		regulator-enable-ramp-delay = <50000>;
+	};
+
+	upd_ponrest_vreg: upd_ponrest_vreg {
+		compatible = "regulator-fixed";
+		regulator-name = "upd_ponrest_vreg";
+		pinctrl-names = "default";
+		pinctrl-0 = <&upd_ponrest_default>;
+		gpio = <&tlmm 125 GPIO_ACTIVE_LOW>;
+		vin-supply = <&upd_enable_vreg>;
+		regulator-always-on;
+		regulator-enable-ramp-delay = <50000>;
+	};
+};
+
+&qps615_0p9_vreg {
+	status = "disabled";
+};
+
+&qps615_1p8_vreg {
+	status = "disabled";
+};
+
+&qps615_rsex_vreg {
+	status = "disabled";
+};
+
+&upd_3p3_vreg {
+	status = "disabled";
+};
+
+&upd_rest_vreg {
+	status = "disabled";
+};
+
+&usbhub_rest_vreg {
+	status = "disabled";
+};
+
+&aqr_vreg {
+	status = "disabled";
+};
+
+&qep_vreg {
+	status = "disabled";
+};
+
+&gcc_pcie_1_gdsc {
+	status = "ok";
+};
+
+&pcie1 {
+	status = "ok";
+	qcom,boot-option = <0x0>;
+	vreg-3p3-supply = <&qps615_enable_vreg>;
+};
+
+&pcie1_msi {
+	status = "ok";
+};
+
+&pcie1_bus2_dev3_fn0 {
+	qps615_eth0,qps615_eth0@pcie1_rp {
+		reg = <0x0 0x0 0x0 0x0 0x0>;
+		qcom,phy-rst-gpio = <0>;
+		qcom,phy-rst-delay-us = <100000>;
+		qcom,phy-rst-gpio-flags = <1>;
+
+		qcom,phy-built-in-wol;
+		/delete-property/pinctrl-names;
+		/delete-property/pinctrl-0;
+		/delete-property/interrupts-extended;
+		/delete-property/interrupt-names;
+
+		qcom,phy-port-interface = <4>;
+		qcom,mdc-clk = <0x8>;
+		qcom,c45-state = <0>;
+		qcom,link-down-macrst = <0>;
+		qcom,start-phy-addr = <0x0>;
+
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		qcom,iommu-group = <&eth0_pci_iommu_group>;
+		eth0_pci_iommu_group: eth0_pci_iommu_group {
+			qcom,iommu-dma = "atomic";
+		};
+	};
+
+	qps615_eth1,qps615_eth1@pcie1_rp {
+		reg = <0x100 0x0 0x0 0x0 0x0>;
+		qcom,phy-rst-gpio = <1>;
+		qcom,phy-rst-delay-us = <100000>;
+		qcom,phy-rst-gpio-flags = <1>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&RTL8211_intn_wol_sig>;
+
+		interrupts-extended = <&tlmm 32 IRQ_TYPE_EDGE_FALLING>;
+		interrupt-names = "wol_irq";
+
+		qcom,phy-port-interface = <3>;
+		qcom,mdc-clk = <0x8>;
+		qcom,c45-state = <0>;
+		qcom,link-down-macrst = <0>;
+		qcom,start-phy-addr = <0x1>;
+
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		qcom,iommu-group = <&eth1_pci_iommu_group>;
+		eth1_pci_iommu_group: eth1_pci_iommu_group {
+			qcom,iommu-dma = "atomic";
+		};
+	};
+};
+
+/*==============================*/
+/*     PCIe Related End         */
+/*==============================*/
+/*==============================*/
+/*     Audio Related Start      */
+/*==============================*/
+/*     Audio Related End        */
+/*==============================*/
+/*==============================*/
+/*     PD FL7112 Related Start  */
+/*==============================*/
+&qupv3_se1_i2c {
+	status = "ok";
+	qcom,clk-freq-out = <100000>;
+	fl7112:fl7112@3a {
+		status = "ok";
+		compatible = "qcom,fl7112-fs8822";
+		reg = <0x3a>;
+		fl7112,reset-gpio = <&tlmm 40 0>;
+		fl7112,pwr-1v2 = <&tlmm 41 0>;
+		fl7112,pwr-3v3 = <&tlmm 42 0>;
+	};
+};
+/*==============================*/
+/*     PD FL7112 Related End    */
+/*==============================*/

@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/clock/qcom,chora-gcc.h>
+#include <dt-bindings/clock/qcom,chora-camcc.h>
+#include <dt-bindings/interconnect/qcom,chora.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/regulator/qcom,rpmh-regulator-levels.h>
+#include "chora-camera-sensor-mtp.dtsi"
+/ {
+	model = "Qualcomm Technologies, Inc. Chora MTP evros";
+	compatible = "qcom,chora-mtp", "qcom,chora", "qcom,chorap-mtp", "qcom,chorap", "qcom,mtp";
+	qcom,msm-id = <724 0x10000>, <744 0x10000>;
+	qcom,board-id = <0x10008 0x0>, <0x10108 0x0>, <0x10208 0x0>, <0x10308 0x0>, <0x20008 0x0>, <0x20208 0x0>;
+};

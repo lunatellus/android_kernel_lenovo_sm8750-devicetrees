@@ -1,0 +1,194 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/* X1P42100 is heavily based on X1E80100, with some meaningful differences */
+#include "x1e80100.dtsi"
+#include "x1p42100-coresight.dtsi"
+#include "x1p42100-regulators.dtsi"
+#include "x1e80100-pmic-overlay.dtsi"
+#include "x1p42100-thermal-overlay.dtsi"
+#include "x1p42100-debug.dtsi"
+#include <dt-bindings/clock/qcom,x1p42100-gcc.h>
+#include <dt-bindings/clock/qcom,x1p42100-videocc.h>
+
+/delete-node/ &bwmon_llcc_cluster0;
+/delete-node/ &CPU8;
+/delete-node/ &CPU9;
+/delete-node/ &CPU10;
+/delete-node/ &CPU11;
+/delete-node/ &cpu_map_cluster2;
+/delete-node/ &cluster_device2;
+/delete-node/ &qfprom;
+
+&ddr_clusterX {
+	qcom,cpulist = <&CPU0 &CPU1 &CPU2 &CPU3 &CPU4 &CPU5 &CPU6 &CPU7>;
+};
+
+&ddr_clusterX_compute {
+	qcom,cpulist = <&CPU0 &CPU1 &CPU2 &CPU3 &CPU4 &CPU5 &CPU6 &CPU7>;
+};
+
+&ddrqos_clusterX_lat {
+	qcom,cpulist = <&CPU0 &CPU1 &CPU2 &CPU3 &CPU4 &CPU5 &CPU6 &CPU7>;
+};
+
+&llcc_clusterX {
+	qcom,cpulist = <&CPU0 &CPU1 &CPU2 &CPU3 &CPU4 &CPU5 &CPU6 &CPU7>;
+};
+
+&qcom_pmu {
+	qcom,pmu-events-tbl =
+		< 0x0008 0xff 0x02 0x02 >,
+		< 0x0011 0xff 0x01 0x00 >,
+		< 0x0017 0xff 0xff 0x05 >;
+};
+
+&gic_router {
+	qcom,gic-class1-cpus = <&CPU4 &CPU5 &CPU6 &CPU7>;
+	qcom,gic-cpulist = <&CPU0 &CPU1 &CPU2 &CPU3 &CPU4 &CPU5 &CPU6 &CPU7>;
+};
+
+&pdc {
+	compatible = "qcom,x1p42100-pdc", "qcom,pdc";
+};
+
+&clk_virt {
+	compatible = "qcom,x1p42100-clk_virt";
+};
+
+&mc_virt {
+	compatible = "qcom,x1p42100-mc_virt";
+};
+
+&config_noc {
+	compatible = "qcom,x1p42100-cnoc_cfg";
+};
+
+&cnoc_main {
+	compatible = "qcom,x1p42100-cnoc_main";
+};
+
+&system_noc {
+	compatible = "qcom,x1p42100-system_noc";
+};
+
+&pcie_center_anoc {
+	compatible = "qcom,x1p42100-pcie_center_anoc";
+};
+
+&pcie_south_anoc {
+	compatible = "qcom,x1p42100-pcie_south_anoc";
+};
+
+&pcie_north_anoc {
+	compatible = "qcom,x1p42100-pcie_north_anoc";
+};
+
+&aggre1_noc {
+	compatible = "qcom,x1p42100-aggre1_noc";
+};
+
+&aggre2_noc {
+	compatible = "qcom,x1p42100-aggre2_noc";
+};
+
+&mmss_noc {
+	compatible = "qcom,x1p42100-mmss_noc";
+};
+
+&gem_noc {
+	compatible = "qcom,x1p42100-gem_noc";
+};
+
+&nsp_noc {
+	compatible = "qcom,x1p42100-nsp_noc";
+};
+
+&lpass_ag_noc {
+	compatible = "qcom,x1p42100-lpass_ag_noc";
+};
+
+&lpass_lpiaon_noc {
+	compatible = "qcom,x1p42100-lpass_lpiaon_noc";
+};
+
+&lpass_lpicx_noc {
+	compatible = "qcom,x1p42100-lpass_lpicx_noc";
+};
+
+&usb_center_anoc {
+	compatible = "qcom,x1p42100-usb_center_anoc";
+};
+
+&usb_north_anoc {
+	compatible = "qcom,x1p42100-usb_north_anoc";
+};
+
+&usb_south_anoc {
+	compatible = "qcom,x1p42100-usb_south_anoc";
+};
+
+&gcc {
+	compatible = "qcom,x1p42100-gcc", "syscon";
+	protected-clocks = <GCC_SDCC1_AHB_CLK>, <GCC_SDCC1_APPS_CLK>,
+			<GCC_SDCC1_APPS_CLK_SRC>, <GCC_SDCC1_ICE_CORE_CLK>,
+			<GCC_SDCC1_ICE_CORE_CLK_SRC>;
+};
+
+&gpucc {
+	compatible = "qcom,x1p42100-gpucc", "syscon";
+};
+
+&camcc {
+	compatible = "qcom,x1p42100-camcc", "syscon";
+};
+
+&videocc {
+	compatible = "qcom,x1p42100-videocc", "syscon";
+};
+
+&debugcc {
+	compatible = "qcom,x1p42100-debugcc";
+};
+
+&adreno_smmu {
+	qcom,actlr =
+		<0x0000 0x0000 0x0000032b>,
+		<0x0002 0x0000 0x0000032b>,
+		<0x0004 0x0000 0x0000032b>,
+		<0x0005 0x0000 0x0000032b>,
+		<0x0007 0x0000 0x0000032b>;
+};
+
+&gpu_qtb {
+	qcom,num-qtb-ports = <2>;
+};
+
+&pcie6 {
+
+	/* <max min opt> */
+	qcom,vreg-1p2-voltage-level = <1256000 1256000 38800>;
+	qcom,vreg-0p9-voltage-level = <880000 880000 560000>;
+
+};
+
+&soc {
+	qfprom: qfprom@221c8000 {
+		compatible = "qcom,x1p42100-qfprom", "qcom,qfprom";
+		reg = <0x0 0x221c8000 0x0 0x1000>;
+		#address-cells = <1>;
+		#size-cells = <1>;
+		read-only;
+
+		gpu_speed_bin: gpu_speed_bin@119 {
+			reg = <0x119 0x2>;
+			bits = <7 9>;
+			};
+	};
+};
+
+&pmc8380_g {
+	status = "disabled";
+};

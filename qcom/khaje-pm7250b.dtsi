@@ -1,0 +1,111 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include <dt-bindings/clock/qcom,rpmcc.h>
+#include <dt-bindings/clock/qcom,rpmh.h>
+#include "pm7250b.dtsi"
+
+&pm7250b_clkdiv {
+	clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>;
+};
+
+&pm7250b_vadc {
+	charger_skin_therm@4d {
+		reg = <ADC5_AMUX_THM1_100K_PU>;
+		label = "charger_skin_therm";
+		qcom,ratiometric;
+		qcom,hw-settle-time = <200>;
+		qcom,pre-scaling = <1 1>;
+	};
+
+	conn_therm@4f {
+		reg = <ADC5_AMUX_THM3_100K_PU>;
+		label = "conn_therm";
+		qcom,ratiometric;
+		qcom,hw-settle-time = <200>;
+		qcom,pre-scaling = <1 1>;
+	};
+};
+
+&pm7250b_adc_tm {
+	status = "ok";
+
+	/* Channel nodes */
+	charger_skin_therm@4d {
+		reg = <0>;
+		io-channels = <&pm7250b_vadc ADC5_AMUX_THM1_100K_PU>;
+		qcom,ratiometric;
+		qcom,hw-settle-time-us = <200>;
+	};
+
+	conn_therm@4f {
+		reg = <1>;
+		io-channels = <&pm7250b_vadc ADC5_AMUX_THM3_100K_PU>;
+		qcom,ratiometric;
+		qcom,hw-settle-time-us = <200>;
+	};
+};
+
+&thermal_zones {
+	charger-therm {
+		thermal-sensors = <&pm7250b_adc_tm 0>;
+		trips {
+			active-config0 {
+				temperature = <125000>;
+				hysteresis = <1000>;
+				type = "passive";
+			};
+		};
+	};
+
+	conn-therm {
+		thermal-sensors = <&pm7250b_adc_tm 1>;
+		trips {
+			active-config0 {
+				temperature = <125000>;
+				hysteresis = <1000>;
+				type = "passive";
+			};
+		};
+	};
+
+	vbat {
+		thermal-sensors = <&pm7250b_bcl 2>;
+
+		trips {
+			vbat_lvl0:vbat-lvl0 {
+				temperature = <2800>;
+				hysteresis = <100>;
+				type = "passive";
+			};
+
+			vbat_lvl1:vbat-lvl1 {
+				temperature = <2600>;
+				hysteresis = <100>;
+				type = "passive";
+			};
+
+			vbat_lvl2:vbat-lvl2 {
+				temperature = <2300>;
+				hysteresis = <100>;
+				type = "passive";
+			};
+		};
+	};
+};
+
+&pm7250b_gpios {
+	disp_lcd_bias_en {
+		disp_lcd_bias_en_default: disp_lcd_bias_en_default {
+			pins = "gpio5";
+			function = "func1";
+			input-disable;
+			output-enable;
+			bias-disable;
+			power-source = <0>;
+			qcom,drive-strength = <2>;
+		};
+	};
+};

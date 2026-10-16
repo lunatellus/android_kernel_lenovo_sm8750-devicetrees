@@ -1,0 +1,47 @@
+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+%YAML 1.2
+---
+$id: http://devicetree.org/schemas/ptp/qcom,ptp-virtual.yaml#
+$schema: http://devicetree.org/meta-schemas/core.yaml#
+
+title: Qualcomm Technologies, Inc. Virtual PTP clock for Guest VM
+
+maintainers:
+  - Adithya Naga Sai Tirumanisetti <tadithya@qti.qualcomm.com>
+
+description:
+  Virtual PTP device exposing PTP carveout memory, PTP hardware
+  registers, and QTimer registers to a guest VM for hardware
+  timestamping support.
+
+properties:
+  compatible:
+    const: "qcom,ptp_virtual"
+
+  reg:
+    maxItems: 3
+
+  reg-names:
+    items:
+      - const: ptp_carveout_mem
+      - const: ptp_reg
+      - const: qtimer_reg
+
+required:
+  - compatible
+  - reg
+  - reg-names
+
+additionalProperties: false
+
+examples:
+  - |
+    ptp_virtual {
+      compatible = "qcom,ptp_virtual";
+      reg = <0xac5fe000 0x1000>,
+            <0x23047000 0x1000>,
+            <0x17c23000 0x1000>;
+      reg-names = "ptp_carveout_mem",
+                  "ptp_reg",
+                  "qtimer_reg";
+    };

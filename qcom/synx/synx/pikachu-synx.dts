@@ -1,0 +1,16 @@
+/* Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+ /dts-v1/;
+ /plugin/;
+
+#include <dt-bindings/mailbox/qcom-ipcc.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include "seraph-synx.dtsi"
+
+/{
+    model = "Qualcomm Technologies, Inc. Pikachu";
+    compatible = "qcom,pikachu", "qcom,pikachup", "qcom,pikachus", "qcom,pikachups";
+    qcom,msm-id =  <736 0x10000>, <737 0x10000>, <783 0x10000>, <784 0x10000>;
+    qcom,board-id = <0 0>;
+};

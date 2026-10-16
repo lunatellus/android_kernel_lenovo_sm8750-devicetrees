@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "bengal-sde-display-idp.dtsi"
+
+&dsi_td4330_truly_v2_video {
+	 /delete-property/ qcom,esd-check-enabled;
+	/delete-property/ qcom,platform-bklight-en-gpio;
+};
+
+&dsi_td4330_truly_v2_cmd {
+	 /delete-property/ qcom,esd-check-enabled;
+	/delete-property/ qcom,platform-bklight-en-gpio;
+};
+
+&sde_dsi {
+	/delete-property/ lab-supply;
+	/delete-property/ ibb-supply;
+};

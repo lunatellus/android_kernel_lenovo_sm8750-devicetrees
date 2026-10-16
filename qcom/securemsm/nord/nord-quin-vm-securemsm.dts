@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "nord-vm-securemsm.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. SA8797p Guest Virtual Machine";
+	compatible = "qcom,sa8797p", "qcom,quinvm";
+	qcom,msm-id = <690 0x10000>, <690 0x20000>, <690 0x10001>;
+	qcom,board-id = <0x0 0x1000001>, <0x0 0x1000002>, <0x0 0x2000001>, <0x0 0x2000002>;
+};

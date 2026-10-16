@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "yupik-nfc-common.dtsi"
+/ {
+	model = "Qualcomm Technologies, Inc. Yupik SoC";
+	compatible = "qcom,yupik", "qcom,yupik-iot";
+        qcom,msm-id = <499 0x10000>, <475 0x10000>, <515 0x10000>,
+                      <575 0x10000>, <498 0x10000>, <576 0x10000>,
+                      <497 0x10000>;
+	qcom,board-id = <0 1>, <34 1>, <34 0>, <34 2>, <0x1000B 0>, <0x10021 0>;
+};

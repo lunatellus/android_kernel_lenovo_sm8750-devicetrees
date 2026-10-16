@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "mahua-idp.dtsi"
+
+/ {
+        model = "Qualcomm Technologies, Inc. Mahua IDP with Cologne attach";
+        compatible = "qcom,mahua-idp", "qcom,mahua", "qcom,idp";
+        qcom,msm-id = <693 0x20000>;
+        qcom,board-id = <34 0>;
+};

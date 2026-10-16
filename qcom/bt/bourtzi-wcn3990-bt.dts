@@ -1,0 +1,21 @@
+
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+#include "bourtzi-wcn3990-bt.dtsi"
+ / {
+	model = "Qualcomm Technologies, Inc. Bourtzi ATP + WCN3998 + tioman";
+	compatible = "qcom,bourtzi-atp", "qcom,bourtzip-atp","qcom,atp", "qcom,bourtzi", "qcom,bourtzip",
+	"qcom,bourtzi-cdp", "qcom,bourtzip-cdp","qcom,cdp",
+	"qcom,bourtzi-mtp", "qcom,bourtzip-mtp","qcom,mtp",
+	"qcom,bourtzi-qrd", "qcom,bourtzip-qrd","qcom,qrd",
+	"qcom,bourtzi-rcm", "qcom,bourtzip-rcm","qcom,rcm";
+	qcom,msm-id = <776 0x10000>, <777 0x10000>;
+	qcom,board-id = <0x10021 0x0>, <0x10001 0x0>,
+	<0x20001 0x0>,<0x10008 0x0>,<0x1000b 0x0>,<0x10015 0x0>,<0x30015 0x0>,<0x10008 0x600>,
+	<0x10001 0x600>,<0x20001 0x600>,<0x10015 0x600>,<0x30015 0x600>;
+};

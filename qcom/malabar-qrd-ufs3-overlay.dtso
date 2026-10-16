@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "malabar-qrd.dtsi"
+
+/ {
+        model = "Qualcomm Technologies, Inc. Malabar QRD";
+        compatible = "qcom,malabar-qrd", "qcom,malabar", "qcom,malabarp-qrd", "qcom,malabarp",
+                        "qcom,qrd";
+        qcom,msm-id = <733 0x10000>, <757 0x10000>;
+        qcom,board-id = <0x1010b 0>;
+};
+
+&L5E {
+	regulator-min-microvolt = <2952000>;
+	regulator-max-microvolt = <3544000>;
+	qcom,init-voltage = <2952000>;
+};

@@ -1,0 +1,49 @@
+/* SPDX-License-Identifier: BSD-3-Clause
+ *
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries. 
+ */
+
+#include <dt-bindings/interconnect/qcom,pikachu.h>
+
+&soc {
+        bluetooth: wcn786x {
+            compatible = "qcom,wcn786x";
+            qcom,wcn786x;
+            /* List of GPIOs to be setup for interrupt wakeup capable*/
+            qcom,wl-reset-gpio = <&tlmm 31 0>; /* WL_EN */
+            qcom,bt-reset-gpio = <&tlmm 32 0>; /* BT_EN */
+            qcom,bt-sw-ctrl-gpio = <&tlmm 33 0>; /* SW_CTRL */
+
+            /* Enable passthrough mode for HCI arbiter */
+            qcom,bt-passthrough-enable = <1>;
+
+            qcom,bt-vdd18-aon-supply   = <&L3A>; /* VDD1P8_AON */
+            qcom,bt-vdd12-io-supply    = <&L13A>;/* VDD1P2_IO */
+            qcom,bt-vdd-dig-supply     = <&S3A>; /* BT CX_MX LDO */
+            qcom,bt-vdd-aon-supply     = <&S3A>; /* RFA_CMN/AON */
+            qcom,bt-vdd-rfa0p75-supply = <&S3A>; /* RFA_OP9 */
+            qcom,bt-vdd-rfa1p8-supply  = <&S7A>; /* RFA_1P9 */
+            qcom,bt-vdd-rfa1p25-supply = <&S8A>; /* RFA_1P3 */
+
+            qcom,bt-vdd18-aon-config   = <1800000 2000000 30000 1>;
+            qcom,bt-vdd12-io-config   = <1100000 1300000 30000 1>;
+            qcom,bt-vdd-dig-config     = <700000 2000000 0 1>;
+            qcom,bt-vdd-aon-config     = <700000 2000000 0 1>;
+            qcom,bt-vdd-rfa0p75-config = <700000 2000000 0 1>;
+            qcom,bt-vdd-rfa1p8-config  = <1850000 2100000 0 1>;
+            qcom,bt-vdd-rfa1p25-config = <1250000 2100000 0 1>;
+        };
+};
+
+&swr4 {
+	btswr_slave: btswr-slave {
+		compatible = "qcom,btfmswr_slave";
+		reg = <0x02 0x08170220>;
+	};
+};
+
+// uart instance
+&uart7 {
+      status = "ok";
+};
+

@@ -1,0 +1,333 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "x1e80100-pmic-overlay.dtsi"
+#include "x1e80100-thermal-overlay.dtsi"
+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+#include <dt-bindings/clock/qcom,x1e80100-tcsr.h>
+
+&ufsphy_mem {
+	status = "okay";
+};
+
+&ufshc_mem {
+	status = "okay";
+};
+
+&tlmm {
+	eusb3_reset_n: eusb3-reset-n-state {
+		pins = "gpio6";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+		output-low;
+	};
+
+	eusb6_reset_n: eusb6-reset-n-state {
+		pins = "gpio184";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+		output-low;
+	};
+
+	eusb5_reset_n: eusb5-reset-n-state {
+		pins = "gpio7";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+		output-low;
+	};
+};
+
+&pm8550ve_j_gpios {
+	usb3_vbus_en: usb3-vbus-en-state {
+		pins = "gpio4";
+		function = "normal";
+		qcom,drive-strength = <PMIC_GPIO_STRENGTH_HIGH>;
+		input-disable;
+		output-enable;
+		output-high;
+		power-source = <0>;
+	};
+
+	usb6_vbus_en: usb6-vbus-en-state {
+		pins = "gpio5";
+		function = "normal";
+		qcom,drive-strength = <PMIC_GPIO_STRENGTH_HIGH>;
+		input-disable;
+		output-enable;
+		output-high;
+		power-source = <0>;
+	};
+
+	usb5_vbus_en: usb5-vbus-en-state {
+		pins = "gpio6";
+		function = "normal";
+		qcom,drive-strength = <PMIC_GPIO_STRENGTH_HIGH>;
+		input-disable;
+		output-low;
+		power-source = <0>;
+	};
+};
+
+&soc {
+	regulator_usb3_vbus: regulator-usb3-vbus {
+		compatible = "regulator-fixed";
+		regulator-name = "VREG_USB4_VBUS";
+		gpio = <&pm8550ve_j_gpios 4 GPIO_ACTIVE_HIGH>;
+		pinctrl-0 = <&usb3_vbus_en>;
+		pinctrl-names = "default";
+		enable-active-high;
+		regulator-always-on;
+	};
+
+	regulator_usb6_vbus: regulator-usb6-vbus {
+		compatible = "regulator-fixed";
+		regulator-name = "VREG_USB6_VBUS";
+		gpio = <&pm8550ve_j_gpios 5 GPIO_ACTIVE_HIGH>;
+		pinctrl-0 = <&usb6_vbus_en>;
+		pinctrl-names = "default";
+		enable-active-high;
+		regulator-always-on;
+	};
+
+	regulator_usb5_vbus: regulator-usb5-vbus {
+		compatible = "regulator-fixed";
+		regulator-name = "VREG_USB5_VBUS";
+		gpio = <&pm8550ve_j_gpios 6 GPIO_ACTIVE_HIGH>;
+		pinctrl-0 = <&usb5_vbus_en>;
+		pinctrl-names = "default";
+		enable-active-high;
+	};
+
+	wwan_fcpo: wwan_fcpo {
+		compatible = "regulator-fixed";
+		regulator-name = "WWAN_FCPO";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		gpio = <&pm8550ve_c_gpios 4 GPIO_ACTIVE_HIGH>;
+		vin-supply = <&sdx_vph_pwr>;
+		enable-active-high;
+	};
+};
+
+&pcie5 {
+	vreg-3p3-supply = <&wwan_fcpo>;
+};
+
+&qupv3_se5_i2c {
+	clock-frequency = <400000>;
+
+	status = "okay";
+
+	eusb3_repeater: redriver@43 {
+		compatible = "nxp,ptn3222";
+		reg = <0x43>;
+
+		vdd1v8-supply = <&L4B>;
+		vdd3v3-supply = <&L13B>;
+
+		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
+
+		pinctrl-0 = <&eusb3_reset_n>;
+		pinctrl-names = "default";
+
+		#phy-cells = <0>;
+	};
+
+	eusb6_repeater: redriver@4f {
+		compatible = "nxp,ptn3222";
+		reg = <0x4f>;
+
+		vdd1v8-supply = <&L4B>;
+		vdd3v3-supply = <&L13B>;
+
+		reset-gpios = <&tlmm 184 GPIO_ACTIVE_LOW>;
+
+		pinctrl-0 = <&eusb6_reset_n>;
+		pinctrl-names = "default";
+
+		#phy-cells = <0>;
+	};
+
+	eusb5_repeater: redriver@47 {
+		compatible = "nxp,ptn3222";
+		reg = <0x47>;
+
+		vdd1v8-supply = <&L4B>;
+		vdd3v3-supply = <&L13B>;
+
+		reset-gpios = <&tlmm 7 GPIO_ACTIVE_LOW>;
+
+		pinctrl-0 = <&eusb5_reset_n>;
+		pinctrl-names = "default";
+
+		#phy-cells = <0>;
+	};
+};
+
+&ucsi {
+	/* Left-side front port */
+	connector@0 {
+		compatible = "usb-c-connector";
+		reg = <0>;
+		power-role = "dual";
+		data-role = "dual";
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0>;
+
+				pmic_glink_port0_hs_in: endpoint {
+					remote-endpoint = <&usb_port0_hs_in>;
+				};
+			};
+		};
+	};
+
+	/* Left-side front port */
+	connector@1 {
+		compatible = "usb-c-connector";
+		reg = <1>;
+		power-role = "dual";
+		data-role = "dual";
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0>;
+
+				pmic_glink_port1_hs_in: endpoint {
+					remote-endpoint = <&usb_port1_hs_in>;
+				};
+			};
+		};
+	};
+};
+
+&smb2360_0_eusb2_repeater {
+	vdd18-supply = <&L3D>;
+	vdd3-supply = <&L2B>;
+};
+
+&usb2_phy_0 {
+	phys = <&smb2360_0_eusb2_repeater>;
+	status = "okay";
+};
+
+&usb3_phy_0 {
+	status = "okay";
+};
+
+&usb0 {
+	status = "okay";
+	usb-role-switch;
+	pinctrl-names = "default";
+	pinctrl-0 = <&usb3phy_portselect_gpio_0>;
+	gpios = <&tlmm 121 0>;
+};
+
+&usb_port0_hs_in {
+	remote-endpoint = <&pmic_glink_port0_hs_in>;
+};
+
+&usb_port0_ssphy_out {
+	remote-endpoint = <&usb_port0_dwc3_ss>;
+};
+
+&usb_port0_dwc3_ss {
+	remote-endpoint = <&usb_port0_ssphy_out>;
+};
+
+
+&smb2360_1_eusb2_repeater {
+	vdd18-supply = <&L3D>;
+	vdd3-supply = <&L14B>;
+};
+
+&usb2_phy_1 {
+	phys = <&smb2360_1_eusb2_repeater>;
+	status = "okay";
+};
+
+&usb3_phy_1 {
+	status = "okay";
+};
+
+&usb1 {
+	status = "okay";
+	usb-role-switch;
+	pinctrl-names = "default";
+	pinctrl-0 = <&usb3phy_portselect_gpio_1>;
+	gpios = <&tlmm 123 0>;
+};
+
+&usb_port1_hs_in {
+	remote-endpoint = <&pmic_glink_port1_hs_in>;
+};
+
+&usb_port1_ssphy_out {
+	remote-endpoint = <&usb_port1_dwc3_ss>;
+};
+
+&usb_port1_dwc3_ss {
+	remote-endpoint = <&usb_port1_ssphy_out>;
+};
+
+&usb_mp_hsphy0 {
+	phys = <&eusb3_repeater>;
+	status = "okay";
+};
+
+&usb_mp_hsphy1 {
+	phys = <&eusb6_repeater>;
+	status = "okay";
+};
+
+&usb_mp_qmpphy0 {
+	status = "okay";
+};
+
+&usb_mp_qmpphy1 {
+	status = "okay";
+};
+
+&usb_mp {
+	status = "okay";
+};
+
+&usb2_phy_4 {
+	phys = <&eusb5_repeater>;
+	status = "okay";
+};
+
+&usb4 {
+	vbus_dwc3-supply = <&regulator_usb5_vbus>;
+	status = "okay";
+};
+
+&usb_mp_dwc3 {
+	snps,usb3_lpm_capable;
+};
+
+&usb_mp_hsphy0 {
+	clocks = <&xo_board>,
+		<&tcsrcc TCSR_USB3_MP0_CLKREF_EN>;
+	clock-names = "ref_clk_src",
+			"ref";
+};
+
+&usb_mp_hsphy1 {
+	clocks = <&xo_board>,
+		<&tcsrcc TCSR_USB3_MP1_CLKREF_EN>;
+	clock-names = "ref_clk_src",
+			"ref";
+};

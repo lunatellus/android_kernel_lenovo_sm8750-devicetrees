@@ -1,0 +1,683 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/clock/qcom,shikra-gcc.h>
+
+&gpi_dma0 {
+	status = "okay";
+};
+
+&qupv3_id_0 {
+	status = "okay";
+};
+
+&qup_i2c0_data {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c0_clk {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c0_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_i2c1_data {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c1_clk {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c1_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_i2c2_data {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c2_clk {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c2_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_i2c3_data {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c3_clk {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c3_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_i2c4_data {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c4_clk {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c4_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_i2c5_data {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c5_clk {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c5_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_i2c6_data {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c6_clk {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c6_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_i2c7_data {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c7_clk {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c7_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_i2c8_data {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c8_clk {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c8_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_i2c9_data {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c9_clk {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_i2c9_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_spi0_miso {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi0_mosi {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi0_cs {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi0_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_spi2_miso {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi2_mosi {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi2_clk {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi2_cs {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi2_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_spi5_miso {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi5_mosi {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi5_clk {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi5_cs {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi5_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_spi6_miso {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi6_mosi {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi6_clk {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi6_cs {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi6_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_spi8_miso {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi8_mosi {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi8_clk {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi8_cs {
+	drive-strength = <6>;
+	bias-disable;
+};
+
+&qup_spi8_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart0_rx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart0_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart0_tx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart1_rx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart1_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart1_tx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart3_rx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart3_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart3_tx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart4_rx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart4_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart4_tx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart7_rx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart7_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart7_tx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart9_rx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart9_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart9_tx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart2_default {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart2_cts {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart2_rts {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart2_rx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart2_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart2_tx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart5_default {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart5_cts {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart5_rts {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart5_rx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart5_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart5_tx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart6_default {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart6_cts {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart6_rts {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart6_rx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart6_tx {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart6_sleep {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart8_cts {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart8_default_ctsrtsrx {
+	drive-strength = <2>;
+	bias-pull-down;
+};
+
+&qup_uart8_default_tx {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&qup_uart8_rts {
+	drive-strength = <2>;
+	bias-pull-down;
+};
+
+&qup_uart8_rx_active {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart8_rx_wake {
+	drive-strength = <2>;
+	bias-disable;
+};
+
+&qup_uart8_tx {
+	drive-strength = <2>;
+	bias-pull-up;
+};
+
+&i2c3 {
+	status = "ok";
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	expander0: pca953x@38 {
+		compatible = "ti,tca9538";
+		#gpio-cells = <2>;
+		gpio-controller;
+		reg = <0x38>;
+	};
+
+	expander1: pca953x@3C {
+		compatible = "ti,tca9538";
+		#gpio-cells = <2>;
+		gpio-controller;
+		reg = <0x3C>;
+
+		io-exp-hog6 {
+			gpio-hog;
+			gpios = <6 GPIO_ACTIVE_HIGH>;
+			output-high;
+			line-name = "keye_pwr_en";
+		};
+	};
+
+	expander2: pca953x@20 {
+		compatible = "ti,tca9539";
+		#gpio-cells = <2>;
+		gpio-controller;
+		reg = <0x20>;
+	};
+
+	expander3: pca953x@21 {
+		compatible = "ti,tca9539";
+		#gpio-cells = <2>;
+		gpio-controller;
+		reg = <0x21>;
+	};
+
+	pcie0_i2c_ctrl: pcie0_i2c_ctrl {
+		compatible = "qcom,pcie-i2c-ntn3";
+		rc-index = <0x0>;
+		reg = <0x77>;
+		gpio-config-reg = <0x801208>;
+		ep-reset-reg = <0x801210>;
+		ep-reset-gpio-mask = <0xc>;
+		version-reg = <0x800000>;
+		dump-regs = <0x801330 0x801350 0x801370>;
+		reg_update = <0x82c030 0x1
+				0x828000 0x3
+				0x82bd00 0x8
+				0x82c030 0x2
+				0x828000 0x3
+				0x82bd00 0x8
+				0x82c030 0x8
+				0x828000 0x1
+				0x82bd00 0x8
+				0x82c01c 0x10
+				0x82c030 0xf
+				0x828000 0xf
+				0x82b268 0x2>;
+
+		/*FOM for preset caluclation*/
+		switch_reg_update = <0x82c02c 0x00000007
+				0x824a10 0x00000001
+				0x82c030 0x00000008
+				0x828000 0x00000001
+				0x82b074 0x00000020
+				0x82b2bc 0x00000001
+				/*Set GPIOs 2&4 as high to enable power*/
+				0x801208 0xffffffeb
+				0x801210 0x14>;
+	};
+};
+
+&pcie0 {
+	status = "ok";
+
+	pcie-i2c-phandle = <&i2c3>;
+	qcom,no-client-based-bw-voting;
+
+	iommu-map = <0x0 &apps_smmu 0x0800 0x1>,
+		<0x100 &apps_smmu 0x0801 0x1>,
+		<0x208 &apps_smmu 0x0802 0x1>,
+		<0x210 &apps_smmu 0x0803 0x1>,
+		<0x218 &apps_smmu 0x0804 0x1>,
+		<0x300 &apps_smmu 0x0805 0x1>,
+		<0x400 &apps_smmu 0x0806 0x1>,
+		<0x500 &apps_smmu 0x0807 0x1>,
+		<0x501 &apps_smmu 0x0808 0x1>;
+};
+
+&pcie0_msi {
+	status = "ok";
+};
+
+&pcie0_rp {
+	#address-cells = <5>;
+	#size-cells = <0>;
+	/* BDF 1.0.0 */
+	pcie1_bus1_dev0_fn0: pcie1_bus1_dev0_fn0 {
+		reg = <0 0 0 0 0>;
+
+		/* BDF 2.1.0 */
+		pcie1_bus2_dev1_fn0: pcie1_bus2_dev1_fn0 {
+			reg = <0x800 0x0 0x0 0x0 0x0>;
+		};
+
+		/* BDF 2.2.0 */
+		pcie1_bus2_dev2_fn0: pcie1_bus2_dev2_fn0 {
+			reg = <0x1000 0x0 0x0 0x0 0x0>;
+			/* BDF 4.0.0 */
+			pcie1_bus4_dev0_fn0: pcie1_bus4_dev0_fn0 {
+				reg = <0x0 0x0 0x0 0x0 0x0>;
+				#address-cells = <1>;
+				#size-cells = <1>;
+			};
+		};
+
+		/* BDF 2.3.0 */
+		pcie1_bus2_dev3_fn0: pcie1_bus2_dev3_fn0 {
+			reg = <0x1800 0x0 0x0 0x0 0x0>;
+		};
+	};
+};
+
+&sdhc_1 {
+	pinctrl-0 = <&sdc1_on>;
+	pinctrl-1 = <&sdc1_off>;
+	pinctrl-names = "default", "sleep";
+
+	vdd-supply = <&L17A>;
+	qcom,vdd-voltage-level = <2952000 2952000>;
+	qcom,vdd-current-level = <0 570340>;
+
+	vdd-io-supply = <&S4A>;
+	qcom,vdd-io-always-on;
+	qcom,vdd-io-lpm-sup;
+	qcom,vdd-io-voltage-level = <1800000 1800000>;
+	qcom,vdd-io-current-level = <0 325560>;
+
+	mmc-ddr-1_8v;
+	mmc-hs200-1_8v;
+	mmc-hs400-1_8v;
+	mmc-hs400-enhanced-strobe;
+
+	status = "okay";
+};
+
+&sdhc_2 {
+	vdd-supply = <&L10A>;
+	qcom,vdd-current-level = <0 976310>;
+	qcom,vdd-voltage-level = <2950000 2950000>;
+
+	vdd-io-supply = <&L2A>;
+	qcom,vdd-io-voltage-level = <1800000 2960000>;
+	qcom,vdd-io-current-level = <0 22000>;
+
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&sdc2_on>;
+	pinctrl-1 = <&sdc2_off>;
+
+	cd-gpios = <&tlmm 89 GPIO_ACTIVE_LOW>;
+
+	resets = <&gcc GCC_SDCC2_BCR>;
+	reset-names = "core_reset";
+
+	status = "ok";
+};
+
+&uart0 {
+	status = "okay";
+};
+
+&usb0 {
+	extcon = <&eud>;
+};
+
+&usb1 {
+	qcom,default-mode-none;
+};

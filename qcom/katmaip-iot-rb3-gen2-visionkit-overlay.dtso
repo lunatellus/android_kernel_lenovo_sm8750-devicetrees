@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "yupikp-iot-rb3-gen2.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Katmaip IoT RB3 GEN2 VisionKit Lite";
+	compatible = "qcom,yupikp-iot";
+	qcom,msm-id = <575 0x10000>;
+	qcom,board-id = <0x010020 2>;
+	qcom,softsku-id = <1>;
+};

@@ -1,0 +1,30 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/clock/qcom,gcc-sm6115.h>
+#include <dt-bindings/clock/qcom,rpmcc.h>
+#include <dt-bindings/clock/qcom,sm6115-gpucc.h>
+#include <dt-bindings/interconnect/qcom,bengal.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/regulator/qcom,rpmh-regulator-levels.h>
+#include <dt-bindings/soc/qcom,dcc_v2.h>
+#include <dt-bindings/spmi/spmi.h>
+
+#include "bengal-gpu.dtsi"
+#include "bengal-gpu-pwrlevels.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Bengal SoC";
+	compatible = "qcom,bengal", "qcom,bengal-qrd","qcom,bengal-idp",
+			"qcom,bengal-iot", "qcom,bengalp-iot";
+	qcom,msm-id = <417 0x10000>, <444 0x10000>, <445 0x10000>,
+			<420 0x10000>, <469 0x10000>, <469 0x0>,
+			<470 0x10000>, <470 0x0>;
+	qcom,board-id = <0 0>, <0 0x303>, <0 0x403>;
+};
+

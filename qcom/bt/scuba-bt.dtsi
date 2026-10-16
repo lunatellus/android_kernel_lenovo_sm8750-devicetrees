@@ -1,0 +1,48 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+
+&soc {
+
+        bluetooth: bt_wcn3990 {
+                compatible = "qcom,wcn3990";
+                qcom,bt-sw-ctrl-gpio = <&tlmm 87 0>; /* SW_CTRL */
+                qcom,bt-vdd-io-supply =   <&L15A>; /* IO */
+                qcom,bt-vdd-core-supply = <&L10A>; /* RFA */
+                qcom,bt-vdd-pa-supply =   <&L22A>; /* CH0 */
+                qcom,bt-vdd-xtal-supply = <&L13A>; /* XO */
+
+                qcom,bt-vdd-io-voltage-level = <640000 640000 1 0>;
+                qcom,bt-vdd-core-voltage-level = <1304000 1304000 1 0>;
+                /*To support 2.85V level for LDO22 at lower SOC level*/
+                qcom,bt-vdd-pa-voltage-level = <2850000 3312000 1 0>;
+                qcom,bt-vdd-xtal-voltage-level = <1700000 1900000 1 0>;
+
+                qcom,bt-vdd-io-current-level = <1>; /* LPM/PFM */
+                qcom,bt-vdd-core-current-level = <1>; /* LPM/PFM */
+                qcom,bt-vdd-pa-current-level = <1>; /* LPM/PFM */
+                qcom,bt-vdd-xtal-current-level = <1>; /* LPM/PFM */
+        };
+
+        slim_msm: slim@a5c0000 {
+                status =  "ok";
+                ngd@1 {
+                        reg = <1>;
+                        #address-cells = <1>;
+                        #size-cells = <1>;
+                        //slimbus child nodes
+                        slimbus: btfmslim-driver {
+                                compatible = "slim217,221";
+                                reg = <1 0>;
+                        };
+                };
+        };
+};
+
+//uart instance
+&qupv3_se3_4uart {
+        status = "ok";
+};

@@ -1,0 +1,18 @@
+//
+/* Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "malabar-audio-atp.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Malabar ATP";
+	compatible = "qcom,malabar-atp", "qcom,malabar", "qcom,malabarp-atp", "qcom,malabarp",
+			"qcom,atp";
+
+	qcom,msm-id = <733 0x10000>, <757 0x10000>;
+	qcom,board-id = <33 0>;
+};

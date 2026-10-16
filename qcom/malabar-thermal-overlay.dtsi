@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include <dt-bindings/thermal/thermal_qti.h>
+
+&thermal_zones {
+	pm6450_tz {
+		cooling-maps {
+			pm6450vs_mdm_cpu_gpu {
+				trip = <&pm6450vs_c_trip0>;
+				cooling-device = <&APC0_pause 0 1>,
+					<&APC1_pause 0 1>,
+					<&modem_lte_dsc 255 255>,
+					<&modem_nr_dsc 255 255>,
+					<&msm_gpu 0 THERMAL_NO_LIMIT>;
+			};
+		};
+	};
+};

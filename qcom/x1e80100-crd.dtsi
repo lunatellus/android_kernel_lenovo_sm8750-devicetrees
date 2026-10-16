@@ -1,0 +1,81 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "x1e80100-pmic-overlay.dtsi"
+#include "x1e80100-thermal-overlay.dtsi"
+#include "x1-crd.dtsi"
+
+&pm8550ve_i_gpios {
+	touch_avdd_default: touch_avdd_default {
+		pins = "gpio6";
+		function = "normal";
+		input-disable;
+		output-enable;
+		bias-disable;
+		power-source = <0>;
+		qcom,drive-strength = <2>;
+	};
+};
+
+&soc {
+	touch_vcc: touch_gpio_regulator@0 {
+		compatible = "qti-regulator-fixed";
+		regulator-name = "touch_vcc";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		regulator-enable-ramp-delay = <233>;
+		gpio = <&pm8550ve_i_gpios 6 0>;
+		enable-active-high;
+		proxy-supply = <&touch_vcc>;
+		qcom,proxy-consumer-enable;
+		pinctrl-names = "default";
+		pinctrl-0 = <&touch_avdd_default>;
+	};
+
+	wwan_fcpo: wwan_fcpo {
+		compatible = "regulator-fixed";
+		regulator-name = "WWAN_FCPO";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		gpio = <&pm8550ve_c_gpios 4 GPIO_ACTIVE_HIGH>;
+		vin-supply = <&sdx_vph_pwr>;
+		enable-active-high;
+	};
+};
+
+&pcie5 {
+	vreg-3p3-supply = <&wwan_fcpo>;
+};
+
+&qupv3_se8_i2c {
+	clock-frequency = <400000>;
+
+	status = "okay";
+
+	touchscreen@10 {
+		compatible = "hid-over-i2c";
+		reg = <0x10>;
+
+		hid-descr-addr = <0x1>;
+		interrupts-extended = <&tlmm 51 IRQ_TYPE_LEVEL_LOW>;
+
+		vdd-supply = <&touch_vcc>;
+		vddl-supply = <&L15B>;
+
+		pinctrl-0 = <&ts_int_conn>, <&ts_rst_conn>;
+		pinctrl-names = "default";
+	};
+};
+
+&qspi {
+	status = "okay";
+	spi_flash: flash@0 {
+		compatible = "jedec,spi-nor";
+		reg = <0>;
+		spi-max-frequency = <37500000>;
+		spi-tx-bus-width = <2>;
+		spi-rx-bus-width = <2>;
+	};
+};

@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "yupik-wcn6750-bt.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. YUPIK-IOT SoC";
+	compatible = "qcom,yupik-iot-idp", "qcom,yupik-iot", "qcom,idp";
+	qcom,msm-id = <497 0x10000>, <498 0x10000>, <475 0x10000>,
+			<515 0x10000>, <575 0x10000>, <576 0x10000>;
+	qcom,board-id = <34 0>, <34 2>, <0x1000B 0>, <0x10021 0>;
+};

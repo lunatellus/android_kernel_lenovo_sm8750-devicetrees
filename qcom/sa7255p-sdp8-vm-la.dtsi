@@ -1,0 +1,190 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+&{/} {
+	rename_devices: rename_devices {
+		compatible = "qcom,rename-devices";
+		rename_blk: rename_blk {
+			device-type = "block";
+			actual-dev = "vda", "vdb", "vdc",
+					"vdd", "vde", "vdf",
+					"vdg", "vdh", "vdi",
+					"vdj", "vdk", "vdl",
+					"vdm", "vdn", "vdo",
+					"vdp", "vdq", "vdr",
+					"vds", "vdt", "vdu";
+			rename-dev = "super", "userdata", "metadata",
+					"persist", "modem_a","bluetooth_a",
+					"misc", "vbmeta_a", "vbmeta_b",
+					"boot_a", "dtbo_a", "dsp_a",
+					"modem_b", "bluetooth_b", "boot_b",
+					"dtbo_b", "dsp_b", "vendor_boot_b",
+					"vendor_boot_a", "init_boot_b", "init_boot_a";
+		};
+	};
+};
+
+&chosen {
+	bootargs = "rcupdate.rcu_expedited=1 rcu_nocbs=0-7 cgroup.memory=nokmem,nosocket kpti=0 qcom_dma_heaps.enable_bitstream_contig_heap=y ufshcd-core.use_mcq_mode=n arm64.nopauth kasan=off msm_show_resume_irq.debug_mask=1";
+	bootconfig = "androidboot.usbcontroller=a600000.dwc3 androidboot.fstab_suffix=gen4.7255.qcom androidboot.dtbo_idx=15";
+};
+
+&hab {
+	vmid = <2>;
+};
+
+&soc {
+	google_debug_kinfo: google,debug-kinfo {
+		compatible = "google,debug-kinfo";
+		memory-region = <&kinfo_mem>;
+	};
+
+	va_mini_dump: va_mini_dump {
+		compatible = "qcom,va-minidump";
+		memory-region = <&va_md_mem>;
+	};
+
+	ipcc_mproc_apps_ns1: qcom,ipcc@421000 {
+		compatible = "qcom,ipcc";
+		reg = <0x421000 0x1000>;
+		interrupts = <GIC_SPI 559 IRQ_TYPE_LEVEL_HIGH>;
+		interrupt-controller;
+		#interrupt-cells = <3>;
+		#mbox-cells = <2>;
+	};
+
+	virtio_glink_cma: virtio-glink-cma@2e000000 {
+		compatible = "virtio,mmio";
+		reg = <0x2e000000 0x1000>;
+		interrupts = <GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH>;
+
+		glink_bridge: virtio-glink-bridge {
+			compatible = "virtio,device49162"; /* VIRTIO_ID: 0xC00A */
+
+			glink-edge {
+				interrupt-parent = <&ipcc_mproc_apps_ns1>;
+				interrupts = <IPCC_CLIENT_CDSP 0 IRQ_TYPE_EDGE_RISING>;
+				mboxes = <&ipcc_mproc_apps_ns1 IPCC_CLIENT_CDSP 0>;
+				label = "cdsp";
+				qcom,glink-label = "cdsp";
+			};
+		};
+	};
+};
+
+&reserved_memory {
+	kinfo_mem: debug_kinfo_region {
+		alloc-ranges = <0x0 0x00000000 0xffffffff 0xffffffff>;
+		size = <0x0 0x1000>;
+		no-map;
+	};
+
+	va_md_mem: va_md_mem_region {
+		compatible = "shared-dma-pool";
+		alloc-ranges = <0x0 0x00000000 0x0 0xffffffff>;
+		reusable;
+		size = <0 0x1000000>;
+	};
+};
+
+&pcie0 {
+	status = "ok";
+};
+
+&pcie0_msi_snps {
+	interrupt-parent = <&qvm_vdev_gic>;
+	status = "ok";
+};
+
+&pcie1 {
+	interrupt-map = <0 0 0 0 &qvm_vdev_gic GIC_SPI 518 IRQ_TYPE_LEVEL_HIGH
+			0 0 0 1 &qvm_vdev_gic GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH
+			0 0 0 2 &qvm_vdev_gic GIC_SPI 149 IRQ_TYPE_LEVEL_HIGH
+			0 0 0 3 &qvm_vdev_gic GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH
+			0 0 0 4 &qvm_vdev_gic GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>;
+	status = "disabled";
+};
+
+&pcie1_msi_snps {
+	interrupt-parent = <&qvm_vdev_gic>;
+	status = "disabled";
+};
+
+&usb0 {
+	interrupts-extended = <&pdc 14  IRQ_TYPE_EDGE_RISING>,
+			<&qvm_vdev_gic GIC_SPI 287 IRQ_TYPE_LEVEL_HIGH>,
+			<&pdc 12  IRQ_TYPE_LEVEL_HIGH>,
+			<&pdc 15  IRQ_TYPE_EDGE_RISING>;
+	status = "ok";
+};
+
+&usb2_phy0 {
+	status = "ok";
+};
+
+&usb_qmp_phy0 {
+	status = "ok";
+};
+
+&usb2 {
+	interrupts-extended = <&pdc 10  IRQ_TYPE_EDGE_RISING>,
+			<&qvm_vdev_gic GIC_SPI 444 IRQ_TYPE_LEVEL_HIGH>,
+			<&pdc 9  IRQ_TYPE_EDGE_RISING>;
+	status = "ok";
+};
+
+&usb2_phy2 {
+	status = "ok";
+};
+
+&qupv3_0 {
+	status = "ok";
+};
+
+&qupv3_se2_4uart {
+	interrupts-extended = <&qvm_vdev_gic GIC_SPI 529 IRQ_TYPE_LEVEL_HIGH>,
+					<&tlmm 36 IRQ_TYPE_LEVEL_HIGH>;
+	status = "ok";
+};
+
+&gcc {
+	status = "ok";
+};
+
+&virtio_regulator {
+	status = "ok";
+};
+
+&virtio_spmi {
+	status = "ok";
+};
+
+&qcom_rng_ee3 {
+	status = "ok";
+};
+
+&emac_ctrl_fe {
+	status = "ok";
+};
+
+&emac0_hw {
+	status = "ok";
+};
+
+&soc {
+	/*
+	 * STM passthrough: exposes the PVM CoreSight STM stimulus port to the
+	 * GVM via hypervisor memory passthrough.  The PVM must configure:
+	 *   pass loc mem:0x16380000,0x80000,rw=0x16380000
+	 *
+	 * Physical base: 0x16380000 (STM stimulus base 0x16280000 + 0x100000)
+	 * Size:          0x80000    (512 KB = 2048 channels x 256 B/channel)
+	 */
+	stm_passthrough: stm-passthrough@16380000 {
+		compatible = "qcom,stm-passthrough";
+		reg = <0x16380000 0x80000>;
+		status = "okay";
+	};
+};

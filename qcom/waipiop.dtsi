@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "waipio.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. WaipioP";
+	compatible = "qcom,waipiop";
+	qcom,msm-id = <482 0x10000>;
+};
+
+&ipa_hw {
+	status = "disabled";
+};

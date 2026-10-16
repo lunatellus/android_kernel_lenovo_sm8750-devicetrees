@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: BSD-3-Clause
+
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "bourtzi-nfc.dtsi"
+/ {
+        model = "Qualcomm Technologies, Inc. Bourtzi SoC";
+        compatible = "qcom,bourtzi";
+        qcom,msm-id = <776 0x10000>, <777 0x10000>;
+        qcom,board-id = <0x10021 0x0>,
+                        <0x10001 0x0>, <0x20001 0x0>, <0x10001 0x600>, <0x20001 0x600>,
+                        <0x10008 0x0>, <0x10008 0x600>,
+                        <0x1000b 0x0>, <0x2000b 0x0>,
+                        <0x10015 0x0>, <0x30015 0x0>, <0x10015 0x600>, <0x30015 0x600>;
+};

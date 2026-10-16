@@ -1,0 +1,150 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+#include "lpass-audio-cdc-1.0.dtsi"
+#include "chora-lpi.dtsi"
+#include "lpass-audio-bt-swr.dtsi"
+#include "lpass-cdc-gpio.dtsi"
+#include "chora-audio-lpass-reg.dtsi"
+#include "wcd939x.dtsi"
+
+&lpass_cdc {
+	qcom,num-macros = <3>;
+};
+
+&swr_tx_clk_active {
+	config {
+		drive-strength = <2>;
+	};
+};
+
+&swr_tx_data0_active {
+	config {
+		drive-strength = <2>;
+	};
+};
+
+&swr_tx_data1_active {
+	config {
+		drive-strength = <2>;
+	};
+};
+
+&swr_tx_data2_active {
+	config {
+		drive-strength = <2>;
+	};
+};
+
+&cdc_dmic01_gpios {
+	status = "disabled";
+};
+
+&cdc_dmic23_gpios {
+	status = "disabled";
+};
+
+&wcd939x_tx_slave {
+	status = "disabled";
+};
+
+&wcd939x_rx_slave {
+	status = "disabled";
+};
+
+&wcd939x_codec {
+	status = "disabled";
+};
+
+&wcd9378_rx_slave {
+	status = "okay";
+};
+
+&wcd9378_tx_slave {
+	status = "okay";
+};
+
+&wcd9378_codec {
+	status = "okay";
+
+	cdc-vdd-rxtx-supply = <&L7B>;
+	qcom,cdc-vdd-rxtx-voltage = <1800000 1800000>;
+	qcom,cdc-vdd-rxtx-current = <30000>;
+	qcom,cdc-vdd-rxtx-lpm-supported = <1>;
+
+	cdc-vdd-io-supply = <&L7B>;
+	qcom,cdc-vdd-io-voltage = <1800000 1800000>;
+	qcom,cdc-vdd-io-current = <20000>;
+	qcom,cdc-vdd-io-lpm-supported = <1>;
+
+	cdc-vdd-buck-supply = <&L7B>;
+	qcom,cdc-vdd-buck-voltage = <1800000 1800000>;
+	qcom,cdc-vdd-buck-current = <650000>;
+	qcom,cdc-vdd-buck-lpm-supported = <1>;
+};
+
+&cdc_sen_mi2s_gpios {
+	status = "okay";
+};
+
+&chora_snd {
+	qcom,model = "chora-qrd-snd-card";
+	qcom,sen-mi2s-gpios = <&cdc_sen_mi2s_gpios>;
+	qcom,msm-mi2s-master = <1>, <1>, <1>, <1>, <1>, <1>, <1>;
+	qcom,mi2s-tdm-is-hw-vote-needed = <1>, <1>, <1>, <1>, <1>, <1>, <1>;
+	qcom,tdm-clk-attribute = <0x1>, <0x1>, <0x1>, <0x1>, <0x1>, <0x1>, <0x1>;
+	qcom,mi2s-clk-attribute = <0x1>, <0x1>, <0x1>, <0x1>, <0x1>, <0x1>, <0x1>;
+	swr-haptics-unsupported;
+	qcom,wcn-bt = <1>;
+	qcom,wcn-bt-ext = <1>;
+	qcom,ext-disp-audio-rx = <0>;
+	qcom,tdm-audio-intf = <1>;
+	qcom,wsa885x-tdm = <1>;
+	qcom,audio-core-list = <0>, <1>;
+	qcom,wsa-max-devs = <0>;
+	qcom,audio-routing =
+			"AMIC1", "Analog Mic1",
+			"AMIC1", "MIC BIAS1",
+			"AMIC2", "Analog Mic2",
+			"AMIC2", "MIC BIAS2",
+			"AMIC3", "Analog Mic3",
+			"AMIC3", "MIC BIAS3",
+			"AMIC4", "Analog Mic4",
+			"AMIC4", "MIC BIAS1",
+			"VA AMIC1", "Analog Mic1",
+			"VA AMIC1", "VA MIC BIAS1",
+			"VA AMIC2", "Analog Mic2",
+			"VA AMIC2", "VA MIC BIAS2",
+			"VA AMIC3", "Analog Mic3",
+			"VA AMIC3", "VA MIC BIAS3",
+			"VA AMIC4", "Analog Mic4",
+			"VA AMIC4", "VA MIC BIAS1",
+			"IN1_HPHL", "HPHL_OUT",
+			"IN2_HPHR", "HPHR_OUT",
+			"IN3_AUX", "AUX_OUT",
+			"VA SWR_INPUT", "VA_SWR_CLK",
+			"VA_AIF1 CAP", "VA_SWR_CLK",
+			"VA_AIF2 CAP", "VA_SWR_CLK",
+			"VA_AIF3 CAP", "VA_SWR_CLK",
+			"VA DMIC0", "Digital Mic0",
+			"VA DMIC1", "Digital Mic1",
+			"VA DMIC2", "Digital Mic2",
+			"VA DMIC3", "Digital Mic3",
+			"VA DMIC0", "VA MIC BIAS3",
+			"VA DMIC1", "VA MIC BIAS3",
+			"VA DMIC2", "VA MIC BIAS1",
+			"VA DMIC3", "VA MIC BIAS1";
+	asoc-codec  = <&stub_codec>, <&lpass_cdc>,
+			<&wcd9378_codec>, <&wsa885x_i2c>;
+	asoc-codec-names = "msm-stub-codec.1", "lpass-cdc",
+			"wcd9378_codec", "wsa885x_i2c";
+	qcom,msm_audio_ssr_devs = <&audio_gpr>, <&lpi_tlmm>,
+				  <&lpass_cdc>, <&lpass_bt_swr>;
+	fsa4480-i2c-handle = <&fsa4480>;
+	qcom,msm-mbhc-hs-mic-max-threshold-mv = <1670>;
+	qcom,msm-mbhc-usbc-audio-supported = <1>;
+	qcom,msm-mbhc-hphl-swh = <0>;
+	qcom,msm-mbhc-gnd-swh = <0>;
+};
+

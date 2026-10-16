@@ -1,0 +1,43 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/interconnect/qcom,ravelin.h>
+&soc {
+	bluetooth: bt_wcn6450 {
+		compatible = "qcom,wcn6450-bt";
+		mpm_wake_set_gpios = <56>; /* WCN_SW_CTRL */
+
+		qcom,bt-reset-gpio = <&tlmm 90 0>; /* WLAN_BT Bluetooth Enable */
+		qcom,bt-sw-ctrl-gpio = <&tlmm 56 0>;   /* WCN_SW_CTRL */
+		qcom,wl-reset-gpio = <&tlmm 91 0>;     /* WLAN_EN  #WCN_WLAN_EN# check this in system io*/
+		qcom,wl-resetb-gpio = <&tlmm 108 0>;    /* EVROS_RESETB */
+
+		/* List of GPIOs to be setup for interrupt wakeup capable*/
+		qcom,bt-vdd-io-supply = <&L21B>;        /* VDDIO_1P8 - 1.8V IO LDO */
+		qcom,bt-vdd-aon-supply = <&S7B>;       /* AON_0P8 - AON SMPS */
+		qcom,bt-vdd-dig-supply = <&S7B>;       /* BT_CXMX_0P8 - DIG SMPS  */
+		qcom,bt-vdd-rfa-0p8-supply = <&S7B>;   /* RFA_CMN_0P9 - RFA 0.8V SMPS / AV91C  */
+		qcom,bt-vdd-rfa1-supply = <&S9B>;      /* VDDRFA_1P8 - RFA 1.8V SMPS */
+		qcom,bt-vdd-rfa2-supply = <&S8B>;      /* VDDRFA_1P2 - RFA 1.2V SMPS */
+		qcom,bt-vdd-pa-supply = <&L7E>;       /* WCN_PA_2G_3P3 - PA 2G 3.3V LDO */
+		qcom,bt-vdd-pa-5g-supply = <&L24B>;    /* WCN_PA_5G_3P3 - PA 5G 3.3V LDO */
+
+		qcom,bt-vdd-io-config = <1800000 2000000 0 1 0>;
+		qcom,bt-vdd-aon-config = <920000 1170000 0 1 0>;
+		qcom,bt-vdd-dig-config  = <920000 1170000 0 1 0>;
+		qcom,bt-vdd-rfa-0p8-config = <920000 1170000 0 1 0>;
+		qcom,bt-vdd-rfa1-config = <1856000 2040000 0 1 0>;
+		qcom,bt-vdd-rfa2-config = <1256000 2040000 0 1 0>;
+		qcom,bt-vdd-pa-config = <3125000 3544000 0 1 0>;
+		qcom,bt-vdd-pa-5g-config = <3125000 3544000 0 1 0>;
+                qcom,bt-cp-disable = <1>;
+
+	};
+};
+
+&qupv3_se2_4uart {
+	status = "ok";
+};

@@ -1,0 +1,15 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+
+#include "seca-gh-vm-la-qam.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. SECA QAM Gunyah VM";
+	compatible = "qcom,seca", "qcom,qam";
+	qcom,msm-id = <742 0x10000>, <742 0x10001>;
+	qcom,board-id = <0x00010025 0>;
+};

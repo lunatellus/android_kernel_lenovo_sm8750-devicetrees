@@ -1,0 +1,24 @@
+//
+/* Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+#include "lpass-audio-cdc-1.0.dtsi"
+#include "malabar-lpi.dtsi"
+#include "lpass-cdc-gpio.dtsi"
+#include "malabar-audio-lpass-reg.dtsi"
+#include "wcd939x.dtsi"
+
+&malabar_snd {
+	qcom,model = "malabar-mtp-snd-card";
+	compatible = "qcom,canoe-asoc-snd-stub";
+	asoc-codec = <&stub_codec>;
+	asoc-codec-names = "msm-stub-codec.1";
+};
+
+&lpi_tlmm {
+	status = "disabled";
+};
+
+&lpass_cdc {
+	status = "disabled";
+};

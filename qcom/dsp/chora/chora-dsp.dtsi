@@ -1,0 +1,79 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+&remoteproc_adsp_glink {
+	qcom,fastrpc {
+		compatible = "qcom,fastrpc";
+		qcom,glink-channels = "fastrpcglink-apps-dsp";
+		qcom,intents = <0x181 64>;
+		qcom,ch-sched-rt;
+		qcom,cb-irq;
+		label = "lpass";
+		memory-region = <&adsp_mem_heap>;
+		qcom,vmids = <22 37>;
+		qcom,rpc-latency-us = <235>;
+		qcom,dsp-iova-format = <1>;
+		instance-id = <0>;
+		dsp-type = <2>;
+		qcom,rootheap-buffer-size = <0x140000>;
+		qcom,rootheap-buffer-count = <3>;
+
+		/* IOMMU Config */
+		#address-cells = <2>;
+		#size-cells = <2>;
+
+		compute-cb@1 {
+			compatible = "qcom,fastrpc-compute-cb";
+			reg = <3>;
+			iommus = <&apps_smmu 0x0803 0x0000>;
+			qcom,iommu-faults = "stall-disable", "HUPCF";
+			dma-coherent;
+			qcom,iova-best-fit;
+			pd-type = <1>;	/* ROOT_PD */
+		};
+
+		compute-cb@2 {
+			compatible = "qcom,fastrpc-compute-cb";
+			reg = <4>;
+			iommus = <&apps_smmu 0x0804 0x0000>;
+			qcom,iommu-faults = "stall-disable", "HUPCF";
+			dma-coherent;
+			qcom,iova-best-fit;
+			pd-type = <2>;	/* AUDIO_STATICPD */
+		};
+
+		compute-cb@3 {
+			compatible = "qcom,fastrpc-compute-cb";
+			reg = <5>;
+			iommus = <&apps_smmu 0x0805 0x0000>;
+			qcom,iommu-faults = "stall-disable", "HUPCF";
+			qcom,nsessions = <8>;
+			dma-coherent;
+			qcom,iova-best-fit;
+			pd-type = <3>;	/* SENSORS_STATICPD */
+		};
+
+		compute-cb@4 {
+			compatible = "qcom,fastrpc-compute-cb";
+			reg = <6>;
+			iommus = <&apps_smmu 0x0806 0x0000>;
+			qcom,iommu-faults = "stall-disable", "HUPCF";
+			dma-coherent;
+			qcom,iova-best-fit;
+			pd-type = <5>;	/* OIS_STATICPD */
+		};
+
+		compute-cb@5 {
+			compatible = "qcom,fastrpc-compute-cb";
+			reg = <7>;
+			iommus = <&apps_smmu 0x0807 0x0000>;
+			qcom,iommu-faults = "stall-disable", "HUPCF";
+			dma-coherent;
+			qcom,iova-best-fit;
+			qcom,iova-max-align-shift = <9>; /* Set MAX alignment to 2 MB*/
+			pd-type = <7>;	/* USERPD */
+		};
+	};
+};

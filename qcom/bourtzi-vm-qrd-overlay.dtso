@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+/dts-v1/;
+/plugin/;
+
+#include "bourtzi-vm-avf.dtsi"
+#include "bourtzi-vm-qrd-avf.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Bourtzi SVM QRD";
+	compatible = "qcom,bourtzi-qrd", "qcom,qrd", "qcom,bourtzi";
+	qcom,board-id = <0xb 0x0>;
+
+	host {
+	};
+};

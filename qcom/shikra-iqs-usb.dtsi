@@ -1,0 +1,38 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/*
+ * USB PHY supply overrides for IQS (PM8150).
+ *
+ * shikra-usb.dtsi hardcodes PM4125 LDO labels for USB PHY supplies.
+ * On IQS, PM4125 is absent and PM8150 is used instead. This file
+ * must be included in the base DTB (via shikra-iqs.dtsi) so that DTC
+ * can resolve the PM8150 phandles in the same compilation unit as
+ * shikra-usb.dtsi, before phandle resolution occurs.
+ *
+ * Supply mapping (PM4125 -> PM8150):
+ *   pm4125_l12 (875-975mV)   -> pm8150_l4  (875-975mV)   [qusb vdd]
+ *   pm4125_l13 (1800-1950mV) -> pm8150_l12 (1650-1950mV) [qusb vdda18 / usb_qmp core]
+ *   pm4125_l21 (2700-3544mV) -> pm8150_l13 (2921-3230mV) [qusb vdda33]
+ *   pm4125_l8  (875-1000mV)  -> pm8150_l6  (875-1000mV)  [usb_qmp vdd]
+ */
+
+&qusb_phy0 {
+	vdd-supply    = <&pm8150_l4>;
+	vdda18-supply = <&pm8150_l12>;
+	vdda33-supply = <&pm8150_l13>;
+};
+
+&qusb_phy1 {
+	vdd-supply    = <&pm8150_l4>;
+	vdda18-supply = <&pm8150_l12>;
+	vdda33-supply = <&pm8150_l13>;
+	status = "disabled";
+};
+
+&usb_qmp_phy {
+	vdd-supply  = <&pm8150_l6>;
+	core-supply = <&pm8150_l12>;
+};

@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/clock/qcom,sm4450-gcc.h>
+#include <dt-bindings/clock/qcom,sm4450-camcc.h>
+#include <dt-bindings/interconnect/qcom,ravelin.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/regulator/qcom,rpmh-regulator-levels.h>
+#include "bourtzi-camera-sensor-mtp.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Bourtzi CDP + WCN3998 + cottid";
+	compatible = "qcom,bourtzi-cdp", "qcom,cdp", "qcom,bourtzi";
+	qcom,msm-id = <776 0x10000>, <777 0x10000>;
+	qcom,board-id = <0x10001 0x0>, <0x10001 0x600>, <0x20001 0x0>, <0x20001 0x600>;
+};

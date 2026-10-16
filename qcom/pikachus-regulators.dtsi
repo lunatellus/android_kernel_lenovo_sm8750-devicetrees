@@ -1,0 +1,33 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+&apps_rsc_drv2 {
+	rpmh-regulator-l15a-e0 {
+		pmar2230_l15: regulator-pmar2230-l15 {
+			regulator-min-microvolt = <1010000>;
+			regulator-max-microvolt = <1120000>;
+			qcom,init-voltage = <1080000>;
+		};
+	};
+
+	rpmh-regulator-l7a-e0 {
+		qcom,supported-modes = <RPMH_REGULATOR_MODE_LPM RPMH_REGULATOR_MODE_AUTO>;
+
+		pmar2230_l7: regulator-pmar2230-l7 {
+			regulator-min-microvolt = <1100000>;
+			regulator-max-microvolt = <1300000>;
+			qcom,init-voltage = <1200000>;
+			qcom,init-mode = <RPMH_REGULATOR_MODE_AUTO>;
+		};
+	};
+
+	rpmh-regulator-l13a-e0 {
+		pmar2230_l13: regulator-pmar2230-l13 {
+			regulator-min-microvolt = <1620000>;
+			regulator-max-microvolt = <2000000>;
+			qcom,init-voltage = <1800000>;
+		};
+	};
+};

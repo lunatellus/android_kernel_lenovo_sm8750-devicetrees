@@ -1,0 +1,89 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "seraphp-qar-camera-audio.dtsi"
+#include "seraphp-pmslg5.dtsi"
+
+&pm8011m {
+	status = "disabled";
+	/delete-node/ pm8011m_reset;
+};
+
+&pm8011n {
+	status = "disabled";
+	/delete-node/ pm8011n_reset;
+};
+
+
+&qupv3_se4_i2c {
+	status = "disabled";
+	/delete-node/ rgbw_bysled@30;
+	/delete-node/ rgbw_userled@33;
+};
+
+&qupv3_se1_i2c {
+	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	awinic_rgbw_bysled2: rgbw_bysled@30 {
+		compatible = "awinic,rgbw-bys-led";
+		reg = <0x30>;
+	};
+
+	lp5814_rgbw_userled: rgbw_userled@2C {
+		compatible = "ti,rgbw-user-led2";
+		reg = <0x2C>;
+	};
+};
+
+&qupv3_se5_i2c {
+	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	lm3645_irled: irled@65 {
+		compatible = "ti,et-irled";
+		reg = <0x65>;
+	};
+};
+
+
+&slg5bv49293L {
+	ldo4-mv = <1800>;
+	ldo5-mv = <1800>;
+	ldo6-mv = <1100>;
+	ldo7-mv = <1050>;
+	ldo8-mv = <800>;
+};
+
+&slg5bv49293R {
+	ldo4-mv = <1800>;
+	ldo5-mv = <1800>;
+	ldo6-mv = <1100>;
+	ldo7-mv = <1200>;
+	ldo8-mv = <800>;
+};
+
+&qupv3_se10_i2c {
+	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	tps6286: tps6286@40 {
+		compatible = "ti,tps6286";
+		reg = <0x40>;
+	};
+};
+
+&spmi0_bus {
+	/delete-node/ pm8010@c;
+	/delete-node/ pm8010@d;
+};
+
+&spmi0_debug_bus {
+	/delete-node/ qcom,pm8010-debug@c;
+	/delete-node/ qcom,pm8010-debug@d;
+};

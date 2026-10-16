@@ -1,0 +1,199 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+&reserved_memory {
+	#address-cells = <2>;
+	#size-cells = <2>;
+	ranges;
+
+	xbl_dtlog_mem: xbl_dtlog_region@80600000 {
+		no-map;
+		reg = <0x0 0x80600000 0x0 0x40000>;
+	};
+
+	xbl_ramdump_mem: xbl_ramdump_region@80640000 {
+		no-map;
+		reg = <0x0 0x80640000 0x0 0x1c0000>;
+	};
+
+	aop_image_mem: aop_image_region@80800000 {
+		no-map;
+		reg = <0x0 0x80800000 0x0 0x60000>;
+	};
+
+	aop_cmd_db_mem: aop_cmd_db_region@80860000 {
+		compatible = "qcom,cmd-db";
+		no-map;
+		reg = <0x0 0x80860000 0x0 0x20000>;
+	};
+
+	aop_config_mem: aop_config_region@80880000 {
+		no-map;
+		reg = <0x0 0x80880000 0x0 0x20000>;
+	};
+
+	tme_crash_dump_mem: tme_crash_dump_region@808a0000 {
+		no-map;
+		reg = <0x0 0x808a0000 0x0 0x40000>;
+	};
+
+	tme_log_mem: tme_log_region@808e0000 {
+		no-map;
+		reg = <0x0 0x808e0000 0x0 0x4000>;
+	};
+
+	/* UEFI region at 0x808e4000 is reclaimed by Linux */
+
+	chipinfo_mem: chipinfo_region@808f4000 {
+		no-map;
+		reg = <0x0 0x808f4000 0x0 0x1000>;
+	};
+
+	/* secdata region at 0x808ff000 can be reused by apps */
+
+	smem_mem: smem_region@80900000 {
+		compatible = "qcom,smem";
+		no-map;
+		reg = <0x0 0x80900000 0x0 0x200000>;
+		hwlocks = <&tcsr_mutex 3>;
+	};
+
+	cpucp_fw_mem: cpucp_fw_region@80b00000 {
+		no-map;
+		reg = <0x0 0x80b00000 0x0 0x100000>;
+	};
+
+	pvm_fw_mem: pvm_fw_region@80c00000 {
+		no-map;
+		reg = <0x0 0x80c00000 0x0 0x100000>;
+	};
+
+	hyp_mem: hyp_region@80e00000 {
+		no-map;
+		reg = <0x0 0x80e00000 0x0 0xe00000>;
+	};
+
+	hypervisor_extended_heap_mem: hypervisor_extended_heap_region@81c00000 {
+		no-map;
+		reg = <0x0 0x81c00000 0x0 0x800000>;
+	};
+
+	hyp_mem_database_mem: hyp_mem_database_region@82400000 {
+		no-map;
+		reg = <0x0 0x82400000 0x0 0x60000>;
+	};
+
+	wlan_msa_mem: wlan_msa_region@82a00000 {
+		no-map;
+		reg = <0x0 0x82a00000 0x0 0xc00000>;
+	};
+
+	splash_memory: splash_region@83600000 {
+		reg = <0x0 0x83600000 0x0 0xd00000>;
+		label = "cont_splash_region";
+	};
+
+	camera_mem: camera_region@84b00000 {
+		no-map;
+		reg = <0x0 0x84b00000 0x0 0x800000>;
+	};
+
+	wpss_mem: wpss_region@85300000 {
+		no-map;
+		reg = <0x0 0x85300000 0x0 0x1500000>;
+	};
+
+	video_mem: video_region@86c00000 {
+		no-map;
+		reg = <0x0 0x86c00000 0x0 0x700000>;
+	};
+
+	adsp_mem: adsp_region@87300000 {
+		no-map;
+		reg = <0x0 0x87300000 0x0 0x1c00000>;
+	};
+
+	ipa_fw_mem: ipa_fw_region@89480000 {
+		no-map;
+		reg = <0x0 0x89480000 0x0 0x10000>;
+	};
+
+	ipa_gsi_mem: ipa_gsi_region@89490000 {
+		no-map;
+		reg = <0x0 0x89490000 0x0 0xa000>;
+	};
+
+	gpu_microcode_mem: gpu_microcode_region@8949a000 {
+		no-map;
+		reg = <0x0 0x8949a000 0x0 0x2000>;
+	};
+
+	mpss_mem: mpss_region@8a000000 {
+		no-map;
+		reg = <0x0 0x8a000000 0x0 0xaa00000>;
+	};
+
+	dsm_mem: dsm_region@97a00000 {
+		reg = <0x0 0x97a00000 0x0 0x2200000>;
+		no-map;
+	};
+
+	dsm_cma_mem: dsm_cma_region@99c00000 {
+		compatible = "shared-dma-pool";
+		reg = <0x0 0x99c00000 0x0 0x800000>;
+		reusable;
+		alignment = <0x0 0x400000>;
+	};
+
+	xbl_sc_mem: xbl_sc_region@a6e00000 {
+		no-map;
+		reg = <0x0 0xa6e00000 0x0 0x40000>;
+	};
+
+	global_sync_mem: global_sync_region@a6f00000 {
+		no-map;
+		reg = <0x0 0xa6f00000 0x0 0x100000>;
+	};
+
+	/* UEFI region at 0xa7000000 is reclaimed by Linux */
+
+	/* Linux kernel image is loaded at 0xa8000000 */
+
+	/* vm_kernel_memoem_configurable_mem was split into trust_ui_vm_mem & oem_vm_mem below */
+	trust_ui_vm_mem: trust_ui_vm_region@df800000 { // VM_KERNEL_MEM
+		compatible = "shared-dma-pool";
+		reg = <0x0 0xdf800000 0x0 0x4000000>;
+		reusable;
+		alignment = <0x0 0x400000>;
+	};
+
+	oem_vm_mem: oem_vm_region@e3c00000 {
+		compatible = "shared-dma-pool";
+		reg = <0x0 0xe3c00000 0x0 0x4c00000>;
+		reusable;
+		alignment = <0x0 0x400000>;
+	};
+
+	tz_stat_mem: tz_stat_region@e8800000 {
+		no-map;
+		reg = <0x0 0xe8800000 0x0 0x100000>;
+	};
+
+	tags_mem: tags_region@e8900000 {
+		no-map;
+		reg = <0x0 0xe8900000 0x0 0x700000>;
+	};
+
+	qtee_mem: qtee_region@e9000000 {
+		no-map;
+		reg = <0x0 0xe9000000 0x0 0x620000>;
+	};
+
+	trusted_apps_mem: trusted_apps_region@e9620000 {
+		no-map;
+		reg = <0x0 0xe9620000 0x0 0x1200000>;
+	};
+
+};

@@ -1,0 +1,96 @@
+// SPDX-License-Identifier: BSD-3-Clause
+
+/*
+ * Copyright (c) 2025 Qualcomm Innovation Center, Inc. All rights reserved.
+ */
+
+#include <dt-bindings/interconnect/qcom,chora.h>
+#include <dt-bindings/clock/qcom,rpmh.h>
+
+&pmxr2230_gpios {
+	bt_en: bt_en {
+		pins = "gpio1";
+		function = "normal";
+		input-disable;
+		output-enable;
+		bias-disable;
+		power-source = <1>;
+	};
+	bt_fmd_clk_en: bt_fmd_clk_en {
+		pins = "gpio2";
+		function = "normal";
+		input-enable;
+		output-disable;
+		bias-disable;
+		power-source = <1>;
+	};
+};
+
+&tlmm {
+	cnss_bt_sw_ctrl: cnss_wlan_sw_ctrl {
+		mux {
+			pins = "gpio40";
+			function = "wcn_sw_ctrl";
+		};
+	};
+};
+
+&soc {
+	bluetooth: bt_wcn6450 {
+		compatible = "qcom,wcn6450-bt";
+		qcom,wcn6450-bt;
+
+		/* FMD (Find My Device) NVMEM cells - standard, used from WCN7750 */
+		nvmem-cell-names = "fmd_set", "fmd_chg_pon", "fmd_cnt2_stop";
+		nvmem-cells = <&fmd_set>, <&fmd_chg_pon>, <&fmd_cnt2_stop>;
+
+		/* Pinctrl configuration */
+		pinctrl-names = "bt_en", "sw_ctrl", "bt_fmd_clk_en";
+		pinctrl-0 = <&bt_en>;
+		pinctrl-1 = <&cnss_bt_sw_ctrl>;
+		pinctrl-2 = <&bt_fmd_clk_en>;
+
+		/* Clock configuration */
+		clock-names = "bt_rf_clk1";
+		clocks = <&rpmhcc RPMH_RF_CLK1>;
+
+		mpm_wake_set_gpios = <40>; /* WCN_SW_CTRL */
+
+		qcom,bt-reset-gpio = <&pmxr2230_gpios 1 0>; /* WLAN_BT Bluetooth Enable */
+		qcom,bt-fmd-clk-gpio = <&pmxr2230_gpios 2 0>; /* FMD_CLK_CTRL */
+		qcom,bt-sw-ctrl-gpio = <&tlmm 40 0>;   /* WCN_SW_CTRL */
+		qcom,wl-reset-gpio = <&tlmm 41 0>;     /* WLAN_EN */
+		qcom,wl-resetb-gpio = <&tlmm 48 0>;    /* EVROS_RESETB */
+
+		/* List of GPIOs to be setup for interrupt wakeup capable*/
+		qcom,bt-vdd-io-supply = <&L1B>;        /* VDDIO_1P8 - 1.8V IO LDO */
+		qcom,bt-vdd-aon-supply = <&S3B>;       /* AON_0P8 - AON SMPS */
+		qcom,bt-vdd-dig-supply = <&S3B>;       /* BT_CXMX_0P8 - DIG SMPS  */
+		qcom,bt-vdd-rfa-0p8-supply = <&S3B>;   /* RFA_CMN_0P9 - RFA 0.8V SMPS / AV91C  */
+		qcom,bt-vdd-rfa1-supply = <&S1B>;      /* VDDRFA_1P8 - RFA 1.8V SMPS */
+		qcom,bt-vdd-rfa2-supply = <&S2B>;      /* VDDRFA_1P2 - RFA 1.2V SMPS */
+		qcom,bt-vdd-pa-supply = <&L14B>;       /* WCN_PA_2G_3P3 - PA 2G 3.3V LDO */
+		qcom,bt-vdd-pa-5g-supply = <&L15B>;    /* WCN_PA_5G_3P3 - PA 5G 3.3V LDO */
+
+		qcom,bt-vdd-io-config = <1800000 1980000 0 1 1>;
+		qcom,bt-vdd-aon-config = <920000 1100000 0 1 1>;
+		qcom,bt-vdd-dig-config  = <920000 1100000 0 1 1>;
+		qcom,bt-vdd-rfa-0p8-config = <920000 1100000 0 1 1>;
+		qcom,bt-vdd-rfa1-config = <1856000 2040000 0 1 1>;
+		qcom,bt-vdd-rfa2-config = <1256000 1408000 0 1 1>;
+		qcom,bt-vdd-pa-config = <3125000 3465000 0 1 1>;
+		qcom,bt-vdd-pa-5g-config = <3125000 3465000 0 1 1>;
+
+	};
+};
+
+&swr4 {
+	btswr_slave: btswr-slave {
+		compatible = "qcom,btfmswr_slave";
+		reg = <0x01 0x08170220>;
+	};
+};
+
+&qupv3_se11_4uart {
+	status = "ok";
+};

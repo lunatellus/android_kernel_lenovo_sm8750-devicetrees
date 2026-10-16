@@ -1,0 +1,33 @@
+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+%YAML 1.2
+---
+$id: http://devicetree.org/schemas/soc/qcom/qcom,sdei.yaml#
+$schema: http://devicetree.org/meta-schemas/core.yaml#
+
+title: Qualcomm Technologies, Inc. SDEI Driver
+
+maintainers:
+  - huang.yiwei@oss.qualcomm.com
+
+description: |
+  The Qualcomm SDEI (Software Delegated Exception Interface) driver handles
+  platform-specific SDEI events delivered by the firmware (EL3 or hypervisor)
+  via the ARM SDEI specification.
+
+  This node must be used alongside the ARM SDEI firmware node
+  (arm,sdei-1.0) which establishes the underlying SDEI transport.
+
+properties:
+  compatible:
+    const: qcom,sdei
+
+required:
+  - compatible
+
+additionalProperties: false
+
+examples:
+  - |
+    qcom,sdei {
+        compatible = "qcom,sdei";
+    };

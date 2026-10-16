@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/interconnect/qcom,yupik.h>
+#include "yupikp-iot-360-camera.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. YupikP IoT 360Camera";
+	compatible = "qcom,yupikp-iot-idp", "qcom,yupikp-iot", "qcom,idp";
+	qcom,msm-id = <498 0x10000>;
+	qcom,board-id = <0x100020 0x04>;
+};
+

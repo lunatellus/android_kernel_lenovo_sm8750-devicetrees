@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "seraphp-v1.1-qar-3rd-camera-audio.dtsi"
+#include "seraph-le-ipa-disable.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. SeraphP v1.1 QAR + 3RD CAMERA + AUDIO";
+	compatible = "qcom,seraphp-qar", "qcom,seraphp", "qcom,qar";
+	qcom,msm-id = <673 0x10001>;
+	qcom,board-id = <0x1002C 2>;
+};

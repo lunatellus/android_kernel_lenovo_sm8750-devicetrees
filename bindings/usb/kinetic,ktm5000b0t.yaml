@@ -1,0 +1,45 @@
+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+%YAML 1.2
+---
+$id: http://devicetree.org/schemas/usb/kinetic,ktm5000b0t.yaml#
+$schema: http://devicetree.org/meta-schemas/core.yaml#
+
+title: ktm5000b0t Extcon device
+
+description: |
+  Bindings for the kinetic ktm5000b0t extcon device.
+
+maintainers:
+  - Lynn Yang <lynnyang@qti.qualcomm.com>
+
+properties:
+  compatible:
+    const: kinetic,ktm5000b0t
+
+  kinetic,reset-gpio:
+    description: Main reset gpio mapping
+  kinetic,power-3v3-en:
+    description: Main power gpio mapping
+  kinetic,irq-gpio:
+    description: irq gpio mapping
+
+required:
+  - compatible
+  - kinetic,reset-gpio
+  - kinetic,power-3v3-en
+  - kinetic,irq-gpio
+
+additionalProperties: false
+
+examples:
+  - |
+    &soc {
+        ktm5000b0t: kinetic,ktm5000b0t {
+            compatible = "kinetic,ktm5000b0t";
+            kinetic,power-3v3-en = <&tlmm 128 GPIO_ACTIVE_HIGH>;
+            kinetic,reset-gpio = <&tlmm 63 GPIO_ACTIVE_HIGH>;
+            kinetic,irq-gpio = <&tlmm 159 GPIO_ACTIVE_HIGH>;
+        };
+    };
+
+

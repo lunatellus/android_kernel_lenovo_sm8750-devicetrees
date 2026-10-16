@@ -1,0 +1,81 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+&lpass_cdc {
+	va_top_csr_core_regs = < 0x33F00C0 0x33F00C4 0x33F00C8 >;
+};
+
+&lpass_clk_mngr {
+	qcom,rx_mclk_mode_muxsel = <0x33A40D8>;
+};
+
+&rx_macro {
+	reg = <0x3200000 0x0>;
+	qcom,rx-swr-gpios = <&rx_swr_gpios>;
+		/*Check IPCAT for address*/
+	qcom,rx_mclk_mode_muxsel = <0x33A40D8>;
+	clock-names = "lpass_audio_hw_vote";
+	clocks = <&lpass_audio_hw_vote 0>;
+};
+
+&tx_macro {
+	reg = <0x3220000 0x0>;
+};
+
+&va_macro {
+	reg = <0x33F0000 0x0>;
+	qcom,va-swr-gpios = <&va_swr_gpios>;
+	clock-names = "lpass_audio_hw_vote";
+	clocks = <&lpass_audio_hw_vote 0>;
+};
+
+&swr1 {
+	swrm-io-base = <0x3210000 0x0>;
+	/*Check IPCAT for GIC NUM*/
+	interrupts = <GIC_SPI 155 IRQ_TYPE_LEVEL_HIGH>;
+	qcom,swr-master-version = <0x01070000>;
+	clock-names = "lpass_audio_hw_vote";
+	clocks = <&lpass_audio_hw_vote 0>;
+};
+
+
+&swr2 {
+	swrm-io-base = <0x33B0000 0x0>;
+		/*Check IPCAT for GIC Number*/
+	interrupts = <GIC_SPI 496 IRQ_TYPE_LEVEL_HIGH>,
+		<GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
+	qcom,swr-master-version = <0x01070000>;
+	qcom,swr-port-mapping = <1 SWRM_TX1_CH1 0x1>, <1 SWRM_TX1_CH2 0x2>,
+				<1 SWRM_TX1_CH3 0x4>, <1 SWRM_TX1_CH4 0x8>,
+				<2 SWRM_TX2_CH1 0x1>, <2 SWRM_TX2_CH2 0x2>,
+				<2 SWRM_TX2_CH3 0x4>, <2 SWRM_TX2_CH4 0x8>,
+				<3 SWRM_TX3_CH1 0x1>, <3 SWRM_TX3_CH2 0x2>,
+				<3 SWRM_TX3_CH3 0x4>, <3 SWRM_TX3_CH4 0x8>;
+	clock-names = "lpass_audio_hw_vote";
+	clocks = <&lpass_audio_hw_vote 0>;
+};
+
+
+&swr4 {
+	swrm-io-base = <0x031E0000 0x0>;
+	/*Check IPCAT for GIC Number*/
+
+	interrupts = <GIC_SPI 363 IRQ_TYPE_LEVEL_HIGH>;
+	qcom,swr-num-ports = <8>;
+	clock-names = "lpass_audio_hw_vote";
+	clocks = <&lpass_audio_hw_vote 0>;
+	qcom,swr-master-version = <0x02000000>;
+};
+
+&lpi_tlmm {
+	reg = <0x3440000 0x0>;
+	/*Check IPCAT for below details*/
+	qcom,gpios-count = <23>;
+	qcom,slew-reg = <0x3440000 0x0>;
+};
+
+&va_swr_gpios {
+	qcom,chip-wakeup-reg = <0xF175008>;
+};

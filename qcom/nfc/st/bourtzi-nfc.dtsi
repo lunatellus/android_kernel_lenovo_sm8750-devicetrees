@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+&qupv3_se8_i2c {
+        status = "ok";
+        #address-cells = <1>;
+        #size-cells = <0>;
+        st21nfc: st21nfc@08 {
+                compatible = "st,st21nfc";
+                reg = <0x08>;
+                irq-gpios = <&tlmm 9 0x00>;
+                reset-gpios = <&tlmm 4 0x00>;
+                clkreq-gpios = <&tlmm 98 0x00>;
+                interrupt-parent = <&tlmm>;
+                interrupts = <9 0>;
+                interrupt-names = "nfc_irq";
+        };
+};

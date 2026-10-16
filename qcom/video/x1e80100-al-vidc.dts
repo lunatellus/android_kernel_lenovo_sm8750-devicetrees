@@ -1,0 +1,35 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/clock/qcom,x1e80100-gcc.h>
+#include <dt-bindings/interconnect/qcom,x1e80100-rpmh.h>
+#include <dt-bindings/clock/qcom,sm8650-videocc.h>
+#include "x1e80100-vidc.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. X1E80100";
+	compatible = "qcom,x1e80100";
+	qcom,msm-id = <555 0x10000>, <555 0x20000>;
+	qcom,board-id = <0 0>;
+};
+
+&secure_non_pixel_cb {
+	compatible = "qcom,vidc,cb-sec-non-pxl";
+	iommus = <&dpd_smmu 0xB>;
+};
+
+&secure_bitstream_cb {
+	compatible = "qcom,vidc,cb-sec-bitstream";
+	iommus = <&dpd_smmu 0x4A>;
+};
+
+&secure_pixel_cb {
+	compatible = "qcom,vidc,cb-sec-pxl";
+	iommus = <&dpd_smmu 0x44>;
+};

@@ -1,0 +1,194 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "lpass-audio-cdc-1.0.dtsi"
+#include "chora-lpi.dtsi"
+#include "lpass-audio-bt-swr.dtsi"
+#include "lpass-cdc-gpio.dtsi"
+#include "chora-audio-lpass-reg.dtsi"
+#include "wcd939x.dtsi"
+
+&lpass_cdc {
+	qcom,num-macros = <3>;
+};
+
+&cdc_sen_mi2s_gpios {
+	status = "okay";
+};
+
+&wcd939x_tx_slave {
+	status = "disabled";
+};
+
+&wcd939x_rx_slave {
+	status = "disabled";
+};
+
+&wcd939x_codec {
+	status = "disabled";
+};
+
+&wcd937x_rx_slave {
+	status = "okay";
+};
+
+&wcd937x_tx_slave {
+	status = "okay";
+};
+
+&wcd937x_codec {
+	status = "okay";
+};
+
+&swr1 {
+	qcom,swr-num-dev = <2>;
+};
+
+&swr2 {
+	qcom,swr-num-dev = <4>;
+	qmp01: qmp@04170234 {
+		/*
+		 * reg = <Class_partID[7:0]
+		 * partID[15:8] manuID[7:0] manuID[15:8](version4bits_UniqueID4bits)
+		 */
+		reg = <0x0100 0x04170234>;
+		compatible = "qcom,qmp-sdca-dmic";
+		sound-name-prefix = "QMP_MIC01";
+		qcom,codec-name = "qmp-dmic.01";
+		qmp-vdd-supply = <&L4F>;
+		qcom,swr-tx-port-params =
+				<OFFSET1_VAL1 LANE0>, <OFFSET1_VAL2 LANE0>,
+				<OFFSET1_VAL1 LANE0>, <OFFSET1_VAL2 LANE0>,
+				<OFFSET1_VAL1 LANE0>, <OFFSET1_VAL2 LANE0>,
+				<OFFSET1_VAL1 LANE0>, <OFFSET1_VAL2 LANE0>;
+		reg-values = <0x401805B0 0x5
+				  0x401805B1 0x5
+				  0x401805B2 0x5
+				  0x401805B3 0x5
+				  0x401805B8 0x5>;
+	};
+
+	qmp02: qmp@04170233 {
+		reg = <0x0100 0x04170233>;
+		compatible = "qcom,qmp-sdca-dmic";
+		sound-name-prefix = "QMP_MIC02";
+		qcom,codec-name = "qmp-dmic.02";
+		qmp-vdd-supply = <&L4F>;
+		qcom,swr-tx-port-params =
+				<OFFSET1_VAL2 LANE0>, <OFFSET1_VAL1 LANE0>,
+				<OFFSET1_VAL2 LANE0>, <OFFSET1_VAL1 LANE0>,
+				<OFFSET1_VAL2 LANE0>, <OFFSET1_VAL1 LANE0>,
+				<OFFSET1_VAL2 LANE0>, <OFFSET1_VAL1 LANE0>;
+		reg-values = <0x401805B0 0x5
+				  0x401805B1 0x5
+				  0x401805B2 0x5
+				  0x401805B3 0x5
+				  0x401805B8 0x5>;
+	};
+
+/*
+	qmp03: qmp@04170230 {
+		reg = <0x0100 0x04170230>;
+		compatible = "qcom,qmp-sdca-dmic";
+		sound-name-prefix = "QMP_MIC03";
+		qcom,codec-name = "qmp-dmic.03";
+		qmp-vdd-supply = <&wcd_mb3_reg>;
+		qcom,swr-tx-port-params =
+				<OFFSET1_VAL3 LANE0>, <OFFSET1_VAL2 LANE0>,
+				<OFFSET1_VAL3 LANE0>, <OFFSET1_VAL2 LANE0>,
+				<OFFSET1_VAL3 LANE0>, <OFFSET1_VAL2 LANE0>,
+				<OFFSET1_VAL3 LANE0>, <OFFSET1_VAL2 LANE0>;
+		reg-values = <0x401805B0 0x5
+				  0x401805B1 0x5
+				  0x401805B2 0x5
+				  0x401805B3 0x5
+				  0x401805B8 0x5>;
+	};
+*/
+	qmp03: qmp@04170232 {
+		reg = <0x0100 0x04170232>;
+		compatible = "qcom,qmp-sdca-dmic";
+		sound-name-prefix = "QMP_MIC03";
+		qcom,codec-name = "qmp-dmic.03";
+		qmp-vdd-supply = <&L4F>;
+		qcom,swr-tx-port-params =
+				<OFFSET1_VAL1 LANE0>, <OFFSET1_VAL2 LANE0>,
+				<OFFSET1_VAL1 LANE0>, <OFFSET1_VAL2 LANE0>,
+				<OFFSET1_VAL1 LANE0>, <OFFSET1_VAL2 LANE0>,
+				<OFFSET1_VAL1 LANE0>, <OFFSET1_VAL2 LANE0>;
+		reg-values = <0x401805B0 0x5
+				  0x401805B1 0x5
+				  0x401805B2 0x5
+				  0x401805B3 0x5
+				  0x401805B8 0x5>;
+	};
+};
+
+&chora_snd {
+	qcom,model = "chora-mtp-qmp-snd-card";
+	qcom,sen-mi2s-gpios = <&cdc_sen_mi2s_gpios>;
+	qcom,msm-mi2s-master = <1>, <1>, <1>, <1>, <1>, <1>, <1>;
+	qcom,mi2s-tdm-is-hw-vote-needed = <1>, <1>, <1>, <1>, <1>, <1>, <1>;
+	qcom,tdm-clk-attribute = <0x1>, <0x1>, <0x1>, <0x1>, <0x1>, <0x1>, <0x1>;
+	qcom,mi2s-clk-attribute = <0x1>, <0x1>, <0x1>, <0x1>, <0x1>, <0x1>, <0x1>;
+	swr-haptics-unsupported;
+	qcom,wcn-bt = <1>;
+	qcom,wcn-bt-ext = <1>;
+	qcom,ext-disp-audio-rx = <0>;
+	asoc-codec  = <&stub_codec>, <&lpass_cdc>,
+			<&wcd937x_codec>,
+			<&qmp01>, <&qmp02>, <&qmp03>,
+			<&wsa885x_i2c>;
+	asoc-codec-names = "msm-stub-codec.1", "lpass-cdc",
+		"wcd937x_codec", "qmp-dmic.01", "qmp-dmic.02",
+		"qmp-dmic.03", "wsa885x_i2c";
+	qcom,qmp-mic = <1>;
+	qcom,tdm-audio-intf = <1>;
+	qcom,wsa885x-tdm = <1>;
+	qcom,audio-core-list = <0>, <1>;
+	qcom,audio-routing =
+		"AMIC2", "Analog Mic2",
+		"AMIC2", "MIC BIAS2",
+		"TX SWR_INPUT", "WCD_TX_OUTPUT",
+		"VA SWR_INPUT", "VA_SWR_CLK",
+		"VA SWR_INPUT", "WCD_TX_OUTPUT",
+		"VA_AIF1 CAP", "VA_SWR_CLK",
+		"VA_AIF2 CAP", "VA_SWR_CLK",
+		"VA_AIF3 CAP", "VA_SWR_CLK",
+		"IN1_HPHL", "HPHL_OUT",
+		"IN2_HPHR", "HPHR_OUT",
+		"IN3_AUX", "AUX_OUT",
+		"TX SWR_INPUT", "WCD_TX_OUTPUT",
+		"TX SWR_INPUT", "QMP_MIC01 NORMAL_OUTPUT",
+		"TX SWR_INPUT", "QMP_MIC02 NORMAL_OUTPUT",
+		"TX SWR_INPUT", "QMP_MIC03 NORMAL_OUTPUT",
+		"VA SWR_INPUT", "VA_SWR_CLK",
+		"VA SWR_INPUT", "WCD_TX_OUTPUT",
+		"VA SWR_INPUT", "QMP_MIC01 LP_OUTPUT",
+		"VA SWR_INPUT", "QMP_MIC02 LP_OUTPUT",
+		"VA SWR_INPUT", "QMP_MIC03 LP_OUTPUT",
+		"VA SWR_INPUT", "QMP_MIC01 VA_NORMAL_OUTPUT",
+		"VA SWR_INPUT", "QMP_MIC02 VA_NORMAL_OUTPUT",
+		"VA SWR_INPUT", "QMP_MIC03 VA_NORMAL_OUTPUT",
+		"VA_AIF1 CAP", "VA_SWR_CLK",
+		"VA_AIF2 CAP", "VA_SWR_CLK",
+		"VA_AIF3 CAP", "VA_SWR_CLK",
+		"VA DMIC0", "Digital Mic0",
+		"VA DMIC1", "Digital Mic1",
+		"VA DMIC2", "Digital Mic2",
+		"VA DMIC3", "Digital Mic3",
+		"VA DMIC0", "VA MIC BIAS3",
+		"VA DMIC1", "VA MIC BIAS3",
+		"VA DMIC2", "VA MIC BIAS1",
+		"VA DMIC3", "VA MIC BIAS1";
+	qcom,wsa-max-devs = <0>;
+	qcom,msm-mbhc-hs-mic-max-threshold-mv = <1670>;
+	qcom,msm-mbhc-usbc-audio-supported = <0>;
+	qcom,msm-mbhc-hphl-swh = <1>;
+	qcom,msm-mbhc-gnd-swh = <1>;
+	qcom,msm_audio_ssr_devs = <&audio_gpr>, <&lpi_tlmm>,
+				  <&lpass_cdc>, <&lpass_bt_swr>;
+};
+

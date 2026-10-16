@@ -1,0 +1,42 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "seraphp-idp.dtsi"
+#include "seraph-pm8011.dtsi"
+
+&qupv3_se4_i2c {
+	status = "ok";
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	awinic_rgbw_userled: rgbw_userled@33 {
+		compatible = "awinic,rgbw-user-led";
+		reg = <0x33>;
+	};
+
+	awinic_rgbw_bysled: rgbw_bysled@30 {
+		compatible = "awinic,rgbw-bys-led";
+		reg = <0x30>;
+	};
+};
+
+&charger {
+	interrupts = <30 2>;
+};
+
+&pmic_alert_int_active {
+	mux {
+		pins = "gpio30";
+		function = "normal";
+	};
+
+	config {
+		pins = "gpio30";
+		drive-strength = <2>;
+		bias-pull-up;
+		input-enable;
+		qcom,apps;
+	};
+};

@@ -1,0 +1,7 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "lemans-gh-vm-la-qam-ridesx-overlay.dtso"
+#include "prime-board-id.dtsi"

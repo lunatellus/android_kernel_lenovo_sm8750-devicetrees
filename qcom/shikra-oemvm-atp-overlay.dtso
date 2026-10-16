@@ -1,0 +1,19 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+/dts-v1/;
+/plugin/;
+
+#include "shikra-oemvm-avf.dtsi"
+#include "shikra-oemvm-atp-avf.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Shikra OEMVM ATP";
+	compatible = "qcom,shikra-atp", "qcom,shikra", "qcom,shikrap-atp",
+			"qcom,shikrap", "qcom,atp";
+	qcom,board-id = <0x10021 0x0>, <0x20021 0x0>;
+
+	host {
+	};
+};

@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "seraph-v1.1.dtsi"
+#include "seraph-v1.1-atp.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Seraph v1.1 ATP";
+	compatible = "qcom,seraph-v1.1-atp", "qcom,pikachu", "qcom,atp";
+	qcom,board-id = <0x10021 0>;
+};

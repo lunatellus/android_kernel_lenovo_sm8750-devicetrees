@@ -1,0 +1,99 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "bourtzi-pmic-overlay.dtsi"
+#include <dt-bindings/gpio/gpio.h>
+
+&pmg1110_gpios {
+		sd_card_eldo_en: sd-card-eldo-en {
+		pins = "gpio1";
+		function = "normal";
+		qcom,drive-strength = <2>;
+		input-disable;
+		output-low;
+		power-source = <0>;
+	};
+};
+
+&soc {
+	sdcard_vdd_3p0: sdcard-vdd-3p0 {
+		compatible = "qti-regulator-fixed";
+		pinctrl-0 = <&sd_card_eldo_en>;
+		pinctrl-names = "default";
+		regulator-name = "sdc-vdd";
+		regulator-min-microvolt = <3000000>;
+		regulator-max-microvolt = <3000000>;
+		gpio = <&pmg1110_gpios 1 GPIO_ACTIVE_HIGH>;
+	};
+};
+
+&sdhc_2 {
+	status = "ok";
+	vdd-supply = <&L24B>;
+	qcom,vdd-current-level = <0 800000>;
+
+	vmmc-supply =  <&sdcard_vdd_3p0>;
+
+	vdd-io-supply = <&L28B>;
+	qcom,vdd-io-voltage-level = <1800000 2960000>;
+	qcom,vdd-io-current-level = <0 22000>;
+
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&sdc2_on>;
+	pinctrl-1 = <&sdc2_off>;
+
+	cd-gpios = <&tlmm 101 GPIO_ACTIVE_LOW>;
+};
+
+&ufsphy_mem {
+	compatible = "qcom,ufs-phy-qmp-v4-waipio";
+
+	vdda-phy-supply = <&L5B_E0>;
+	vdda-pll-supply = <&L16B_E0>;
+	vdda-phy-max-microamp = <90560>;
+	vdda-pll-max-microamp = <18430>;
+
+	status = "ok";
+};
+
+&ufshc_mem {
+	vdd-hba-supply = <&gcc_ufs_phy_gdsc>;
+
+	vcc-supply = <&L5E_E0>;
+	vcc-max-microamp = <1056000>;
+
+	vccq-supply = <&L13B_E0>;
+	vccq-max-microamp = <750000>;
+
+	vccq2-supply = <&L19B_E0>;
+	vccq2-max-microamp = <750000>;
+
+	qcom,vddp-ref-clk-supply = <&L13B_E0>;
+	qcom,vddp-ref-clk-max-microamp = <100>;
+
+	/*
+	 * ufs-dev-types and nvmem entries are for ufs device
+	 * identification using nvmem interface. Use number of
+	 * ufs devices supported for ufs-dev-types, and nvmem handle
+	 * added by pmic for sdam register.
+	 *
+	 * Default value taken by driver is bit[0] = 0 for 3.x and
+	 * bit[0] = 1 for 2.x driver code takes this as default case.
+	 *
+	 * But Bit value to identify ufs device is not consistent
+	 * across the targets it could be bit[0] = 0/1 for UFS2.x/3x
+	 * and vice versa. If the bit[0] value is not same as default
+	 * value used in driver and if its reverted then use flag
+	 * qcom,ufs-dev-revert to identify ufs device.
+	 */
+	ufs-dev-types = <2>;
+	nvmem-cells = <&ufs_dev>, <&boot_config>;
+	nvmem-cell-names = "ufs_dev", "boot_conf";
+
+	boot_device_type = <0x0>;
+	non-removable;
+
+	status = "ok";
+};

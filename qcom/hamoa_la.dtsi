@@ -1,0 +1,86 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "x1e80100.dtsi"
+
+&pcie_smmu {
+	status = "disabled";
+};
+
+&gic_its {
+	status ="okay";
+};
+
+&pcie6 {
+	msi-map = <0x0 &gic_its 0xE0000 0x10000>,
+		  <0x100 &gic_its 0xE0100 0x10000>; /* 32 event IDs */
+
+	/delete-property/ iommu-map;
+};
+
+&pcie4 {
+	msi-map = <0x0 &gic_its 0xC0000 0x10000>,
+		  <0x100 &gic_its 0xC0100 0x10000>; /* 32 event IDs */
+
+	/delete-property/ iommu-map;
+};
+
+&nvme_vreg {
+	/delete-property/ regulator-boot-on;
+};
+
+&qcom_cedev_s_cb {
+	iommus = <&apps_smmu 0x0483 0x0>;
+	qcom,iommu-vmid = <0x9>;
+};
+
+
+/delete-node/ &depthcharge_log_mem;
+
+&reserved_memory {
+
+	hyp_mem_database_mem: hyp_mem_database_region@a5da0000 {
+		no-map;
+		reg = <0x0 0xa5da0000 0x0 0x60000>;
+	};
+
+	gunyah_hyp_mem: gunyah_hyp_region@a5e00000 {
+		no-map;
+		reg = <0x0 0xa5e00000 0x0 0xe00000>;
+	};
+
+	reserved_for_hyp_mem: reserved_for_hyp_region@a6c00000 {
+		no-map;
+		reg = <0x0 0xa6c00000 0x0 0x400000>;
+	};
+
+	ta_mem: ta@d8632000 {
+		reg = <0x0 0xd8632000 0x0 0x05600000>;
+		no-map;
+	};
+
+	ramoops_mem: ramoops-region {
+		alloc-ranges = <0x1 0x00000000 0xfffffffe 0xffffffff>;
+		size = <0x0 0x200000>;
+		no-map;
+	};
+};
+
+&usb_audio_qmi_dev {
+	status = "okay";
+};
+
+&pcie5 {
+	status = "disabled";
+};
+
+&soc {
+	qcom_ramoops {
+		compatible = "qcom,ramoops";
+		memory-region = <&ramoops_mem>;
+		pmsg-size = <0x200000>;
+		mem-type = <2>;
+	};
+};

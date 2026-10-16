@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/soc/qcom,ipcc.h>
+#include <dt-bindings/interconnect/qcom,waipio.h>
+#include <dt-bindings/clock/qcom,rpmh.h>
+#include "waipio-ipa.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Waipio";
+	compatible = "qcom,waipio";
+	qcom,msm-id = <457 0x10000>;
+	qcom,board-id = <0 0>;
+};

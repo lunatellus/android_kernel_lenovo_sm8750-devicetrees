@@ -1,0 +1,312 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/clock/qcom,rpmh.h>
+#include <dt-bindings/iio/qcom,spmi-vadc.h>
+#include "yupik-pmic-overlay.dtsi"
+#include "pm7250b.dtsi"
+#include "yupik-pm7250b-thermal-overlay.dtsi"
+#include "yupikp-iot-cpe.dtsi"
+
+&soc {
+	gpio_keys {
+		compatible = "gpio-keys";
+		label = "gpio-keys";
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&key_vol_up_default>;
+
+		vol_up {
+			label = "volume_up";
+			gpios = <&pm7325_gpios 6 GPIO_ACTIVE_LOW>;
+			linux,input-type = <1>;
+			linux,code = <KEY_VOLUMEUP>;
+			gpio-key,wakeup;
+			debounce-interval = <15>;
+			linux,can-disable;
+		};
+	};
+};
+
+&spmi_debug_bus {
+	qcom,pm8350b-debug@3 {
+		status = "disabled";
+	};
+
+	qcom,pm7250b-debug@8 {
+		compatible = "qcom,spmi-pmic";
+		reg = <8 SPMI_USID>;
+		#address-cells = <2>;
+		#size-cells = <0>;
+		qcom,can-sleep;
+	};
+
+	qcom,pm7250b-debug@9 {
+		compatible = "qcom,spmi-pmic";
+		reg = <9 SPMI_USID>;
+		#address-cells = <2>;
+		#size-cells = <0>;
+		qcom,can-sleep;
+	};
+};
+
+&spmi_glink_debug {
+	spmi@0 {
+		qcom,pm8350b-debug@3 {
+			status = "disabled";
+		};
+
+		qcom,pm7250b-debug@8 {
+			compatible = "qcom,spmi-pmic";
+			reg = <8 SPMI_USID>;
+			qcom,can-sleep;
+		};
+	};
+};
+
+&gcc_pcie_1_gdsc {
+	status = "ok";
+};
+
+&pcie1 {
+	status = "ok";
+	qcom,boot-option = <0x2>;
+};
+
+&pcie1_msi {
+	status = "ok";
+};
+
+&ufsphy_mem {
+	compatible = "qcom,ufs-phy-qmp-v4-yupik";
+
+	vdda-phy-supply = <&L10C>;
+	vdda-pll-supply = <&L6B>;
+	vdda-phy-max-microamp = <97500>;
+	vdda-pll-max-microamp = <18400>;
+
+	status = "ok";
+};
+
+&ufshc_mem {
+	vdd-hba-supply = <&gcc_ufs_phy_gdsc>;
+	vdd-hba-fixed-regulator;
+
+	vcc-supply = <&L7B>;
+	vcc-voltage-level = <2504000 2952000>;
+	vcc-low-voltage-sup;
+	vcc-max-microamp = <800000>;
+
+	/*
+	 * Yupik target supports both UFS2.2 & UFS3.1, here
+	 * vccq2 is supplied via eLDO, and that is controlled via
+	 * L9B which supports a max voltage of 1.2V, but eLDO would
+	 * supply 1.8V. and same L9B acts as vccq voltage for UFS3.1
+	 * devices.
+	 * Here L9B can max support for 1.2V but UFS GKI driver code
+	 * votes for 1.8V, which is leading to failure from pmic
+	 * regulator.
+	 *
+	 * Now since vccq and control of eLDO are common that is L9B
+	 * we can use vccq vote as control of eLDO for vccq2.
+	 * Hence vccq entries shall be used for both type of UFS
+	 * devices only. And vccq entries should not be changed/removed
+	 * for any design alteration.
+	 */
+	vccq-supply = <&L9B>;
+	vccq-max-microamp = <900000>;
+	vccq-min-microamp = <10000>;
+
+	qcom,vddp-ref-clk-supply = <&L9B>;
+	qcom,vddp-ref-clk-max-microamp = <100>;
+
+	status = "ok";
+};
+
+&pm7250b_2 {
+	/* Slave ID - 8 */
+	reg = <8 SPMI_USID>;
+};
+
+&pm7250b_3 {
+	/* Slave ID - 9 */
+	reg = <9 SPMI_USID>;
+};
+
+&pmk8350_sdam_23 {
+	adc_scaling: scaling@bf {
+		reg = <0xbf 0x1>;
+		bits = <0 2>;
+	};
+};
+
+&pm7250b_tz {
+	interrupts = <0x8 0x24 0x0 IRQ_TYPE_EDGE_BOTH>;
+};
+
+&pm7250b_bcl {
+	interrupts = <0x8 0x1d 0x0 IRQ_TYPE_NONE>,
+			<0x8 0x1d 0x1 IRQ_TYPE_NONE>,
+			<0x8 0x1d 0x2 IRQ_TYPE_NONE>;
+};
+
+&pm7250b_clkdiv {
+	clocks = <&rpmhcc RPMH_CXO_CLK>;
+};
+
+&pm7250b_charger {
+	status = "disabled";
+};
+
+&pm7250b_qg {
+	status = "disabled";
+};
+
+&pm7250b_pdphy {
+	status = "disabled";
+};
+
+&spmi_debug_bus {
+	status = "ok";
+};
+
+&spmi_glink_debug {
+	status = "ok";
+};
+
+&pm8350c_pwm {
+	status = "disabled";
+};
+
+&pm8350c_switch0 {
+	qcom,led-mask = <9>; /* Channels 1 & 4 */
+	qcom,symmetry-en;
+};
+
+&pm8350c_switch1 {
+	qcom,led-mask = <6>; /* Channels 2 & 3 */
+	qcom,symmetry-en;
+};
+
+&pm8350c_switch2 {
+	qcom,led-mask = <15>; /* All Channels */
+	qcom,symmetry-en;
+};
+
+&pm8350c_flash {
+	status = "ok";
+};
+
+&battery_charger {
+	status = "disabled";
+};
+
+&pmr735a_1 {
+	status = "disabled";
+};
+
+&sdhc_2 {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&sdc2_on>;
+	pinctrl-1 = <&sdc2_off>;
+
+	vdd-supply = <&L9C>;
+	qcom,vdd-voltage-level = <2960000 2960000>;
+	qcom,vdd-current-level = <0 800000>;
+
+	vdd-io-supply = <&L6C>;
+	qcom,vdd-io-voltage-level = <1800000 2960000>;
+	qcom,vdd-io-current-level = <0 22000>;
+
+	cd-gpios = <&tlmm 91 GPIO_ACTIVE_LOW>;
+
+	status = "ok";
+};
+
+&fsa4480 {
+	status = "disabled";
+};
+
+&qupv3_se1_i2c {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "ok";
+	clock-frequency = <100000>;
+
+	redriver: redriver@1c {
+		compatible = "onnn,nb7vpq904m";
+		reg = <0x1c>;
+
+		vcc-supply = <&pm8350c_l7>;
+
+		retimer-switch;
+		orientation-switch;
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0>;
+
+				redriver_ss_out: endpoint {
+					remote-endpoint = <&pmic_glink_ss_in>;
+				};
+			};
+
+			port@1 {
+				reg = <1>;
+
+				redriver_ss_in: endpoint {
+					data-lanes = <3 2 1 0>;
+					remote-endpoint = <&usb_qmp_dp_phy_ep>;
+				};
+			};
+		};
+	};
+};
+
+&usb_qmp_dp_phy {
+	port {
+		usb_qmp_dp_phy_ep: endpoint {
+			remote-endpoint = <&redriver_ss_in>;
+		};
+	};
+};
+
+&usb0 {
+	port {
+		usb_port0: endpoint {
+			remote-endpoint = <&usb_port0_connector>;
+		};
+	};
+};
+
+&ucsi {
+	connector {
+		compatible = "usb-c-connector";
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0>;
+
+				usb_port0_connector: endpoint {
+					remote-endpoint = <&usb_port0>;
+				};
+			};
+			port@1 {
+				reg = <1>;
+
+				pmic_glink_ss_in: endpoint {
+					remote-endpoint = <&redriver_ss_out>;
+				};
+			};
+		};
+	};
+};

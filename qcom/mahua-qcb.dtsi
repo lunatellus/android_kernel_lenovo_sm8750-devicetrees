@@ -1,0 +1,129 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include <dt-bindings/clock/qcom,glymur-gcc.h>
+#include "mahua-pmic-overlay.dtsi"
+
+&soc {
+
+};
+
+&pmk8850_vadc {
+	pmh0101_sys_therm7 {
+		reg = <PMH0101_ADC5_GEN4_AMUX_THM1_100K_PU(0, PMH0101_SID)>;
+		label = "pmh0101_sys_therm7";
+		qcom,ratiometric;
+		qcom,hw-settle-time = <200>;
+		qcom,adc-tm-type = <1>;
+	};
+};
+
+&thermal_zones {
+	/* SYS_THERM7 */
+	sys-therm-7 {
+		thermal-sensors = <&pmk8850_vadc
+			PMH0101_ADC5_GEN4_AMUX_THM6_GPIO3_100K_PU(0, PMH0101_SID)>;
+
+		trips {
+			active-config0 {
+				temperature = <125000>;
+				hysteresis = <1000>;
+				type = "passive";
+			};
+
+			active-config1 {
+				temperature = <125000>;
+				hysteresis = <1000>;
+				type = "passive";
+			};
+		};
+	};
+};
+
+&ucsi {
+	connector@0 {
+		compatible = "usb-c-connector";
+		reg = <0>;
+
+		power-role = "dual";
+		data-role = "dual";
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0>;
+
+				pmic_glink_hs_in: endpoint {
+					remote-endpoint = <&usb_ss0_dwc3_hs>;
+				};
+			};
+
+			port@1 {
+				reg = <1>;
+
+				pmic_glink_ss_in: endpoint {
+					remote-endpoint = <&usb_ss0_qmpphy_out>;
+				};
+			};
+		};
+	};
+};
+
+&smb2370_0_eusb2_repeater {
+	status = "okay";
+	vdd18-supply = <&L15B_E0>;
+	vdd3-supply = <&L7B_E0>;
+};
+
+&usb2_phy_0 {
+	phys = <&smb2370_0_eusb2_repeater>;
+	status = "okay";
+};
+
+&usb3_phy_0 {
+	status = "okay";
+};
+
+&usb_ss0 {
+	status = "okay";
+	usb-role-switch;
+};
+
+&usb_ss0_qmpphy_out {
+	remote-endpoint = <&pmic_glink_ss_in>;
+};
+
+&usb_ss0_dwc3_hs {
+	remote-endpoint = <&pmic_glink_hs_in>;
+};
+
+&ufsphy_mem {
+	vdda-phy-supply = <&pm_f10_c_l1>;
+	vdda-phy-max-microamp = <215800>;
+
+	vdda-pll-supply = <&pm_f10_f_l4_e1>;
+	vdda-pll-max-microamp = <18340>;
+
+	status = "okay";
+};
+
+&ufshc_mem {
+
+	resets = <&gcc GCC_UFS_PHY_BCR>;
+	reset-names = "rst";
+
+	vcc-supply = <&pmh0101_l17>;
+	vcc-max-microamp = <1200000>;
+
+	vccq-supply = <&pmh0101_l12>;
+	vccq-max-microamp = <1200000>;
+
+	qcom,vddp-ref-clk-supply = <&pm_f10_f_l1_e1>;
+	qcom,vddp-ref-clk-max-microamp = <850>;
+
+	status = "okay";
+};

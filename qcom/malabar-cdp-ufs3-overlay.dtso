@@ -1,0 +1,38 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "malabar-cdp.dtsi"
+#include "malabar-pmiv010x.dtsi"
+
+/ {
+        model = "Qualcomm Technologies, Inc. Malabar CDP + UFS3";
+        compatible = "qcom,malabar-cdp", "qcom,malabar", "qcom,malabarp-cdp", "qcom,malabarp",
+                        "qcom,cdp";
+
+        qcom,msm-id = <733 0x10000>, <757 0x10000>;
+        qcom,board-id = <0x10101 0>;
+};
+
+&pmiv010x_amoled {
+	status = "ok";
+};
+
+&pmiv010x_amoled_ecm {
+	status = "ok";
+	nvmem-names = "amoled-ecm-sdam0", "amoled-ecm-sdam1";
+	nvmem = <&pmk8350_sdam_13>, <&pmk8350_sdam_14>;
+	interrupt-names = "ecm-sdam0", "ecm-sdam1";
+	interrupts = <0x0 0x7c 0x1 IRQ_TYPE_EDGE_RISING>,
+		     <0x0 0x7d 0x1 IRQ_TYPE_EDGE_RISING>;
+};
+
+&L5E {
+	regulator-min-microvolt = <2504000>;
+	regulator-max-microvolt = <3544000>;
+	qcom,init-voltage = <2504000>;
+};

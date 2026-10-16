@@ -1,0 +1,225 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "shikra.dtsi"
+#include "shikra-pm4125-regulator.dtsi"
+#include "shikra-pm8005-regulator.dtsi"
+#include "shikra-pcie.dtsi"
+#include "shikra-usb.dtsi"
+#include "shikra-pmic-overlay-pm4125.dtsi"
+#include <dt-bindings/net/ti-dp83867.h>
+
+/ {
+	model = "Qualcomm Technologies, Inc. Shikra CQM SoC";
+	compatible = "qcom,shikra-cqm";
+	qcom,msm-id = <756 0x10000>;
+
+	emac0_phy_pwr: regulator-emac0-phy {
+		compatible = "regulator-fixed";
+		regulator-name = "vreg_rgmii";
+		gpio = <&tlmm 149 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+		pinctrl-0 = <&emac0_phy_pwr_default>;
+		pinctrl-names = "default";
+	};
+};
+
+&audiocorecc {
+	status = "okay";
+};
+
+&gcc {
+	/delete-property/ protected-clocks;
+};
+
+&debugcc {
+	qcom,audiocorecc = <&audiocorecc>;
+	clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>,
+		 <&gcc 0>,
+		 <&dispcc 0>,
+		 <&gpucc 0>,
+		 <&audiocorecc 0>;
+	clock-names = "xo_clk_src",
+		      "gcc",
+		      "dispcc",
+		      "gpucc",
+		      "audiocorecc";
+};
+
+&ethernet {
+	status = "okay";
+	phy-handle = <&rgmii_phy>;
+	phy-mode = "rgmii-id";
+	max-speed = <1000>;
+	vreg_rgmii-supply = <&emac0_phy_pwr>;
+
+	pinctrl-names = "default";
+	pinctrl-0 = <&ethernet0_defaults>;
+
+	snps,mtl-rx-config = <&mtl_rx_setup>;
+	snps,mtl-tx-config = <&mtl_tx_setup>;
+
+	mdio {
+		compatible = "snps,dwmac-mdio";
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		rgmii_phy: ethernet-phy@7 {
+			reg = <7>;
+			compatible = "ethernet-phy-id2000.a231";
+			interrupts-extended = <&tlmm 120 IRQ_TYPE_EDGE_FALLING>;
+			device_type = "ethernet-phy";
+			reset-gpios = <&tlmm 135 GPIO_ACTIVE_LOW>;
+			reset-assert-us = <11000>;
+			reset-deassert-us = <70000>;
+			ti,tx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
+			ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
+		};
+	};
+
+	mtl_rx_setup: rx-queues-config {
+		snps,rx-queues-to-use = <1>;
+		snps,rx-sched-sp;
+
+		queue0 {
+			snps,dcb-algorithm;
+			snps,map-to-dma-channel = <0x0>;
+			snps,route-up;
+			snps,priority = <0x1>;
+		};
+	};
+
+	mtl_tx_setup: tx-queues-config {
+		snps,tx-queues-to-use = <1>;
+		snps,tx-sched-wrr;
+
+		queue0 {
+			snps,weight = <0x10>;
+			snps,dcb-algorithm;
+			snps,priority = <0x0>;
+		};
+	};
+};
+
+&tlmm {
+	emac0_phy_pwr_default: emac0-phy-pwr-default-state {
+		pins = "gpio149";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-disable;
+	};
+
+	ethernet0_defaults: ethernet0-defaults-state {
+		mdc-pins {
+			pins = "gpio134";
+			function = "rgmii0_mdc";
+			bias-pull-up;
+		};
+
+		mdio-pins {
+			pins = "gpio133";
+			function = "rgmii0_mdio";
+			bias-pull-up;
+		};
+
+		rgmii-rxc-pins {
+			pins = "gpio121";
+			function = "rgmii0_rxc";
+			bias-disable;
+			drive-strength = <2>;
+		};
+
+		rgmii-rxctl-pins {
+			pins = "gpio122";
+			function = "rgmii0_rx_ctl";
+			bias-disable;
+			drive-strength = <2>;
+		};
+
+		rgmii-rxd0-pins {
+			pins = "gpio123";
+			function = "rgmii0_rxd0";
+			bias-disable;
+			drive-strength = <2>;
+		};
+
+		rgmii-rxd1-pins {
+			pins = "gpio124";
+			function = "rgmii0_rxd1";
+			bias-disable;
+			drive-strength = <2>;
+		};
+
+		rgmii-rxd2-pins {
+			pins = "gpio125";
+			function = "rgmii0_rxd2";
+			bias-disable;
+			drive-strength = <2>;
+		};
+
+		rgmii-rxd3-pins {
+			pins = "gpio126";
+			function = "rgmii0_rxd3";
+			bias-disable;
+			drive-strength = <2>;
+		};
+
+		rgmii-txc-pins {
+			pins = "gpio127";
+			function = "rgmii0_txc";
+			bias-pull-up;
+			drive-strength = <16>;
+		};
+
+		rgmii-txctl-pins {
+			pins = "gpio128";
+			function = "rgmii0_tx_ctl";
+			bias-pull-up;
+			drive-strength = <16>;
+		};
+
+		rgmii-txd0-pins {
+			pins = "gpio129";
+			function = "rgmii0_txd0";
+			bias-pull-up;
+			drive-strength = <16>;
+		};
+
+		rgmii-txd1-pins {
+			pins = "gpio130";
+			function = "rgmii0_txd1";
+			bias-pull-up;
+			drive-strength = <16>;
+		};
+
+		rgmii-txd2-pins {
+			pins = "gpio131";
+			function = "rgmii0_txd2";
+			bias-pull-up;
+			drive-strength = <16>;
+		};
+
+		rgmii-txd3-pins {
+			pins = "gpio132";
+			function = "rgmii0_txd3";
+			bias-pull-up;
+			drive-strength = <16>;
+		};
+
+		phy-intr-pins {
+			pins = "gpio120";
+			function = "emac0_phy";
+			bias-disable;
+			drive-strength = <16>;
+		};
+
+		phy-reset-pins {
+			pins = "gpio135";
+			function = "gpio";
+			bias-pull-up;
+			drive-strength = <16>;
+		};
+	};
+};

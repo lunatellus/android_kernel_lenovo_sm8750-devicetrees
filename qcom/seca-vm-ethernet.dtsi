@@ -1,0 +1,175 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+&soc {
+	xpcs1: xpcs@0x1A94000 {
+		compatible = "qcom,xpcs";
+		reg = <0x1a94000 0x5100>;
+		reg-names = "qxpcs";
+		resets = <&scmi_reset 1>;
+		reset-names = "serdes_reset";
+	};
+
+	ethernet1: ethernet@0x1A80000 {
+		compatible = "qcom,sa8787p-ethqos", "snps,dwxgmac";
+		reg = <0x1A80000 0x14000>,
+			<0x1AFE000 0x1000>,
+			<0x1AFF000 0x1000>;
+		reg-names = "stmmaceth", "macsec", "rgmii";
+		interrupts = <GIC_SPI 820 IRQ_TYPE_LEVEL_HIGH>;
+		interrupt-names = "macirq";
+		iommus = <&apps_smmu_2 0x11c1 0x6>,
+				 <&apps_smmu_2 0x11c2 0x8>,
+				 <&apps_smmu_2 0x11c3 0x6>,
+				 <&apps_smmu_2 0x11c4 0x2>,
+				 <&apps_smmu_2 0x11c5 0x6>,
+				 <&apps_smmu_2 0x11c6 0x2>,
+				 <&apps_smmu_2 0x11c7 0x6>,
+				 <&apps_smmu_2 0x11c8 0x1>,
+				 <&apps_smmu_2 0x11c9 0x1>,
+				 <&apps_smmu_2 0x11ca 0x8>;
+		qcom,iommu-dma = "fastmap";
+
+		power-domains = <&scmi_power 8>, <&scmi_power 9>, <&scmi_perf 1>, <&scmi_perf 2>;
+		power-domain-names = "power_core", "power_mdio", "perf_serdes", "perf_5g_serdes";
+
+		pinctrl-0 = <&ethernet1_default>;
+		pinctrl-names = "default";
+
+		phy-mode = "10gbase-r";
+
+		snps,tso;
+		snps,pbl = <0x10>;
+		dma-coherent;
+
+		rx-fifo-depth = <98304>;
+		tx-fifo-depth = <98304>;
+		snps,axi-config = <&stmmac_axi_setup>;
+		snps,mtl-rx-config = <&mtl_rx_setup>;
+		snps,mtl-tx-config = <&mtl_tx_setup>;
+
+		qcom,tx-vdma-map = <0 0 0 0 1 2 3 4 5 6 7 7>;
+		qcom,rx-vdma-map = <0 1 2 3 4 5 6 6 6 6 7 7>;
+		qcom,tx-pdma-map = <0 1 2 3 4 5 6 6 6 6 7 7>;
+		qcom,rx-pdma-map = <0 1 2 3 4 5 6 6 6 6 7 7>;
+
+		qcom-xpcs-handle = <&xpcs1>;
+
+		mtl_rx_setup: rx-queues-config {
+			snps,rx-queues-to-use = <10>;
+			snps,rx-sched-sp;
+			queue0 {
+				snps,dcb-algorithm;
+				snps,map-to-dma-channel = <0x0>;
+				snps,route-up;
+			};
+
+			queue1 {
+				snps,dcb-algorithm;
+				snps,map-to-dma-channel = <0x1>;
+				snps,route-ptp;
+			};
+
+			queue2 {
+				snps,avb-algorithm;
+				snps,map-to-dma-channel = <0x2>;
+				snps,route-avcp;
+			};
+
+			queue3 {
+				snps,avb-algorithm;
+				snps,map-to-dma-channel = <0x3>;
+				snps,priority = <0xc>;
+			};
+
+			queue4 {
+				snps,dcb-algorithm;
+				snps,map-to-dma-channel = <0x4>;
+			};
+
+			queue5 {
+				snps,dcb-algorithm;
+				snps,map-to-dma-channel = <0x5>;
+			};
+
+			queue6 {
+				snps,dcb-algorithm;
+				snps,map-to-dma-channel = <0x6>;
+			};
+
+			queue7 {
+				snps,dcb-algorithm;
+				snps,map-to-dma-channel = <0x7>;
+			};
+
+			queue8 {
+				snps,dcb-algorithm;
+				snps,map-to-dma-channel = <0x8>;
+			};
+
+			queue9 {
+				snps,dcb-algorithm;
+				snps,map-to-dma-channel = <0x9>;
+			};
+		};
+
+		mtl_tx_setup: tx-queues-config {
+			snps,tx-queues-to-use = <10>;
+			snps,tx-sched-sp;
+			queue0 {
+				snps,dcb-algorithm;
+			};
+
+			queue1 {
+				snps,dcb-algorithm;
+			};
+
+			queue2 {
+				snps,dcb-algorithm;
+			};
+
+			queue3 {
+				snps,dcb-algorithm;
+			};
+
+			queue4 {
+				snps,dcb-algorithm;
+			};
+
+			queue5 {
+				snps,dcb-algorithm;
+			};
+
+			queue6 {
+				snps,dcb-algorithm;
+			};
+
+			queue7 {
+				snps,dcb-algorithm;
+			};
+
+			queue8 {
+				snps,dcb-algorithm;
+			};
+
+			queue9 {
+				snps,dcb-algorithm;
+			};
+		};
+
+		fixed-link {
+			status = "okay";
+			speed = <10000>;
+			full-duplex;
+		};
+
+		stmmac_axi_setup: stmmac-axi-config {
+			snps,rd_osr_lmt = <0x10>;
+			snps,wr_osr_lmt = <0x10>;
+			snps,kbbe;
+			snps,blen = <0 0 0 0 16 0 0>;
+		};
+	};
+};

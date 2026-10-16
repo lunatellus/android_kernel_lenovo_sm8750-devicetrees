@@ -1,0 +1,92 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "mahua-pmic-overlay.dtsi"
+
+&pmh0101_gpios {
+	nvme_reg_en: nvme-reg-en-state {
+		pins = "gpio14";
+		function = "normal";
+		bias-disable;
+	};
+};
+
+&soc {
+	 nvme_vreg: nvme_vreg {
+		compatible = "regulator-fixed";
+		regulator-name = "nvme_vreg";
+		gpio = <&pmh0101_gpios 14 GPIO_ACTIVE_HIGH>;
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		enable-active-high;
+		regulator-boot-on;
+		startup-delay-us = <40000>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&nvme_reg_en>;
+	};
+};
+
+&pcie5 {
+	vreg-3p3-supply = <&nvme_vreg>;
+};
+
+&ucsi {
+	connector@0 {
+		compatible = "usb-c-connector";
+		reg = <0>;
+
+		power-role = "dual";
+		data-role = "dual";
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0>;
+
+				pmic_glink_hs_in: endpoint {
+					remote-endpoint = <&usb_ss0_dwc3_hs>;
+				};
+			};
+
+			port@1 {
+				reg = <1>;
+
+				pmic_glink_ss_in: endpoint {
+					remote-endpoint = <&usb_ss0_qmpphy_out>;
+				};
+			};
+		};
+	};
+};
+
+&smb2370_0_eusb2_repeater {
+	status = "okay";
+	vdd18-supply = <&L15B_E0>;
+	vdd3-supply = <&L7B_E0>;
+};
+
+&usb2_phy_0 {
+	phys = <&smb2370_0_eusb2_repeater>;
+	status = "okay";
+};
+
+&usb3_phy_0 {
+	status = "okay";
+};
+
+&usb_ss0 {
+	status = "okay";
+	usb-role-switch;
+};
+
+&usb_ss0_qmpphy_out {
+	remote-endpoint = <&pmic_glink_ss_in>;
+};
+
+&usb_ss0_dwc3_hs {
+	remote-endpoint = <&pmic_glink_hs_in>;
+};

@@ -1,0 +1,107 @@
+// SPDX-License-Identifier: BSD-3-Clause
+
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include <dt-bindings/interconnect/qcom,chora.h>
+#include <dt-bindings/clock/qcom,rpmh.h>
+
+&pmxr2230_gpios {
+	bt_en: bt_en {
+		pins = "gpio1";
+		function = "normal";
+		input-disable;
+		output-enable;
+		bias-disable;
+		power-source = <1>;
+	};
+	bt_fmd_clk_en: bt_fmd_clk_en {
+		pins = "gpio2";
+		function = "normal";
+		input-enable;
+		output-disable;
+		bias-disable;
+		power-source = <1>;  
+	};
+};
+
+&tlmm {
+	cnss_bt_sw_ctrl: cnss_wlan_sw_ctrl {
+		mux {
+			pins = "gpio40";
+			function = "wcn_sw_ctrl";
+		};
+	};
+};
+
+&soc {
+	bluetooth: bt_wcn7750 {
+		compatible = "qcom,wcn7750-bt";
+		qcom,wcn7750-bt;
+
+		/* FMD (Find My Device) NVMEM cells - standard for WCN7750 */
+		nvmem-cell-names = "fmd_set", "fmd_chg_pon", "fmd_cnt2_stop", "wcn_info_reg";
+		nvmem-cells = <&fmd_set>, <&fmd_chg_pon>, <&fmd_cnt2_stop>, <&wcn_info>;
+
+		/* Pinctrl configuration */
+		pinctrl-names = "bt_en", "sw_ctrl", "bt_fmd_clk_en";
+		pinctrl-0 = <&bt_en>;
+		pinctrl-1 = <&cnss_bt_sw_ctrl>;
+		pinctrl-2 = <&bt_fmd_clk_en>;
+
+		/* Clock configuration - standard for WCN7750 */
+		clock-names = "bt_rf_clk1";
+		clocks = <&rpmhcc RPMH_RF_CLK1>;
+
+		mpm_wake_set_gpios   = <40>;
+		qcom,wl-reset-gpio   = <&tlmm 41 0>; /* WL_EN */
+		qcom,bt-sw-ctrl-gpio = <&tlmm 40 0>; /* SW_CTRL */
+		qcom,bt-reset-gpio   = <&pmxr2230_gpios 1 0>; /* BT_EN */
+		qcom,bt-fmd-clk-gpio = <&pmxr2230_gpios 2 0>; /* FMD_CLK_CTRL */
+
+		/* List of GPIOs to be setup for interrupt wakeup capable*/
+		qcom,bt-vdd-io-supply      = <&L1B>;  	/* VDD_PX_1P8_ALT - 1.8V IO LDO */
+		qcom,bt-vdd-aon-supply     = <&S3B>;  	/* AON_0P9 - AON SMPS */
+		qcom,bt-vdd-rfacmn-supply  = <&S3B>;  	/* AON_0P9 - AON_0P9/RF CMN SMPS */
+		qcom,bt-vdd-dig-supply     = <&S3B>;  	/* BTCMX_0P9 - DIG SMPS */
+		qcom,bt-vdd-rfa-0p8-supply = <&S3B>; 	/* RFA_0P9 - RFA 0.8V LDO */
+		qcom,bt-vdd-rfa1-supply    = <&S1B>;  	/* RFA_1P9 - RFA 1.7V SMPS */
+		qcom,bt-vdd-rfa2-supply    = <&S2B>;  	/* RFA_1P3 - RFA 1.2V SMPS */
+		qcom,bt-vdd-ipa-2p2-supply = <&S6B>;    /* RFA_2P2_ALT - IPA 2.2V SMPS */
+		qcom,bt-vdd-ipa-2p2-ext-supply = <&S6B_EXT>;
+
+		qcom,bt-vdd-io-config      = <1620000 1980000 0 1 1>;
+		qcom,bt-vdd-aon-config     = <900000 1100000 0 1 1>;
+		qcom,bt-vdd-rfacmn-config  = <900000 1100000 0 1 1>;
+		qcom,bt-vdd-dig-config     = <900000 1100000 0 1 1>;
+		qcom,bt-vdd-rfa-0p8-config = <900000 1100000 0 1 1>;
+		qcom,bt-vdd-rfa1-config    = <1900000 2040000 0 1 1>;
+		qcom,bt-vdd-rfa2-config    = <1330000 1408000 0 1 1>;
+		qcom,bt-vdd-ipa-2p2-config = <2156000 2700000 0 1 1>;
+		qcom,bt-vdd-ipa-2p2-ext-config = <2200000 2200000 0 1 1>;
+
+		qcom,pdc_init_table =
+		" {class: wlan_pdc, ss: rf, res: S1B0.v, upval: 1864}",
+		" {class: wlan_pdc, ss: rf, res: S2B0.v, upval: 1316}",
+		" {class: wlan_pdc, ss: rf, res: S3B0.v, upval: 1012}",
+		" {class: wlan_pdc, ss: rf, res: S6B0.m, enable: 1}",
+		" {class: wlan_pdc, ss: rf, res: S6B0.v, enable: 1}";
+
+		qcom,pdc_init_table_v1 =
+		" {class: wlan_pdc, ss: rf, res: S1B0.v, upval: 1864}",
+		" {class: wlan_pdc, ss: rf, res: S2B0.v, upval: 1316}",
+		" {class: wlan_pdc, ss: rf, res: S3B0.v, upval: 1012}";
+	};
+};
+
+&swr4 {
+	btswr_slave: btswr-slave {
+		compatible = "qcom,btfmswr_slave";
+		reg = <0x02 0x08170220>;
+	};
+};
+
+&qupv3_se11_4uart {
+	status = "ok";
+};

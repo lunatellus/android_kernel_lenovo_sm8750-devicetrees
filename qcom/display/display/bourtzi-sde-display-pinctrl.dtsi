@@ -1,0 +1,178 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+&tlmm {
+	display_panel_avdd_default: display_panel_avdd_default {
+		mux: mux {
+			pins = "gpio5";
+			function = "gpio";
+		};
+
+		config: config {
+			pins = "gpio5";
+			drive-strength = <8>;
+			bias-disable = <0>;
+			output-high;
+		};
+	};
+
+	touch_panel_avdd_default: touch_panel_avdd_default {
+		mux_63: mux {
+			pins = "gpio82";
+			function = "gpio";
+		};
+
+		config_64: config {
+			pins = "gpio82";
+			drive-strength = <8>;
+			bias-disable = <0>;
+			output-high;
+		};
+	};
+
+	display_panel_vdd_default: display_panel_vdd_default {
+		mux_65: mux {
+			pins = "gpio84";
+			function = "gpio";
+		};
+
+		config_66: config {
+			pins = "gpio84";
+			drive-strength = <8>;
+			bias-disable = <0>;
+			output-high;
+		};
+	};
+
+	display_panel_vddio_default: display_panel_vddio_default {
+		mux_67: mux {
+			pins = "gpio83";
+			function = "gpio";
+		};
+
+		config_68: config {
+			pins = "gpio83";
+			drive-strength = <8>;
+			bias-disable = <0>;
+			output-high;
+		};
+	};
+
+	pmx_sde: pmx_sde {
+		sde_dsi_active: sde_dsi_active {
+			mux_69: mux {
+				pins = "gpio92";
+				function = "gpio";
+			};
+
+			config_70: config {
+				pins = "gpio92";
+				drive-strength = <8>;   /* 8 mA */
+				bias-disable = <0>;   /* no pull */
+			};
+		};
+
+		sde_dsi_suspend: sde_dsi_suspend {
+			mux_71: mux {
+				pins = "gpio92";
+				function = "gpio";
+			};
+
+			config_72: config {
+				pins = "gpio92";
+				drive-strength = <2>;   /* 2 mA */
+				bias-pull-down;         /* PULL DOWN */
+			};
+		};
+	};
+
+	pmx_sde_te: pmx_sde_te {
+		sde_te_active: sde_te_active {
+			mux_73: mux {
+				pins = "gpio93";
+				function = "mdp_vsync";
+			};
+
+			config_74: config {
+				pins = "gpio93";
+				drive-strength = <2>;   /* 2 mA */
+				bias-pull-down;         /* PULL DOWN */
+			};
+		};
+
+		sde_te_suspend: sde_te_suspend {
+			mux_75: mux {
+				pins = "gpio93";
+				function = "mdp_vsync";
+			};
+
+			config_76: config {
+				pins = "gpio93";
+				drive-strength = <2>;   /* 2 mA */
+				bias-pull-down;         /* PULL DOWN */
+			};
+		};
+	};
+
+	pmx_ts_active: pmx_ts_active {
+		ts_active: ts_active {
+			mux_77: mux {
+				pins = "gpio95", "gpio105";
+				function = "gpio";
+			};
+
+			config_78: config {
+				pins = "gpio95", "gpio105";
+				drive-strength = <8>;
+				bias-pull-up;
+			};
+		};
+	};
+
+	pmx_ts_reset_suspend: pmx_ts_reset_suspend {
+		ts_reset_suspend: ts_reset_suspend {
+			mux_79: mux {
+				pins = "gpio95";
+				function = "gpio";
+			};
+
+			config_80: config {
+				pins = "gpio95";
+				drive-strength = <2>;
+				bias-pull-down;
+			};
+		};
+	};
+
+	pmx_ts_int_suspend: pmx_ts_int_suspend {
+		ts_int_suspend: ts_int_suspend {
+			mux_81: mux {
+				pins = "gpio105";
+				function = "gpio";
+			};
+
+			config_82: config {
+				pins = "gpio105";
+				drive-strength = <2>;
+				bias-pull-down;
+			};
+		};
+	};
+
+	pmx_ts_release: pmx_ts_release {
+		ts_release: ts_release {
+			mux_83: mux {
+				pins = "gpio95", "gpio105";
+				function = "gpio";
+			};
+
+			config_84: config {
+				pins = "gpio95", "gpio105";
+				drive-strength = <2>;
+				bias-disable;
+			};
+		};
+	};
+};

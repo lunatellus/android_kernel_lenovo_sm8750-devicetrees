@@ -1,0 +1,92 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "ipa.dtsi"
+
+&ipa_hw {
+	reg = <0x0 0x3e00000 0x0 0x84000>,
+		<0x0 0x3e04000 0x0 0xfc000>;
+	interrupts =
+		<0 654 IRQ_TYPE_LEVEL_HIGH>,
+		<0 432 IRQ_TYPE_LEVEL_HIGH>;
+	qcom,ipa-hw-ver = <23>; /* IPA core version = IPAv5.2 */
+
+	/delete-property/ qcom,rmnet-ll-enable;
+	/delete-property/ qcom,ipa-uc-holb-monitor;
+
+	qcom,gfp-no-retry;
+	qcom,interconnect,num-cases = <5>;
+	qcom,interconnect,num-paths = <3>;
+	qcom,wan-rx-ring-size = <128>;
+	qcom,ipa-gen-rx-cmn-page-pool-sz-factor = <5>;
+	qcom,ipa-gen-rx-cmn-temp-pool-sz-factor = <2>;
+
+	interconnects = <&aggre2_noc MASTER_IPA &gem_noc SLAVE_LLCC>,
+		<&mc_virt MASTER_LLCC &mc_virt SLAVE_EBI1>,
+		<&gem_noc MASTER_APPSS_PROC &cnoc2 SLAVE_IPA_CFG>;
+	interconnect-names = "ipa_to_llcc", "llcc_to_ebi1", "appss_to_ipa";
+
+	/* No vote */
+	qcom,no-vote =
+		<0 0 0 0 0 0>;
+
+	/* SVS2 */
+	qcom,svs2 =
+		<0 1000000 0 1300000 0 76800>;
+
+	/* SVS */
+	qcom,svs =
+		<1200000 0 1200000 2800000 0 150000>;
+
+	/* NOMINAL */
+	qcom,nominal =
+		<2400000 0 2400000 5500000 0 400000>;
+
+	/* TURBO */
+	qcom,turbo =
+		<3600000 0 3600000 5500000 0 400000>;
+
+	qcom,bus-vector-names = "MIN", "SVS2", "SVS", "NOMINAL",
+		"TURBO";
+
+	qcom,throughput-threshold = <600 2500 5000>;
+
+	#address-cells=<2>;
+	#size-cells=<2>;
+	ipa_smmu_ap_partition: ipa_smmu_ap_partition {
+		iommu-addresses = <&ipa_smmu_ap 0x0 0x0 0x0 0x20000000>,
+			<&ipa_smmu_ap 0x0 0x40000000 0xFFFFFFFF 0xC0000000>;
+	};
+
+	ipa_smmu_uc_partition: ipa_smmu_uc_partition {
+		iommu-addresses = <&ipa_smmu_uc 0x0 0x0 0x0 0x20000000>,
+			<&ipa_smmu_uc 0x0 0x40000000 0xFFFFFFFF 0xC0000000>;
+	};
+
+	ipa_smmu_ap {
+		/delete-property/ qcom,iommu-dma-addr-pool;
+		qcom,ipa-dma-addr-pool = <0x20000000 0x20000000>;
+		memory-region = <&ipa_smmu_ap_partition>;
+		iommus = <&apps_smmu 0x04A0 0x0>;
+		qcom,additional-mapping =
+			/* modem tables in IMEM */
+			<0x146A8000 0x146A8000 0x2000>;
+	};
+
+	ipa_smmu_wlan {
+		iommus = <&apps_smmu 0x04A1 0x0>;
+	};
+
+	ipa_smmu_uc {
+		/delete-property/ qcom,iommu-dma-addr-pool;
+		qcom,ipa-dma-addr-pool = <0x20000000 0x20000000>;
+		memory-region = <&ipa_smmu_uc_partition>;
+		iommus = <&apps_smmu 0x04A2 0x0>;
+	};
+
+	ipa_smmu_11ad: ipa_smmu_11ad {
+		iommus = <&apps_smmu 0x04A4 0x0>;
+	};
+};

@@ -1,0 +1,211 @@
+//
+/* Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+#include "lpass-audio-cdc-1.0.dtsi"
+#include "malabar-lpi.dtsi"
+#include "lpass-cdc-gpio.dtsi"
+#include "malabar-audio-lpass-reg.dtsi"
+#include "wcd939x.dtsi"
+
+&lpass_cdc {
+	qcom,num-macros = <3>;
+};
+
+&wcd939x_tx_slave {
+	status = "disabled";
+};
+
+&wcd939x_rx_slave {
+	status = "disabled";
+};
+
+&wcd939x_codec {
+	status = "disabled";
+};
+
+&wcd937x_rx_slave {
+	status = "okay";
+};
+
+&wcd937x_tx_slave {
+	status = "okay";
+};
+
+&wcd937x_codec {
+	status = "okay";
+	cdc-vdd-buck-supply = <&L20B>;
+	cdc-vdd-rxtx-supply = <&L21B>;
+	cdc-vddpx-supply = <&L21B>;
+	cdc-vdd-mic-bias-supply = <>;
+	qcom,cdc-static-supplies = "cdc-vdd-rxtx",
+				"cdc-vddpx";
+};
+
+&wsa881x_analog_reset_gpio {
+	pinctrl-0 = <&spkr_1_sd_n_active>;
+	pinctrl-1 = <&spkr_1_sd_n_sleep>;
+};
+
+&wsa881x_analog_clk_gpio {
+	pinctrl-0 = <&ext_mclk1_a_active>;
+	pinctrl-1 = <&ext_mclk1_a_sleep>;
+};
+
+&va_swr_gpios {
+	pinctrl-0 = <&swr_tx_clk_active &swr_tx_data0_active
+		&swr_tx_data1_active>;
+	pinctrl-1 = <&swr_tx_clk_sleep &swr_tx_data0_sleep
+		&swr_tx_data1_sleep>;
+};
+
+&qupv3_se1_i2c {
+	wsa881x_i2c_e: wsa881x-i2c-codec@e {
+		compatible = "qcom,wsa881x-i2c-codec";
+		reg = <0x0e>;
+		clock-names = "wsa_mclk";
+		clocks = <&wsa881x_analog_clk 0>;
+		qcom,wsa-analog-clk-gpio = <&wsa881x_analog_clk_gpio>;
+		qcom,wsa-analog-reset-gpio = <&wsa881x_analog_reset_gpio>;
+		cdc-vdd-1p8-supply = <&L21B>;
+		qcom,cdc-vdd-1p8-voltage = <1800000 1800000>;
+		qcom,cdc-vdd-1p8-current = <10000>;
+		qcom,cdc-static-supplies = "cdc-vdd-1p8";
+		qcom,wsa-prefix = "SpkrMono";
+	};
+
+	wsa881x_i2c_44: wsa881x-i2c-codec@44 {
+		compatible = "qcom,wsa881x-i2c-codec";
+		reg = <0x044>;
+		qcom,wsa-analog-clk-gpio = <&wsa881x_analog_clk_gpio>;
+	};
+
+	wsa881x_i2c_f: wsa881x-i2c-codec@f {
+		status = "disabled";
+		compatible = "qcom,wsa881x-i2c-codec";
+		reg = <0x0f>;
+		clock-names = "wsa_mclk";
+		clocks = <&wsa881x_analog_clk 0>;
+		qcom,wsa-analog-clk-gpio = <&wsa881x_analog_clk_gpio>;
+		qcom,wsa-analog-reset-gpio = <&wsa881x_analog_reset_gpio>;
+		cdc-vdd-1p8-supply = <&L21B>;
+		qcom,cdc-vdd-1p8-voltage = <1800000 1800000>;
+		qcom,cdc-vdd-1p8-current = <10000>;
+		qcom,cdc-static-supplies = "cdc-vdd-1p8";
+		qcom,wsa-prefix = "SpkrMono";
+	};
+
+	wsa881x_i2c_45: wsa881x-i2c-codec@45 {
+		status = "disabled";
+		compatible = "qcom,wsa881x-i2c-codec";
+		reg = <0x045>;
+		qcom,wsa-analog-clk-gpio = <&wsa881x_analog_clk_gpio>;
+	};
+};
+
+&malabar_snd {
+	qcom,model = "malabar-mtp-snd-card";
+	qcom,msm-mi2s-master = <1>, <1>, <1>, <1>, <1>, <1>, <1>;
+	qcom,mi2s-tdm-is-hw-vote-needed = <1>, <1>, <1>, <1>, <1>, <1>, <1>;
+	qcom,wcn-bt = <1>;
+	qcom,wcn-bt-ext = <0>;
+	qcom,wcn-fm = <1>;
+	qcom,ext-disp-audio-rx = <0>;
+	qcom,tdm-max-slots = <8>;
+	qcom,tdm-clk-attribute = <0x1>, <0x1>, <0x1>, <0x1>, <0x1>, <0x1>, <0x1>;
+	qcom,mi2s-clk-attribute = <0x1>, <0x1>, <0x1>, <0x1>, <0x1>, <0x1>, <0x1>;
+	qcom,audio-core-list = <0>, <1>;
+	qcom,msm-mbhc-hs-mic-max-threshold-mv = <1670>;
+	qcom,msm-mbhc-usbc-audio-supported = <0>;
+	qcom,msm-mbhc-hphl-swh = <1>;
+	qcom,msm-mbhc-gnd-swh = <1>;
+	swr-haptics-unsupported;
+	asoc-codec  = <&stub_codec>, <&lpass_cdc>,
+			<&wcd937x_codec>, <&wsa881x_i2c_e>;
+	asoc-codec-names = "msm-stub-codec.1", "lpass-cdc",
+			"wcd937x_codec", "wsa-codec0";
+	qcom,audio-routing =
+			"AMIC2", "Analog Mic2",
+			"AMIC2", "MIC BIAS2",
+			"TX DMIC0", "Digital Mic0",
+			"TX DMIC0", "MIC BIAS3",
+			"TX DMIC1", "Digital Mic1",
+			"TX DMIC1", "MIC BIAS3",
+			"TX DMIC2", "Digital Mic2",
+			"TX DMIC2", "MIC BIAS1",
+			"TX DMIC3", "Digital Mic3",
+			"TX DMIC3", "MIC BIAS1",
+			"IN1_HPHL", "HPHL_OUT",
+			"IN2_HPHR", "HPHR_OUT",
+			"IN3_AUX", "AUX_OUT",
+			"RX_TX DEC0_INP", "TX DEC0 MUX",
+			"RX_TX DEC1_INP", "TX DEC1 MUX",
+			"RX_TX DEC2_INP", "TX DEC2 MUX",
+			"RX_TX DEC3_INP", "TX DEC3 MUX",
+			"SpkrMono WSA_IN", "AUX",
+			"TX SWR_INPUT", "WCD_TX_OUTPUT",
+			"VA SWR_INPUT", "VA_SWR_CLK",
+			"VA SWR_INPUT", "WCD_TX_OUTPUT",
+			"VA_AIF1 CAP", "VA_SWR_CLK",
+			"VA_AIF2 CAP", "VA_SWR_CLK",
+			"VA_AIF3 CAP", "VA_SWR_CLK",
+			"VA DMIC0", "Digital Mic0",
+			"VA DMIC1", "Digital Mic1",
+			"VA DMIC2", "Digital Mic2",
+			"VA DMIC3", "Digital Mic3",
+			"VA DMIC0", "VA MIC BIAS3",
+			"VA DMIC1", "VA MIC BIAS3",
+			"VA DMIC2", "VA MIC BIAS1",
+			"VA DMIC3", "VA MIC BIAS1";
+	/*
+	 * Add this property,
+	 * To Enable swr haptics through OPCM port.
+	 * This will include wsa2 dailinks.
+	 */
+	qcom,cdc-dmic01-gpios = <&cdc_dmic01_gpios>;
+	qcom,cdc-dmic23-gpios = <&cdc_dmic23_gpios>;
+	qcom,msm_audio_ssr_devs = <&audio_gpr>, <&lpi_tlmm>,
+				  <&lpass_cdc>;
+
+		/*
+		 * ====================
+		 * UPD backend - WSA
+		 * ====================
+		 *
+		 * Mute/Unmute the interpolator
+		 * ------------------------------
+		 * Register:Â LPASS_WSA_CDC_RX0_RX_PATH_MIX_CTL - 0x6B00418
+		 *
+		 * Send control commands to the peripheral from the soundwire controller
+		 * -----------------------------------------------------------------------
+		 * Register: LPASS_WSA_SWR_MSTR_WSA_SWRM_CPUn_CMD_FIFO_WR_CMD - 0x6B14020
+		 *
+		 * Enable/Disable ear piece
+		 * --------------------------
+		 * Register:Â DIG_CTRL0_PA_FSM_EN - 0x3430
+		 *
+		 *
+		 *	qcom,upd_backends_used = "wsa";
+		 *	qcom,upd_lpass_reg_addr = <0x6B00418 0x6B14020>;
+		 *	qcom,upd_ear_pa_reg_addr = <0x3430>;
+		 *
+		 *
+		 * ====================
+		 * UPD backend - WCD
+		 * ====================
+		 *
+		 * Mute/Unmute the interpolator
+		 * ------------------------------
+		 * Register: LPASS_WCD_CDC_RX0_RX_PATH_MIX_CTL - 0x6AC0418
+		 *
+		 * Send control commands to the wcd from the soundwire controller
+		 * ----------------------------------------------------------------
+		 * Register: LPASS_WCD_SWR_MSTR_WSA_SWRM_CPUn_CMD_FIFO_WR_CMD - 0x7634020
+		 *
+		 * Enable/Disable ear piece
+		 * --------------------------
+		 * Register:Â DIG_CTRL0_PA_FSM_EN - 0x300A
+		 *
+		 */
+};

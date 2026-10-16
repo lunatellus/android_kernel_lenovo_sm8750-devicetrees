@@ -1,0 +1,14 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "canoe-gpu.dtsi"
+
+&msm_gpu {
+	compatible = "qcom,adreno-gpu-gen8-5-0", "qcom,kgsl-3d0";
+
+	qcom,gpu-model = "Adreno835";
+
+	qcom,chipid = <0x44050b00>;
+};

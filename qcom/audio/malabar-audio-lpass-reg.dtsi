@@ -1,0 +1,93 @@
+//
+/* Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+&lpass_cdc {
+	va_top_csr_core_regs = < 0xA7300C0 0xA7300C4 0xA7300C8 >;
+	clock-names = "lpass_audio_hw_vote";
+	clocks = <&lpass_audio_hw_vote 0>;
+	qcom,rx_mclk_mode_muxsel = <0x0A5640D8>;
+	qcom,va_mclk_mode_muxsel = <0x0A7A0000>;
+
+};
+
+&lpass_clk_mngr {
+	clock-names = "tx_core_clk", "rx_core_clk", "va_core_clk",
+			"tx_npl_clk", "rx_npl_clk", "va_npl_clk";
+	npl-clock-names = "tx_npl_clk", "rx_npl_clk", "va_npl_clk";
+	clocks = <&clock_audio_tx_1 0>, <&clock_audio_rx_1 0>,
+		<&clock_audio_va_1 0>, <&clock_audio_tx_2 0>,
+		<&clock_audio_rx_2 0>, <&clock_audio_va_2 0>;
+	qcom,rx_mclk_mode_muxsel = <0x0A5640D8>;
+	qcom,va_mclk_mode_muxsel = <0x0A7A0000>;
+};
+
+&rx_macro {
+	reg = <0xA600000 0x0>;
+	qcom,rx-swr-gpios = <&rx_swr_gpios>;
+	qcom,rx_mclk_mode_muxsel = <0x0A5640D8>;
+	qcom,default-clk-id = <TX_CORE_CLK>;
+};
+
+&swr1 {
+	swrm-io-base = <0xA610000 0x0>;
+	interrupts = <GIC_SPI 297 IRQ_TYPE_LEVEL_HIGH>;
+	clock-names = "lpass_audio_hw_vote";
+	clocks = <&lpass_audio_hw_vote 0>;
+	qcom,swr-master-version = <0x01060000>;
+};
+
+&tx_macro {
+	reg = <0xA620000 0x0>;
+};
+
+&va_macro {
+	reg = <0xA730000 0x0>;
+	qcom,va-swr-gpios = <&va_swr_gpios>;
+};
+
+&swr2 {
+	swrm-io-base = <0xA740000 0x0>;
+	interrupts = <GIC_SPI 296 IRQ_TYPE_LEVEL_HIGH>,
+		     <GIC_SPI 229 IRQ_TYPE_LEVEL_HIGH>;
+	qcom,swr-port-mapping = <1 SWRM_TX1_CH1 0x1>, <1 SWRM_TX1_CH2 0x2>,
+			<1 SWRM_TX1_CH3 0x4>, <1 SWRM_TX1_CH4 0x8>,
+			<2 SWRM_TX2_CH1 0x1>, <2 SWRM_TX2_CH2 0x2>,
+			<2 SWRM_TX2_CH3 0x4>, <2 SWRM_TX2_CH4 0x8>,
+			<3 SWRM_TX3_CH1 0x1>, <3 SWRM_TX3_CH2 0x2>,
+			<3 SWRM_TX3_CH3 0x4>, <3 SWRM_TX3_CH4 0x8>;
+
+	clock-names = "lpass_audio_hw_vote";
+	clocks = <&lpass_audio_hw_vote 0>;
+	qcom,swr-num-ports = <3>;
+        qcom,swrm-hctl-reg = <0x0A7EC100>;
+	qcom,swr-master-version = <0x01060000>;
+};
+
+&swr0 {
+	status = "disabled";
+};
+
+&swr3 {
+	status = "disabled";
+};
+
+&lpi_tlmm {
+	reg = <0xA7C0000 0x0>;
+	qcom,slew-reg = <0x0a95a000 0x0>;
+};
+
+&va_swr_gpios {
+	qcom,tlmm-pins = <88>;
+	qcom,chip-wakeup-reg = <0x558008>, <0x58D000>, <0x58D000>, <0x58D000>;
+	qcom,chip-wakeup-maskbit = <8>, <3>, <4>, <6>;
+	qcom,chip-wakeup-default-val = <0x1>, <0x1>, <0x1>, <0x1>;
+};
+
+&malabar_snd {
+	qcom,lpaif-rxtx-clk-id = <0x106>;
+	qcom,lpaif-aud-pri-clk-id = <0x102>;
+	qcom,lpaif-aud-sec-clk-id = <0x104>;
+	qcom,lpaif-va-clk-id = <0x100>;
+};

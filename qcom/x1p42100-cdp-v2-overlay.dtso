@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "x1p42100-cdp-v1.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. X1P42100 CDP with
+				Mossell + EDP + MM/NSP swap";
+	compatible = "qcom,x1p42100-cdp", "qcom,x1p42100", "qcom,cdp";
+	qcom,msm-id = <635 0x10000>;
+	qcom,board-id = <0x20022 1>;
+};

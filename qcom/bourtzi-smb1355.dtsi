@@ -1,0 +1,38 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+&pmic_glink_debug {
+	i2c@107 {
+		reg = <0x107>;  /* I2C instance 7 in ADSP for SE1 */
+		#address-cells = <1>;
+		#size-cells = <0>;
+		qcom,bus-type = "i2c";
+
+		qcom,smb1355@c {
+			compatible = "qcom,i2c-pmic";
+			reg = <0x0c>;
+			qcom,can-sleep;
+		};
+	};
+};
+
+&pmic_glink_adc {
+	status = "okay";
+
+	smb1355_1_iin {
+		reg = <0x1070c01>;
+		label = "smb1355_1_iin";
+	};
+
+	smb1355_1_ichg {
+		reg = <0x1070c02>;
+		label = "smb1355_1_ichg";
+	};
+
+	smb1355_1_die_temp {
+		reg = <0x1070c03>;
+		label = "smb1355_1_die_temp";
+	};
+};

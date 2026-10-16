@@ -1,0 +1,22 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "chora-wcn7750-Bonefish-bt.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Chora SoC ";
+	compatible = "qcom,chora", "qcom,chorap",
+			"qcom,chora-mtp", "qcom,chorap-mtp","qcom,mtp",
+			"qcom,chora-qrd", "qcom,chorap-qrd","qcom,qrd";
+
+	qcom,msm-id = <724 0x10000>, <744 0x10000>;
+	qcom,board-id = <8 0>, <11 0>,
+			<0x20208 0x0>,	//mtp
+			<0x2020b 0x0>;	//qrd
+
+};

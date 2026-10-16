@@ -1,0 +1,52 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+&{/} {
+	cpus {
+		#address-cells = <2>;
+		#size-cells = <0>;
+
+		cluster_0_opp_table: opp-table0 {
+			compatible = "operating-points-v2";
+			opp-shared;
+
+			opp-2112000000 {
+				opp-hz = /bits/ 64 <2112000000>;
+				opp-microvolt = <968000>;
+			};
+		};
+
+		CPU0: cpu@0 {
+			device_type = "cpu";
+			compatible = "arm,armv8";
+			reg = <0x0 0x0>;
+			capacity-dmips-mhz = <1024>;
+			dynamic-power-coefficient = <472>;
+			operating-points-v2 = <&cluster_0_opp_table>;
+		};
+
+		CPU1: cpu@1 {
+			device_type = "cpu";
+			compatible = "arm,armv8";
+			reg = <0x0 0x1>;
+			capacity-dmips-mhz = <1024>;
+			dynamic-power-coefficient = <472>;
+			operating-points-v2 = <&cluster_0_opp_table>;
+		};
+
+		cpu-map {
+			cluster0 {
+				core0 {
+					cpu = <&CPU0>;
+				};
+
+				core1 {
+					cpu = <&CPU1>;
+				};
+
+			};
+		};
+	};
+};

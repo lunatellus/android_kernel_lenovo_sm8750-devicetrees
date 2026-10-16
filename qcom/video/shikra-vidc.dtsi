@@ -1,0 +1,104 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+&soc {
+	msm_vidc: qcom,vidc@5a00000 {
+		compatible = "qcom,msm-vidc-shikra";
+		status = "okay";
+		reg = <0x05a00000 0x200000>;
+		interrupts = <GIC_SPI 225 IRQ_TYPE_LEVEL_HIGH>;
+
+		memory-region = <&video_mem>;
+
+		/* IOMMU Config */
+		#address-cells = <2>;
+		#size-cells = <2>;
+
+		/* Power Domains */
+		 power-domains = <&gcc GCC_VENUS_GDSC>,
+				 <&gcc GCC_VCODEC0_GDSC>;
+		 power-domain-names = "venus", "venus-core0";
+
+		/* Clocks */
+		clock-names = "core_clk", "bus_clk",
+			"core0_clk", "core0_bus_clk", "throttle_clk",
+			"video_clk_src";
+		clock-ids = <GCC_VIDEO_VENUS_CTL_CLK
+			GCC_VENUS_CTL_AXI_CLK GCC_VIDEO_VCODEC0_SYS_CLK
+			GCC_VCODEC0_AXI_CLK GCC_VIDEO_THROTTLE_CORE_CLK
+			GCC_VIDEO_VENUS_CLK_SRC>;
+		clocks = <&gcc GCC_VIDEO_VENUS_CTL_CLK>,
+			<&gcc GCC_VENUS_CTL_AXI_CLK>,
+			<&gcc GCC_VIDEO_VCODEC0_SYS_CLK>,
+			<&gcc GCC_VCODEC0_AXI_CLK>,
+			<&gcc GCC_VIDEO_THROTTLE_CORE_CLK>,
+			<&gcc GCC_VIDEO_VENUS_CLK_SRC>;
+		qcom,proxy-clock-names = "core_clk", "bus_clk",
+			"core0_clk", "core0_bus_clk", "throttle_clk",
+			"video_clk_src";
+
+		/* Bus Interconnects */
+		interconnect-names = "venus-cnoc", "venus-ddr";
+		interconnects = <&mem_noc MASTER_AMPSS_M0
+					&config_noc SLAVE_VENUS_CFG>,
+				<&mmnrt_virt MASTER_VIDEO_P0
+					&mc_virt SLAVE_EBI_CH0>;
+		/* MMUs */
+		iommu_region_partition: iommu_region_partition {
+			/* These IOVA regions are unique per context bank */
+		iommu-addresses =
+                    <&non_secure_cb 0x0 0x0 0x0 0x25800000>,
+                            <&non_secure_cb 0x0 0xe0000000 0x0 0x20000000>,
+                    <&secure_non_pixel_cb 0x0 0x0 0x0 0x01000000>,
+                            <&secure_non_pixel_cb 0x0 0x25800000 0x0 0xda800000>,
+                    <&secure_bitstream_cb 0x0 0x0 0x0 0x00500000>,
+                            <&secure_bitstream_cb 0x0 0xe0000000 0x0 0x20000000>,
+                    <&secure_pixel_cb 0x0 0x0 0x0 0x00500000>,
+                            <&secure_pixel_cb 0x0 0xe0000000 0x0 0x20000000>;
+		};
+
+		non_secure_cb:non_secure_cb {
+			compatible = "qcom,vidc,cb-ns";
+			iommus = <&apps_smmu 0x780 0x0020>;
+			memory-region = <&iommu_region_partition>;
+			qcom,iommu-faults = "non-fatal";
+			qcom,iova-best-fit;
+			qcom,iova-max-align-shift = <8>; /* 1 MB */
+		};
+
+		secure_non_pixel_cb:secure_non_pixel_cb {
+			compatible = "qcom,vidc,cb-sec-non-pxl";
+			iommus = <&apps_smmu 0x784 0x0020>;
+			memory-region = <&iommu_region_partition>;
+			qcom,iommu-faults = "non-fatal";
+			qcom,iommu-vmid = <0xB>; /* VMID_CP_NON_PIXEL */
+			qcom,iova-best-fit;
+			qcom,iova-max-align-shift = <8>; /* 1 MB */
+			qcom,secure-context-bank;
+		};
+
+		secure_bitstream_cb:secure_bitstream_cb {
+			compatible = "qcom,vidc,cb-sec-bitstream";
+			iommus = <&apps_smmu 0x781 0x0004>;
+			memory-region = <&iommu_region_partition>;
+			qcom,iommu-faults = "non-fatal";
+			qcom,iommu-vmid = <0x9>; /* VMID_CP_BITSTREAM */
+			qcom,iova-best-fit;
+			qcom,iova-max-align-shift = <8>; /* 1 MB */
+			qcom,secure-context-bank;
+		};
+
+		secure_pixel_cb:secure_pixel_cb {
+			compatible = "qcom,vidc,cb-sec-pxl";
+			iommus = <&apps_smmu 0x783 0x0000>;
+			memory-region = <&iommu_region_partition>;
+			qcom,iommu-faults = "non-fatal";
+			qcom,iommu-vmid = <0xA>; /* VMID_CP_PIXEL */
+			qcom,iova-best-fit;
+			qcom,iova-max-align-shift = <8>; /* 1 MB */
+			qcom,secure-context-bank;
+		};
+	};
+};

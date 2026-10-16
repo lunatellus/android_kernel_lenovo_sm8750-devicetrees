@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: BSD-3-Clause
+
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "chora-nfc-common-gpios.dtsi"
+/ {
+        model = "Qualcomm Technologies, Inc. Chora SoC";
+        compatible = "qcom,chora";
+        qcom,msm-id = <724 0x10000>, <744 0x10000>;
+        qcom,board-id = <0x20008 0x0>, <0x20001 0x0>,
+			<0x20015 0x0>, <0x20208 0x0>;
+};

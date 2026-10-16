@@ -1,0 +1,11 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "lahaina-gpu.dtsi"
+
+&msm_gpu {
+	qcom,chipid = <0x06060001>;
+	qcom,gpu-model = "Adreno660v2";
+};

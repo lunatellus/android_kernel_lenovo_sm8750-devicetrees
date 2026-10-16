@@ -1,0 +1,260 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+&reserved_memory {
+	llcc_lpi_mem: llcc_lpi_region@80000000 {
+		no-map;
+		reg = <0x0 0x80000000 0x0 0x600000>;
+	};
+
+	reserved_region@80900000 { /* DARE-CPUCP */
+		no-map;
+		reg = <0x0 0x80900000 0x0 0x500000>;
+	};
+
+	cpucp_log_mem: cpucp_log_region@80e00000 {
+		no-map;
+		reg = <0x0 0x80e00000 0x0 0x40000>;
+	};
+
+	cpucp_fw_mem: cpucp_fw_region@80e40000 {
+		no-map;
+		reg = <0x0 0x80e40000 0x0 0x5c0000>;
+	};
+
+	tags_mem_cpucp: tags_region@81500000 {
+		no-map;
+		reg = <0x0 0x81500000 0x0 0x360000>;
+	};
+
+	xbl_dtlog_mem: xbl_dtlog_region@81a00000 {
+		no-map;
+		reg = <0x0 0x81a00000 0x0 0x40000>;
+	};
+
+	xbl_ramdump_mem: xbl_ramdump_region@81a40000 {
+		no-map;
+		reg = <0x0 0x81a40000 0x0 0x1c0000>;
+	};
+
+	aop_image_mem: aop_image_region@81c00000 {
+		no-map;
+		reg = <0x0 0x81c00000 0x0 0x60000>;
+	};
+
+	aop_config_mem: aop_config_region@81c80000 {
+		no-map;
+		reg = <0x0 0x81c80000 0x0 0x20000>;
+	};
+
+	tme_crash_dump_mem: tme_crash_dump_region@81ca0000 {
+		no-map;
+		reg = <0x0 0x81ca0000 0x0 0x40000>;
+	};
+
+	tme_log_mem: tme_log_region@81ce0000 {
+		no-map;
+		reg = <0x0 0x81ce0000 0x0 0x10000>;
+	};
+
+	depthcharge_logs_mem: depthcharge_logs_region@81cf0000 {
+		no-map;
+		reg = <0x0 0x81cf0000 0x0 0x10000>;
+	};
+
+	gpu_prr_mem: gpu_prr_region@81d00000 {
+		no-map;
+		reg = <0x0 0x81d00000 0x0 0x10000>;
+	};
+
+	tpm_control_mem: tpm_control_region@81d10000 {
+		no-map;
+		reg = <0x0 0x81d10000 0x0 0x10000>;
+	};
+
+	usb_ucsi_shared_mem: usb_ucsi_shared_region@81d20000 {
+		no-map;
+		reg = <0x0 0x81d20000 0x0 0x10000>;
+	};
+
+	pld_pep_mem: pld_pep_region@81d30000 {
+		no-map;
+		reg = <0x0 0x81d30000 0x0 0x10000>;
+	};
+
+	pld_gmu_mem: pld_gmu_region@81d40000 {
+		no-map;
+		reg = <0x0 0x81d40000 0x0 0x10000>;
+	};
+
+	pld_pdp_mem: pld_pdp_region@81d50000 {
+		no-map;
+		reg = <0x0 0x81d50000 0x0 0x10000>;
+	};
+
+	/* secdata region at 0x81d60000 can be reused by apps */
+
+	qcskext_mem: qcskext_region@81d70000 {
+		no-map;
+		reg = <0x0 0x81d70000 0x0 0x20000>;
+	};
+
+	qup_fw_mem: qup_fw_region@81d90000 {
+		no-map;
+		reg = <0x0 0x81d90000 0x0 0x18000>;
+	};
+
+	softsku_mem: softsku_region@81da8000 {
+		no-map;
+		reg = <0x0 0x81da8000 0x0 0x9000>;
+	};
+
+	acpi_ta_smem_mem: acpi_ta_smem_region@82000000 {
+		no-map;
+		reg = <0x0 0x82000000 0x0 0x200000>;
+	};
+
+	soccp_sdi_mem: soccp_sdi_region@823a0000 {
+		no-map;
+		reg = <0x0 0x823a0000 0x0 0x40000>;
+	};
+
+	tz_stat_mem: tz_stat_region@82700000 {
+		no-map;
+		reg = <0x0 0x82700000 0x0 0x100000>;
+	};
+
+	no_reclaim_xbl_scratch_buffer2_mem: no_reclaim_xbl_scratch_buffer2_region@82800000 {
+		no-map;
+		reg = <0x0 0x82800000 0x0 0x1c0000>;
+	};
+
+	reclaimable_xbl_scratch_buffer_mem: reclaimable_xbl_scratch_buffer_region@829c0000 {
+		no-map;
+		reg = <0x0 0x829c0000 0x0 0x1540000>;
+	};
+
+	no_reclaim_xbl_scratch_buffer1_mem: no_reclaim_xbl_scratch_buffer1_region@83f00000 {
+		no-map;
+		reg = <0x0 0x83f00000 0x0 0x100000>;
+	};
+
+	ncc_mem: ncc_region@84000000 {
+		no-map;
+		reg = <0x0 0x84000000 0x0 0x400000>;
+	};
+
+	spu_secure_shared_memory_mem: spu_secure_shared_memory_region@84900000 {
+		no-map;
+		reg = <0x0 0x84900000 0x0 0x100000>;
+	};
+
+	adsp_rpc_remote_heap_mem: adsp_rpc_remote_heap_region@84a00000 {
+		no-map;
+		reg = <0x0 0x84a00000 0x0 0x900000>;
+	};
+
+	smmu_pt_mem: smmu_pt_region@85370000 {
+		no-map;
+		reg = <0x0 0x85370000 0x0 0xa20000>;
+	};
+
+	soccp_boot_mem: soccp_boot_region@88e00000 {
+		no-map;
+		reg = <0x0 0x88e00000 0x0 0x400000>;
+	};
+
+	soccp_boot_dtb_mem: soccp_boot_dtb_region@89200000 {
+		no-map;
+		reg = <0x0 0x89200000 0x0 0x20000>;
+	};
+
+	reserved_region@93500000 { /* PIL_REGION */
+		no-map;
+		reg = <0x0 0x93500000 0x0 0xa00000>;
+	};
+
+	/* Linux kernel image is loaded at 0xa0000000 */
+
+	bert_mem: bert_region@d6f00000 {
+		no-map;
+		reg = <0x0 0xd6f00000 0x0 0x100000>;
+	};
+
+	hyp_ac_config_mem: hyp_ac_config_region@d7000000 {
+		no-map;
+		reg = <0x0 0xd7000000 0x0 0x19000>;
+	};
+
+	tz_ac_config_mem: tz_ac_config_region@d7019000 {
+		no-map;
+		reg = <0x0 0xd7019000 0x0 0x10000>;
+	};
+
+	tfa_mem: tfa_region@d7029000 {
+		no-map;
+		reg = <0x0 0xd7029000 0x0 0xc8000>;
+	};
+
+	qtee_mem: qtee_region@d7180000 {
+		no-map;
+		reg = <0x0 0xd7180000 0x0 0x680000>;
+	};
+
+	ta_mem: ta_region@d7800000 {
+		no-map;
+		reg = <0x0 0xd7800000 0x0 0x1c00000>;
+	};
+
+	tags_mem_tz: tags_region@d9400000 {
+		no-map;
+		reg = <0x0 0xd9400000 0x0 0x9c0000>;
+	};
+
+	fdt_mem: fdt_region@da800000 {
+		no-map;
+		reg = <0x0 0xda800000 0x0 0x800000>;
+	};
+
+	depthcharge_mem: depthcharge_region@db000000 {
+		no-map;
+		reg = <0x0 0xdb000000 0x0 0x1000000>;
+	};
+
+	display_buffer_mem: display_buffer_region@e4800000 {
+		no-map;
+		reg = <0x0 0xe4800000 0x0 0x2100000>;
+	};
+
+	oob_nc_mdm_standalone_mode_mem: oob_nc_mdm_standalone_mode_region@fc000000 {
+		no-map;
+		reg = <0x0 0xfc000000 0x0 0x2000000>;
+	};
+
+	oob_nc_wlan_standalone_mode_mem: oob_nc_wlan_standalone_mode_region@fe000000 {
+		no-map;
+		reg = <0x0 0xfe000000 0x0 0xc00000>;
+	};
+
+	oob_nc_glink_always_mem: oob_nc_glink_always_region@fec00000 {
+		no-map;
+		reg = <0x0 0xfec00000 0x0 0x180000>;
+	};
+
+	oob_nc_glink_assisted_mode_mem: oob_nc_glink_assisted_mode_region@fed80000 {
+		no-map;
+		reg = <0x0 0xfed80000 0x0 0x140000>;
+	};
+
+	oob_nc_mdm_assisted_mode_mem: oob_nc_mdm_assisted_mode_region@feec0000 {
+		no-map;
+		reg = <0x0 0xfeec0000 0x0 0x10000>;
+	};
+
+	oob_nc_wlan_assisted_mode_mem: oob_nc_wlan_assisted_mode_region@feed0000 {
+		no-map;
+		reg = <0x0 0xfeed0000 0x0 0x10000>;
+	};
+};

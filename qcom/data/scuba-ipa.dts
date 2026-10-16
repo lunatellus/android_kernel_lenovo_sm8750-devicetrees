@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/soc/qcom,ipcc.h>
+#include <dt-bindings/interconnect/qcom,scuba.h>
+#include <dt-bindings/clock/qcom,gcc-qcm2290.h>
+#include <dt-bindings/clock/qcom,rpmcc.h>
+#include "scuba-ipa.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. SCUBA";
+	compatible = "qcom,scuba";
+	qcom,msm-id = <441 0x10000>, <473 0x10000>;
+	qcom,board-id = <0 0>;
+};

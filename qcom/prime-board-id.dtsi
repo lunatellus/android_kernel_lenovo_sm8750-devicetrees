@@ -1,0 +1,13 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+// This file must be included into every Prime DTS, strictly after
+// including the original DTS. It sets qcom,board-id to an unsupported
+// value to avoid collisions with the original DTB file. The value is
+// reverted to the original only for LA_AU.VENDOR Prime builds.
+
+/ {
+	qcom,board-id = <0xDEFACED 0x0>;
+};

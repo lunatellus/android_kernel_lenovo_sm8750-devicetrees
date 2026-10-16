@@ -1,0 +1,20 @@
+//
+/* Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ *  SPDX-License-Identifier: BSD-3-Clause
+ */
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/clock/qcom,malabar-gcc.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/interconnect/qcom,malabar.h>
+#include <dt-bindings/regulator/qcom,rpmh-regulator-levels.h>
+
+#include "malabar-audio.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. malabar";
+	compatible = "qcom,malabar", "qcom, malabarp";
+	qcom,msm-id = <733 0x10000>, <757 0x10000>;
+	qcom,board-id = <0 0>, <0 0x600>;
+};

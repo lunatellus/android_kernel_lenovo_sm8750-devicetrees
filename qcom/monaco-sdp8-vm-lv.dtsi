@@ -1,0 +1,182 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+&reserved_memory {
+	va_md_mem: va_md_mem_region {
+		compatible = "shared-dma-pool";
+		alloc-ranges = <0x0 0x00000000 0x0 0xffffffff>;
+		reusable;
+		size = <0 0x1000000>;
+	};
+
+	kinfo_mem: debug_kinfo_region {
+		alloc-ranges = <0x0 0x00000000 0xffffffff 0xffffffff>;
+		size = <0x0 0x1000>;
+		no-map;
+	};
+};
+
+&soc {
+	logbuf: qcom,logbuf-vendor-hooks {
+		compatible = "qcom,logbuf-vendor-hooks";
+	};
+
+	va_mini_dump {
+		compatible = "qcom,va-minidump";
+		memory-region = <&va_md_mem>;
+	};
+
+	google,debug-kinfo {
+		compatible = "google,debug-kinfo";
+		memory-region = <&kinfo_mem>;
+	};
+
+	emac_ctrl_fe: emac_ctrl_drv@0x1d000000 {
+		compatible = "virtio,mmio";
+		reg =<0x1d000000 0x1000>;
+		interrupts = <GIC_SPI 84 IRQ_TYPE_LEVEL_HIGH>;
+	};
+
+	mtl_rx_setup: rx-queue-config {
+		snps,rx-queues-to-use = <1>;
+		snps,rx-sched-sp;
+
+		queue {
+			snps,dcb-algorithm;
+			snps,priority = <0x1>;
+		};
+	};
+
+	mtl_tx_setup: tx-queue-config {
+		snps,tx-queues-to-use = <1>;
+		snps,tx-sched-sp;
+		queue {
+			snps,dcb-algorithm;
+		};
+	};
+
+	emac_iommu_region: emac-iommu-region {
+			iommu-addresses = <&emac0_hw 0x0 0x80000000>,
+					  <&emac0_hw 0xC0000000 0x40000000>;
+	};
+
+	emac0_hw: qcom,ethernet@23040000 {
+		compatible = "qcom,stmmac-ethqos-emac0";
+		emac-core-version = <0x30010000>;
+		reg = <0x23049000 0x1000>;
+		reg-names = "stmmaceth";
+		dma-coherent;
+		ranges;
+		interrupts-extended = <&qvm_vdev_gic 0 944 4>, <&qvm_vdev_gic 0 945 4>,
+			<&qvm_vdev_gic 0 943 4>, <&qvm_vdev_gic 0 942 4>,
+			<&qvm_vdev_gic 0 941 4>, <&qvm_vdev_gic 0 940 4>,
+			<&qvm_vdev_gic 0 939 4>, <&qvm_vdev_gic 0 938 4>,
+			<&qvm_vdev_gic 0 863 4>,<&qvm_vdev_gic 0 859 4>,
+			<&qvm_vdev_gic 0 866 4>,<&qvm_vdev_gic 0 869 4>,
+			<&qvm_vdev_gic 0 870 4>,<&qvm_vdev_gic 0 871 4>,
+			<&qvm_vdev_gic 0 872 4>,<&qvm_vdev_gic 0 858 4>;
+		interrupt-names = "tx_ch0_intr", "tx_ch1_intr",
+			"tx_ch2_intr", "tx_ch3_intr",
+			"tx_ch4_intr", "tx_ch5_intr",
+			"tx_ch6_intr", "tx_ch7_intr",
+			"rx_ch0_intr","rx_ch1_intr",
+			"rx_ch2_intr","rx_ch3_intr",
+			"rx_ch4_intr","rx_ch5_intr",
+			"rx_ch6_intr","rx_ch7_intr";
+
+		snps,tso;
+		snps,pbl = <32>;
+		mac-address = [00 55 7B B5 7D f7];
+		rx-fifo-depth = <5120>;
+		tx-fifo-depth = <5120>;
+		snps,mtl-rx-config = <&mtl_rx_setup>;
+		snps,mtl-tx-config = <&mtl_tx_setup>;
+		queue = <0>;
+		iommus = <&apps_smmu 0x122 0x1>;
+		qcom,iommu-geometry = <0x80000000 0x40000000>;
+		memory-region = <&emac_iommu_region>;
+		qcom,iommu-dma = "fastmap";
+	};
+};
+
+&hab {
+	vmid = <3>;
+};
+
+&pcie0 {
+	status = "disabled";
+};
+
+&pcie0_msi_snps {
+	interrupt-parent = <&qvm_vdev_gic>;
+	status = "disabled";
+};
+
+&pcie1 {
+	interrupt-map = <0 0 0 0 &qvm_vdev_gic GIC_SPI 518 IRQ_TYPE_LEVEL_HIGH
+			0 0 0 1 &qvm_vdev_gic GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH
+			0 0 0 2 &qvm_vdev_gic GIC_SPI 149 IRQ_TYPE_LEVEL_HIGH
+			0 0 0 3 &qvm_vdev_gic GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH
+			0 0 0 4 &qvm_vdev_gic GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>;
+	status = "disabled";
+};
+
+&pcie1_msi_snps {
+	interrupt-parent = <&qvm_vdev_gic>;
+	status = "disabled";
+};
+
+&usb0 {
+	interrupts-extended = <&pdc 14  IRQ_TYPE_EDGE_RISING>,
+			<&qvm_vdev_gic GIC_SPI 287 IRQ_TYPE_LEVEL_HIGH>,
+			<&pdc 12  IRQ_TYPE_LEVEL_HIGH>,
+			<&pdc 15  IRQ_TYPE_EDGE_RISING>;
+	status = "ok";
+};
+
+&usb2_phy0 {
+	status = "ok";
+};
+
+&usb_qmp_phy0 {
+	status = "ok";
+};
+
+&usb2 {
+	interrupts-extended = <&pdc 10  IRQ_TYPE_EDGE_RISING>,
+			<&qvm_vdev_gic GIC_SPI 444 IRQ_TYPE_LEVEL_HIGH>,
+			<&pdc 9  IRQ_TYPE_EDGE_RISING>;
+	status = "disabled";
+};
+
+&usb2_phy2 {
+	status = "disabled";
+};
+
+&qupv3_0 {
+	status = "ok";
+};
+
+&qupv3_se2_4uart {
+	interrupts-extended = <&qvm_vdev_gic GIC_SPI 529 IRQ_TYPE_LEVEL_HIGH>,
+					<&tlmm 36 IRQ_TYPE_LEVEL_HIGH>;
+	status = "ok";
+};
+
+&gcc {
+	status = "ok";
+};
+
+&virtio_regulator {
+	status = "ok";
+};
+
+&virtio_spmi {
+	status = "ok";
+};
+
+&qcom_rng_ee3 {
+	status = "ok";
+};

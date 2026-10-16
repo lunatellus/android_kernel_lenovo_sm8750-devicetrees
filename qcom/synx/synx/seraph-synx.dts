@@ -1,0 +1,17 @@
+/* Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/mailbox/qcom-ipcc.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include "seraph-synx.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Seraph";
+	compatible = "qcom,seraph", "qcom,seraphp", "qcom,idp",
+			"qcom,seraph-v1.1-idp", "qcom,seraph-v1.1-atp";
+	qcom,msm-id = <672 0x10000>, <673 0x10000>, <672 0x10001>, <673 0x10001>, <792 0x10001>;
+	qcom,board-id = <0 0>;
+};

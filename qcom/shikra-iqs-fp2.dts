@@ -1,0 +1,14 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+
+#include "shikra-iqs-fp2.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Shikra IQS FP2 SoC";
+	compatible = "qcom,shikra-iqs", "qcom,shikra";
+	qcom,board-id = <0 0>;
+};

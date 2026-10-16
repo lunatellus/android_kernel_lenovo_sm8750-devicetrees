@@ -1,0 +1,15 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "shikra-evk-kunlun-nfc-imxcam-m2-hsp.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Shikra EVK Kunlun NFC IMXCAM M2.0 HSP";
+	compatible = "qcom,shikra-evk", "qcom,shikra", "qcom,shikra-cqm", "qcom,shikra-cqs", "qcom,evk";
+	qcom,board-id = <0x60033 0x01>;
+};

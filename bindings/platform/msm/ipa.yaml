@@ -1,0 +1,45 @@
+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+%YAML 1.2
+---
+$id: http://devicetree.org/schemas/platform/msm/ipa.yaml#
+$schema: http://devicetree.org/meta-schemas/core.yaml#
+
+title: Qualcomm Technologies Inc. Internet Packet Accelerator
+
+maintainers:
+  - Qualcomm IPA Team <devicetree@qualcomm.com>
+
+description: |
+  Internet Packet Accelerator (IPA) is a programmable protocol processor
+  hardware block. It is designed to support generic hardware processing of
+  uplink and downlink IP packets for various use cases independent of radio
+  technology.
+
+properties:
+  compatible:
+    const: qcom,ipa
+
+  reg:
+    minItems: 1
+    description: Base addresses and sizes of IPA register regions.
+
+  clocks:
+    maxItems: 1
+    description: Clock phandle for IPA core clock.
+
+  clock-names:
+    items:
+      - const: core_clk
+
+required:
+  - compatible
+  - reg
+
+unevaluatedProperties: false
+
+examples:
+  - |
+    qcom,ipa@fd4c0000 {
+        compatible = "qcom,ipa";
+        reg = <0xfd4c0000 0x26000>;
+    };

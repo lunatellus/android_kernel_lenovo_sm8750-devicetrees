@@ -1,0 +1,22 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/soc/qcom,ipcc.h>
+#include <dt-bindings/interconnect/qcom,lahaina.h>
+#include <dt-bindings/clock/qcom,gcc-sm8350.h>
+#include <dt-bindings/clock/qcom,rpmh.h>
+#include "lahaina-ipa.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Lahaina MTP v2.1";
+	compatible = "qcom,lahaina", "qcom,lahainap", "qcom,lahaina-cdp",
+			"qcom,lahaina-mtp", "qcom,lahaina-qrd", "qcom,mtp", "qcom,qrd";
+	qcom,msm-id = <415 0x10000>, <415 0x20000>, <415 0x20001>;
+	qcom,board-id = <0 0>, <1 0>, <8 0>, <0x20008 0>, <0x20108 0>;
+};

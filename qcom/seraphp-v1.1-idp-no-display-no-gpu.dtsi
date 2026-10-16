@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+
+#include "seraphp-v1.1-idp.dtsi"
+
+&gxclkctl {
+	status = "disabled";
+};
+
+&reserved_memory {
+	splash_memory: splash_region@b8000000 {
+		status = "disabled";
+	};
+};

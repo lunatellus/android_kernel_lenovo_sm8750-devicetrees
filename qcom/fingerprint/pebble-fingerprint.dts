@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "pebble-fingerprint.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Pebble SoC";
+	compatible = "qcom,pebble";
+	qcom,board-id = <0 0>;
+	qcom,msm-id = <735 0x10000>, <735 0x10001>;
+};
+

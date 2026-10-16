@@ -1,0 +1,145 @@
+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+%YAML 1.2
+---
+$id: http://devicetree.org/schemas/soc/qcom/qcom,bwprof-scmi.yaml#
+$schema: http://devicetree.org/meta-schemas/core.yaml#
+
+title: Qualcomm Technologies, Inc. (QTI) BWPROF SCMI
+
+maintainers:
+  - Pushpendra Singh <pussin@qti.qualcomm.com>
+  - Sayantan Chakraborty <saycha@qti.qualcomm.com>
+
+description: |
+  The QTI BWPROF SCMI monitors bandwidth counters on QTI chipsets.
+  These counters represent read/write traffic on DDR/LLCC initiated by
+  various masters. The controller supports multiple sampling modes so that
+  different masters can be sampled at different periods, enabling fine-grained
+  bandwidth profiling. Collected data is exposed to userspace.
+
+properties:
+  compatible:
+    const: qcom,bwprof-scmi
+
+  reg:
+    description: Base address and size of the memory-mapped region.
+    maxItems: 1
+
+  reg-names:
+    description: Name for the region in 'reg'.
+    items:
+      - const: mem-base
+
+  mboxes:
+    description: Mailbox reference used for SCMI communication.
+    $ref: /schemas/types.yaml#/definitions/phandle-array
+
+  "#address-cells":
+    const: 1
+
+  "#size-cells":
+    const: 1
+
+  ranges:
+    description: Standard ranges property for child address translation.
+    maxItems: 1
+
+  max-masters:
+    description: Max masters supported by the device.
+    $ref: /schemas/types.yaml#/definitions/uint32
+
+patternProperties:
+  "^[a-z][a-z0-9,._+-]*$":
+    type: object
+    description: BWPROF hardware groups
+    properties:
+      compatible:
+        const: qcom,bwprof-hw
+
+      qcom,hw-type:
+        $ref: /schemas/types.yaml#/definitions/uint32
+        description: |
+          Integer specifying the hardware type profiled.
+          0 = BWPROF_DDR, 1 = BWPROF_LLCC
+
+      qcom,bus_width:
+        description: Width of the bus in bits.
+        $ref: /schemas/types.yaml#/definitions/uint32
+
+    patternProperties:
+      "^[a-z][a-z0-9,._+-]*$":
+        type: object
+        description: BWPROF sampling modes
+        properties:
+          compatible:
+            const: qcom,bwprof-sampling-mode
+          qcom,sample-period:
+            description: Sampling interval in milliseconds.
+            $ref: /schemas/types.yaml#/definitions/uint32
+          qcom,master-list:
+            description: List of master IDs (8-bit values).
+            $ref: /schemas/types.yaml#/definitions/uint8-array
+          qcom,hist-enable:
+            description: Enable histogram mode.
+            type: boolean
+          qcom,delta-enable:
+            description: Enable delta mode for histogram collection.
+            type: boolean
+        required:
+          - compatible
+          - qcom,sample-period
+          - qcom,master-list
+        additionalProperties: false
+    required:
+      - compatible
+      - qcom,hw-type
+      - qcom,bus_width
+    additionalProperties: false
+
+required:
+  - compatible
+  - reg
+  - reg-names
+  - mboxes
+
+additionalProperties: false
+
+examples:
+  - |
+    bwprof_scmi: qcom,bwprof-scmi {
+        compatible = "qcom,bwprof-scmi";
+        #address-cells = <1>;
+        #size-cells = <1>;
+        ranges;
+        reg = <0x17D0B000 0x1000>;
+        reg-names = "mem-base";
+        mboxes = <&rimps 2>;
+
+        bwprof_ddr: ddr {
+            compatible = "qcom,bwprof-hw";
+            qcom,hw-type = < 0 >;
+            qcom,bus_width = < 16 >;
+
+            bwprof_ddr_1ms: 1ms {
+                compatible = "qcom,bwprof-sampling-mode";
+                qcom,sample-period = < 1 >;
+                qcom,master-list = /bits/ 8 < 50 51 >;
+            };
+            bwprof_ddr_10ms: 10ms {
+                compatible = "qcom,bwprof-sampling-mode";
+                qcom,sample-period = < 10 >;
+                qcom,master-list = /bits/ 8 < 50 51 >;
+            };
+            bwprof_ddr_100ms: 100ms {
+                compatible = "qcom,bwprof-sampling-mode";
+                qcom,sample-period = < 100 >;
+                qcom,master-list = /bits/ 8 < 50 51 52 >;
+            };
+            bwprof_ddr_hist: Hist {
+                compatible = "qcom,bwprof-sampling-mode";
+                qcom,sample-period = < 1 >;
+                qcom,master-list = /bits/ 8 < 50 51 52 >;
+                qcom,delta-enable;
+            };
+        };
+    };

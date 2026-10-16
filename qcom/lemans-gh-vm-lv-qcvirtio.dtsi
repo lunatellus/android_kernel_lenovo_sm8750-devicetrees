@@ -1,0 +1,360 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+&vm_config {
+	vdevices {
+		/* qcvirtio-net */
+		virtio-mmio@38 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x3>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x1DE000>;
+			memory {
+				qcom,label = <0x126>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		/* qcvirtio-console */
+		virtio-mmio@39 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x1E6000>;
+			memory {
+				qcom,label = <0x127>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		/* qcvirtio-input */
+		virtio-mmio@40 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x1EE000>;
+			memory {
+				qcom,label = <0x128>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		/* qcvirtio-rng */
+		virtio-mmio@41 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x1F2000>;
+			memory {
+				qcom,label = <0x129>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		/* qcvirtio-vsock */
+		virtio-mmio@42 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x1F6000>;
+			memory {
+				qcom,label = <0x12A>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		/* qcvirtio-gpio */
+		virtio-mmio@43 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x1FA000>;
+			memory {
+				qcom,label = <0x12B>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		/* qcvirtio-scmi */
+		virtio-mmio@44 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x1FE000>;
+			memory {
+				qcom,label = <0x12C>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		/* qcvirtio-spi */
+		virtio-mmio@45 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x202000>;
+			memory {
+				qcom,label = <0x12D>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		/* qcvirtio-can */
+		virtio-mmio@46 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x206000>;
+			memory {
+				qcom,label = <0x12E>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		/* qcvirtio-bt */
+		virtio-mmio@47 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x20A000>;
+			memory {
+				qcom,label = <0x12F>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		/* qcvirtio-camera */
+		virtio-mmio@48 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x20E000>;
+			memory {
+				qcom,label = <0x130>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+
+		/* qcvirtio-i2c */
+		virtio-mmio@49 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x212000>;
+			memory {
+				qcom,label = <0x131>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		/* qcvirtio-snd */
+		virtio-mmio@50 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x216000>;
+			memory {
+				qcom,label = <0x132>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+
+		/* qcvirtio-video-dec */
+		virtio-mmio@51 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x21A000>;
+			memory {
+				qcom,label = <0x133>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		/* qcvirtio-video-enc */
+		virtio-mmio@52 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x21E000>;
+			memory {
+				qcom,label = <0x134>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		/* qcvirtio-rtc */
+		virtio-mmio@53 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x222000>;
+			memory {
+				qcom,label = <0x135>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		/* qcvirtio-usb */
+		virtio-mmio@54 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x8>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x226000>;
+			memory {
+				qcom,label = <0x136>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		/* reserved 0 */
+		virtio-mmio@55 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x2>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x236000>;
+			memory {
+				qcom,label = <0x137>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		/* reserved 1 */
+		virtio-mmio@56 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x2>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x23E000>;
+			memory {
+				qcom,label = <0x138>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		swiotlb-shm {
+			vdevice-type = "shm";
+			generate = "/swiotlb";
+			push-compatible = "swiotlb";
+			peer-default;
+			dma_base = <0x0 0x1100000>;
+			memory {
+				qcom,label = <0x140>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+	};
+};
+
+&soc {
+	scmi {
+		compatible = "arm,scmi-virtio";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "ok";
+
+		scmi_clk: protocol@14 {
+			reg = <0x14>;
+			#clock-cells = <1>;
+		};
+	};
+};

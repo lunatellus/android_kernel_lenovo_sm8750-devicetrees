@@ -1,0 +1,227 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "lemans-gh-vm-la-qam-ridesx.dts"
+#include "prime-board-id.dtsi"
+
+&vm_config {
+	vdevices {
+		virtio-mmio@36 {
+			/delete-property/ patch;
+		};
+
+		// qcvirtio-gpu uses virtio-mmio@46
+
+		// qcvirtio-snd
+		virtio-mmio@47 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x24A000>;
+			memory {
+				qcom,label = <0x4F>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		// qcvirtio-input
+		virtio-mmio@48 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			virtio,device-type = <18>;
+			peer-default;
+			vqs-num = <0x2>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x252000>;
+			memory {
+				qcom,label = <0x51>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		// qcvirtio-net
+		virtio-mmio@49 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x3>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x256000>;
+			memory {
+				qcom,label = <0x52>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		// qcvirtio-console
+		virtio-mmio@50 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x25E000>;
+			memory {
+				qcom,label = <0x53>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		// qcvirtio-vsock
+		virtio-mmio@51 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x266000>;
+			memory {
+				qcom,label = <0x54>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		// qcvirtio-gpio
+		virtio-mmio@52 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x26A000>;
+			memory {
+				qcom,label = <0x55>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		// qcvirtio-scmi
+		virtio-mmio@53 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x26E000>;
+			memory {
+				qcom,label = <0x56>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		// qcvirtio-spi
+		virtio-mmio@54 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x272000>;
+			memory {
+				qcom,label = <0x57>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		// qcvirtio-can
+		virtio-mmio@55 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x276000>;
+			memory {
+				qcom,label = <0x58>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		// qcvirtio-i2c
+		virtio-mmio@56 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x27A000>;
+			memory {
+				qcom,label = <0x59>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		// qcvirtio-rtc
+		virtio-mmio@57 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x4>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x27E000>;
+			memory {
+				qcom,label = <0x5A>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+
+		// auto_vm_resv_ring
+		virtio-mmio@60 {
+			vdevice-type = "virtio-mmio";
+			generate = "/virtio-mmio";
+			peer-default;
+			vqs-num = <0x1>;
+			push-compatible = "virtio,mmio";
+			sync-reset;
+			dma-coherent;
+			dma_base = <0x0 0x282000>;
+			memory {
+				qcom,label = <0x5B>;
+				#address-cells = <0x2>;
+				allocate-base;
+			};
+		};
+	};
+};
+
+// Keeping rename_devices node results in endless boot animation.
+// qcvirtio-blk uses its own approach to specify and name partitions,
+// so this node is not needed anyway.
+/delete-node/ &rename_devices;

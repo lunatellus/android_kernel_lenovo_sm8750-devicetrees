@@ -1,0 +1,33 @@
+// SPDX-License-Identifier: BSD-3-Clause/*
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include "bourtzi-audio-overlay.dtsi"
+
+&bourtzi_snd {
+	qcom,model = "bourtzi-atp-wsa883x-snd-card";
+	compatible = "qcom,canoe-asoc-snd-stub";
+	asoc-codec = <&stub_codec>;
+	asoc-codec-names = "msm-stub-codec.1";
+};
+
+&lpi_tlmm {
+	status = "disabled";
+};
+
+&lpass_cdc {
+	status = "disabled";
+};
+
+&wcd9378_codec {
+	status = "disabled";
+};
+
+&wcd9378_tx_slave {
+	status = "disabled";
+};
+
+&wcd9378_rx_slave {
+	status = "disabled";
+};

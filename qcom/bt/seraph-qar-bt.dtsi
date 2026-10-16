@@ -1,0 +1,27 @@
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ * SPDX-License-Identifier: BSD-3-Clause
+*/
+
+#include "seraph-bt.dtsi"
+
+&bluetooth {
+	/delete-property/ qcom,bt-vdd-dig-supply;
+	/delete-property/ qcom,bt-vdd-dig-config;
+
+	/delete-property/ qcom,bt-vdd-aon-supply;
+	/delete-property/ qcom,bt-vdd-aon-config;
+
+	/delete-property/ qcom,bt-vdd-rfa0p75-supply;
+	/delete-property/ qcom,bt-vdd-rfa0p75-config;
+
+	/delete-property/ qcom,bt-vdd-rfa1p8-supply;
+	/delete-property/ qcom,bt-vdd-rfa1p8-config;
+
+	/delete-property/ qcom,bt-vdd-rfa1p25-supply;
+	/delete-property/ qcom,bt-vdd-rfa1p25-config;
+
+	qcom,bt-vdd12-io-supply   = <&L3A>;/* VDD1P2_IO */
+	qcom,bt-vdd12-io-config   = <1800000 2000000 30000 1>;
+};
+

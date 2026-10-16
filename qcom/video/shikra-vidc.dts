@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/clock/qcom,shikra-gcc.h>
+#include <dt-bindings/clock/qcom,shikra-gpucc.h>
+#include <dt-bindings/interconnect/qcom,shikra.h>
+#include "shikra-vidc.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Shikra SoC";
+	compatible = "qcom,shikra";
+	qcom,msm-id = <756 0x10000>, <758 0x10000>, <759 0x10000>;
+	qcom,board-id = <0 0>;
+};

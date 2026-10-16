@@ -1,0 +1,17 @@
+/* SPDX-License-Identifier: BSD-3-Clause
+ *
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+/plugin/;
+
+#include "pikachu-wcn786x-bt.dtsi"
+
+/ {
+        model = "Qualcomm Technologies, Inc. pikachu SoC";
+        compatible = "qcom,pikachu";
+        qcom,msm-id = <737 0x10000>, <736 0x10000>, <783 0x10000>, <784 0x10000>;
+        qcom,board-id = <0x10022 0>, <0x10022 1>, <0x10021 0>;
+};
+

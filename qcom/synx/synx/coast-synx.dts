@@ -1,0 +1,16 @@
+/* Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/mailbox/qcom-ipcc.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include "coast-synx.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. coast SoC";
+	compatible = "qcom,coast";
+	qcom,msm-id = <761 0x10000>;
+	qcom,board-id = <0 0>;
+};

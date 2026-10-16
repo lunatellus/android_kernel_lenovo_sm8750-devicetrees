@@ -1,0 +1,35 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+/dts-v1/;
+
+#include "alorp-iot.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. AlorP IoT SoC";
+	compatible = "qcom,alorp";
+	qcom,board-id = <0 0>;
+};
+
+/* remove modem reserved memory for IoT (no modem) variant */
+&modem_pas {
+	status = "disabled";
+};
+
+&dsm_partition_1_mem {
+	status = "disabled";
+};
+
+&dsm_partition_2_mem {
+	status = "disabled";
+};
+
+&mpss_mem {
+	status = "disabled";
+};
+
+&q6_mpss_dtb_mem {
+	status = "disabled";
+};

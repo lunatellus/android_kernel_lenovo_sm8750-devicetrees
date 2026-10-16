@@ -1,0 +1,55 @@
+// SPDX-License-Identifier: BSD-3-Clause
+
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/interconnect/qcom,lahaina.h>
+#include <dt-bindings/gpio/gpio.h>
+
+&tlmm {
+	bt_en_sleep: bt_en_sleep {
+		mux {
+			pins = "gpio65";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio65";
+			drive-strength = <2>;
+			output-low;
+			bias-pull-down;
+		};
+	};
+};
+
+&soc {
+	bluetooth: bt_qca6490 {
+		compatible = "qcom,qca6490";
+		reg = <0xb2e5510 0x690>;
+		reg-names = "tcs_cmd";
+		pinctrl-names = "default";
+		pinctrl-0 = <&bt_en_sleep>;
+		/* offset=(0xC8*6) + (0x10*2) */
+		qcom,tcs_offset_ipa = <0x4D0>;
+		qcom,bt-reset-gpio = <&tlmm 65 0>; /* BT_EN */
+		qcom,wl-reset-gpio = <&tlmm 64 0>; /* WL_EN */
+		qcom,bt-sw-ctrl-gpio = <&tlmm 153 0>; /* SW_CTRL */
+		qcom,bt-vdd-aon-supply = <&S11B>;
+		qcom,bt-vdd-dig-supply = <&S11B>;
+		qcom,bt-vdd-rfa1-supply = <&S1C>;
+		qcom,bt-vdd-rfa2-supply = <&S12B>;
+		qcom,bt-vdd-asd-supply = <&L7E>;
+
+		qcom,bt-vdd-aon-config = <1012000 1012000 0 1>;
+		qcom,bt-vdd-dig-config = <1012000 1012000 0 1>;
+		qcom,bt-vdd-rfa1-config = <1900000 1952000 0 1>;
+		qcom,bt-vdd-rfa2-config = <1350000 1360000 0 1>;
+		qcom,bt-vdd-asd-config = <2800000 2800000 0 1>;
+	};
+};
+//uart instance
+&qupv3_se18_4uart {
+	status = "ok";
+};

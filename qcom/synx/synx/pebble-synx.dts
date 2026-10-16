@@ -1,0 +1,18 @@
+/* Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/mailbox/qcom-ipcc.h>
+#include <dt-bindings/mailbox/qcom-ipcc-pebble.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include "art-synx.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Pebble";
+	compatible = "qcom,pebble";
+	qcom,msm-id = <735 0x10000>, <735 0x10001>, <741 0x10000>, <741 0x10001>,
+                  <793 0x10000>, <793 0x10001>, <794 0x10000>, <794 0x10001>;
+	qcom,board-id = <0 0>;
+};

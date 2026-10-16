@@ -1,0 +1,13 @@
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ * SPDX-License-Identifier: BSD-3-Clause
+*/
+
+/dts-v1/;
+/plugin/;
+#include "pikachu-dsp-trustedvm.dtsi"
+/ {
+	model = "Qualcomm Technologies, Inc. pikachu - TrustedVM";
+	compatible = "qcom,pikachu-atp", "qcom,pikachu", "qcom,atp";
+	qcom,msm-id = <737 0x10000>, <736 0x10000>, <783 0x10000>, <784 0x10000>;
+};

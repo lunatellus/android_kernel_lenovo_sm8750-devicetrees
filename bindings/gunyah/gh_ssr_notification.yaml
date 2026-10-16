@@ -1,0 +1,50 @@
+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+%YAML 1.2
+---
+$id: http://devicetree.org/schemas/gunyah/gh_ssr_notification.yaml#
+$schema: http://devicetree.org/meta-schemas/core.yaml#
+
+title: Subsystem notification based on Gunyah doorbell.
+
+maintainers:
+   - Venkata Rao Kakani <quic_vkakani@quicinc.com>
+
+description: |+
+  Gunyah doorbell based subsystem notifications to guest upon receiving
+  subsystem events at HLOS.
+
+properties:
+  compatible:
+    const:  qcom,gh-ssr-notif
+
+  gunyah-label:
+    $ref: '/schemas/types.yaml#/definitions/uint32'
+    description: Unique label associated with gunyah doorbell device.
+                 This label must be same between HLOS and Trusted VM.
+
+  qcom,ss-name:
+    $ref: '/schemas/types.yaml#/definitions/string-array'
+    description: subsystem for which notifications needs to be
+                 delivered to Trusted VM.
+
+  qcom,primary-vm:
+    type: boolean
+    description: add this property to distinguish between primary VM and
+                 secondary VM.
+
+required:
+  - compatible
+  - gunyah-label
+  - qcom,ss-name
+
+additionalProperties: false
+
+examples:
+  - |
+    gh_ssr_notifier {
+                compatible = "qcom,gh-ssr-notif";
+                gunyah-label = <0x10a>;
+                qcom,ss-name = "cdsp";
+                qcom,primary-vm;
+        };
+

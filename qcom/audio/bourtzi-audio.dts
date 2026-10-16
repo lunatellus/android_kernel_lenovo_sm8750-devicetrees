@@ -1,0 +1,22 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ */
+/dts-v1/;
+/plugin/;
+
+
+#include <dt-bindings/clock/qcom,sm4450-gcc.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/interconnect/qcom,ravelin.h>
+#include <dt-bindings/regulator/qcom,rpmh-regulator-levels.h>
+
+
+#include "bourtzi-audio.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Bourtzi SoC";
+	compatible = "qcom,bourtzi", "qcom,bourtzip";
+	qcom,msm-id = <776 0x10000>, <777 0x10000>;
+	qcom,board-id = <0 0>, <0 0x600>;
+};

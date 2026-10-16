@@ -1,0 +1,14 @@
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ * SPDX-License-Identifier: BSD-3-Clause
+*/
+
+/dts-v1/;
+/plugin/;
+#include "seraph-dsp-trustedvm.dtsi"
+/ {
+	model = "Qualcomm Technologies, Inc. Seraph - TrustedVM";
+	compatible = "qcom,seraph", "qcom,seraphp-atp", "qcom,seraphp", "qcom,atp",
+		"qcom,seraph-idp", "qcom,seraphp-idp", "qcom,idp";
+	qcom,msm-id = <673 0x10000>, <672 0x10000>;
+};

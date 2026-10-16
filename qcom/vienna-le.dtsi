@@ -1,0 +1,90 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ *
+ * Vienna LE (Limited Edition) specific device tree configurations.
+ * This file contains common LE-specific overrides for all Vienna LE variants.
+ */
+
+/* Disable modem memory for LE variants */
+&mpss_mem {
+	status = "disabled";
+};
+
+/* Disable modem DTB memory for LE variants */
+&q6_mpss_dtb_mem {
+	status = "disabled";
+};
+
+/* Disable CDSP (Compute DSP) memory for LE variants */
+&cdsp_mem {
+	status = "disabled";
+};
+
+/* Disable CDSP DTB memory for LE variants */
+&q6_cdsp_dtb_mem {
+	status = "disabled";
+};
+
+/* Disable splash screen memory for LE variants */
+&splash_memory {
+	status = "disabled";
+};
+
+/* Reduce video carveout to match the Vienna LE memory layout. */
+&video_mem {
+	no-map;
+	reg = <0x0 0x93B00000 0x0 0x500000>;
+};
+
+/* Disable IPA firmware carveout for Vienna LE variants. */
+&ipa_fw_mem {
+	status = "disabled";
+};
+
+/* Disable IPA GSI carveout for Vienna LE variants. */
+&ipa_gsi_mem {
+	status = "disabled";
+};
+
+/* Disable GPU microcode carveout for Vienna LE variants. */
+&gpu_microcode_mem {
+	status = "disabled";
+};
+
+/* Disable audio data exchange carveout for Vienna LE variants. */
+&audio_data_exchange_mem {
+	status = "disabled";
+};
+
+/* Resize ADSP/SLPI carveout to match the Vienna LE memory layout. */
+&adspslpi_mem {
+	no-map;
+	reg = <0x0 0x95200000 0x0 0x2B00000>;
+};
+
+/* Disable Display LPI memory for LE variants */
+&displaylpi_mem {
+	status = "disabled";
+};
+
+/* Disable I2C9 for LE variants */
+&i2c9 {
+	status = "disabled";
+};
+
+/* Reserve M55/WM audio buffer DDR region for LE variants. */
+&reserved_memory {
+	m55_audio_buffer_mem: m55_audio_buffer_region@849a0000 {
+		no-map;
+		reg = <0x0 0x849a0000 0x0 0x480000>;
+	};
+};
+
+&soc {
+	qcom,m55-audio-uio@849A0000 {
+		compatible = "qcom,sharedmem-uio";
+		reg = <0x849A0000 0x480000>;
+		reg-names = "m55_audio_buffer";
+	};
+};

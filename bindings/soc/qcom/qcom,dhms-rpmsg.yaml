@@ -1,0 +1,50 @@
+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+%YAML 1.2
+---
+$id: http://devicetree.org/schemas/soc/qcom/qcom,dhms-rpmsg.yaml#
+$schema: http://devicetree.org/meta-schemas/core.yaml#
+
+title: Qualcomm DHMS RPMSG Driver
+
+maintainers:
+  - Dhanya K <dhak@qti.qualcomm.com>
+
+description:
+  The DHMS RPMSG driver enables sharing of DMA-BUF buffers between the
+  application processor (HLOS) and remote processors (e.g., LMCU) over
+  GLink/RPMSG. It creates a character device (/dev/dhms) through which
+  userspace can import DMA-BUFs and share their IOVA addresses with
+  registered remote processors.
+
+properties:
+  compatible:
+    const: qcom,dhms-rpmsg
+
+  iommus:
+    description:
+      SMMU context bank used for DMA-BUF IOVA mapping. The IOVA addresses
+      obtained from this context are shared with remote processors.
+    minItems: 1
+    maxItems: 2
+
+  memory-region:
+    maxItems: 1
+    description:
+      Reference to a reserved memory region used to restrict IOVA allocations
+      to a specific address range accessible by the remote processor.
+
+required:
+  - compatible
+  - iommus
+  - memory-region
+
+additionalProperties: false
+
+examples:
+  - |
+    dhms_rpmsg_lmcu: dhms-rpmsg-lmcu {
+        compatible = "qcom,dhms-rpmsg";
+        iommus = <&apps_smmu 0x01141 0x0>;
+        memory-region = <&dhms_dma_region>;
+    };
+...
