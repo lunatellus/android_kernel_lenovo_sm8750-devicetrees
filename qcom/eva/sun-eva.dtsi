@@ -13,14 +13,9 @@
 		/* LLCC Cache */
 		cache-slice-names = "cvpfw", "cvp";
 
-		/* GDSC */
+		/* Supply */
 		cvp-supply = <&eva_cc_mvs0c_gdsc>;
 		cvp-core-supply = <&eva_cc_mvs0_gdsc>;
-		/* framework-type: 0x0 --> Regulator framework, 0x1 --> GenPD framework */
-		framework-type = <0x0>;
-		power-domains = <&evacc EVA_CC_MVS0C_GDSC>, <&evacc EVA_CC_MVS0_GDSC>;
-		power-domain-names = "controller_pd", "core_pd";
-		gdsc_has_hw_pc = <0x0 0x1>;
 
 		/* Clocks */
 		clock-names = "cvp_axi_clock", "core_axi_clock", "sleep_clk", "cvp_freerun_clk", "core_freerun_clk",
@@ -51,8 +46,11 @@
 		qcom,gcc-reg = <0x110000 0x90000>;
 
 		pas-id = <26>;
+		soc_ver = <0x10000>;
 		memory-region = <&cvp_mem>;
 
+		/* UC region mapping */
+		ipclite_mappings = <0xFE500000 0x100000 0x82600000>;
 		/* DEVICE mapping */
 		aon_timer_mappings = <0xFFA00000 0x1000 0xc220000>;
 		/* DEVICE mapping */
@@ -148,13 +146,6 @@
 		qcom,msm-cvp,mem_cdsp {
 			compatible = "qcom,msm-cvp,mem-cdsp";
 			memory-region = <&cdsp_eva_mem>;
-		};
-
-		/* UC region mapping */
-		ipclite_mappings {
-			compatible = "qcom,msm-cvp,ipclite";
-			memory-region = <&global_sync_mem>;
-			iova-region-start = <0xFE500000>;
 		};
 	};
 };

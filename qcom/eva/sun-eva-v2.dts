@@ -13,7 +13,7 @@
 #include <dt-bindings/clock/qcom,gcc-sun.h>
 #include <dt-bindings/clock/qcom,evacc-sun.h>
 #include <dt-bindings/arm/msm/qti-smmu-proxy-dt-ids.h>
-#include "sun-eva.dtsi"
+#include "sun-eva-v2.dtsi"
 
 / {
 	model = "Qualcomm Technologies, Inc. Sun v2 SoC";
