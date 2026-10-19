@@ -7,6 +7,7 @@
 
 #include "sunp-v2.dtsi"
 #include "sunp-tp-v2.dtsi"
+#include "sun-v2-techpacks.dtsi"
 
 / {
 	model = "Qualcomm Technologies, Inc. SunP v2 Alt. Thermal Profile SoC";

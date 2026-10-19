@@ -6,6 +6,9 @@
 /dts-v1/;
 
 #include "sunp-v2.dtsi"
+#include "sun-v2-techpacks.dtsi"
+
+#include "mm/hw_fence/sun-hw-fence.dtsi"
 
 / {
 	model = "Qualcomm Technologies, Inc. SunP v2 SoC";

@@ -1,0 +1,8 @@
+// SPDX-License-Identifier: BSD-3-Clause
+
+#include "sun-techpacks-common.dtsi"
+
+#include "eva/sun-eva-v2.dtsi"
+#include "graphics/gpu/sun-v2-gpu.dtsi"
+#include "graphics/gpu/sun-v2-gpu-pwrlevels.dtsi"
+#include "video/sun-vidc-v2.dtsi"

@@ -6,6 +6,11 @@
 /dts-v1/;
 
 #include "sun-v2.dtsi"
+#include "sun-v2-techpacks.dtsi"
+
+#include "mm/hw_fence/sun-hw-fence.dtsi"
+#include "data/sun-ipa.dtsi"
+#include "fingerprint/sun-fingerprint.dtsi"
 
 / {
 	model = "Qualcomm Technologies, Inc. Sun v2 SoC";

@@ -7,6 +7,10 @@
 
 #include "sun-v2.dtsi"
 #include "sun-tp-v2.dtsi"
+#include "sun-v2-techpacks.dtsi"
+
+#include "data/sun-ipa.dtsi"
+#include "fingerprint/sun-fingerprint.dtsi"
 
 / {
 	model = "Qualcomm Technologies, Inc. Sun Alt. Thermal Profile v2 SoC";

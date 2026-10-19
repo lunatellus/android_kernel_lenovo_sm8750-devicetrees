@@ -1,0 +1,11 @@
+// SPDX-License-Identifier: BSD-3-Clause
+
+#include <dt-bindings/mailbox/qcom-ipcc.h>
+
+#include "audio/sun-audio.dtsi"
+#include "camera/sun-camera.dtsi"
+#include "dsp/sun/sun-dsp.dtsi"
+#include "mmrm/sun/sun-mmrm.dtsi"
+#include "mmrm/sun/sun-mmrm-test.dtsi"
+#include "nfc/st/sun-nfc-pinctrl.dtsi"
+#include "synx/synx/sun-synx.dtsi"
