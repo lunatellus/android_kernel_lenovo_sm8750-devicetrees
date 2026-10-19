@@ -875,27 +875,6 @@ _platform_map = {
         "dtbo_list": [
             {"name": "sun-elden-overlay.dtbo"},
         ],
-        # SoC techpack overlays, merged into the base DTBs when dtb.img is
-        # assembled; they are not board overlays and stay out of dtbo.img.
-        "techpack_dtbo_list": [
-            # keep sorted
-            {"name": "sun-audio.dtbo"},
-            {"name": "sun-camera.dtbo"},
-            {"name": "sun-dsp.dtbo"},
-            {"name": "sun-eva-v2.dtbo"},
-            {"name": "sun-eva.dtbo"},
-            {"name": "sun-fingerprint.dtbo"},
-            {"name": "sun-gpu.dtbo"},
-            {"name": "sun-hw-fence.dtbo"},
-            {"name": "sun-ipa.dtbo"},
-            {"name": "sun-mmrm-test.dtbo"},
-            {"name": "sun-mmrm.dtbo"},
-            {"name": "sun-nfc.dtbo"},
-            {"name": "sun-synx.dtbo"},
-            {"name": "sun-v2-gpu.dtbo"},
-            {"name": "sun-vidc-v2.dtbo"},
-            {"name": "sun-vidc.dtbo"},
-        ],
     },
     "sun-tuivm": {
         "dtb_list": [
@@ -1259,7 +1238,6 @@ def _get_dtb_lists(target, dt_overlay_supported):
         "dtb_list": [],
         "dtbo_list": [],
         "custom_dtbo_img_list": [],
-        "techpack_dtbo_list": [],
     }
 
     for dtb_node in [target] + _platform_map[target].get("binary_compatible_with", []):
@@ -1267,7 +1245,6 @@ def _get_dtb_lists(target, dt_overlay_supported):
         if dt_overlay_supported:
             ret["dtbo_list"].extend(_platform_map[dtb_node].get("dtbo_list", []))
             ret["custom_dtbo_img_list"].extend(_platform_map[dtb_node].get("custom_dtbo_img_list", []))
-            ret["techpack_dtbo_list"].extend(_platform_map[dtb_node].get("techpack_dtbo_list", []))
         else:
             # Translate the dtbo list into dtbs we can append to main dtb_list
             for dtb in _platform_map[dtb_node].get("dtb_list", []):
@@ -1289,6 +1266,3 @@ def get_dtbo_list(target, dt_overlay_supported = True):
 
 def get_custom_dtbo_img_list(target, dt_overlay_supported = True):
     return _get_dtb_lists(target, dt_overlay_supported).get("custom_dtbo_img_list", [])
-
-def get_techpack_dtbo_list(target, dt_overlay_supported = True):
-    return [dtbo["name"] for dtbo in _get_dtb_lists(target, dt_overlay_supported).get("techpack_dtbo_list", [])]
