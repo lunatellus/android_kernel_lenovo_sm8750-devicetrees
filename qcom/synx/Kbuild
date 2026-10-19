@@ -1,4 +1,3 @@
--include $(srctree)/../vendor/lenovo/sm8750-devicetrees/qcom/dts-overlay-compat.mk
 # Use current $(MSM_ARCH) to set config/ makefile path
 SYNX_TARGET_MKFILE_PATH := $(SYNX_DEVICETREE_ROOT)/config/$(MSM_ARCH).mk
 # Check to see if current target makefile exists

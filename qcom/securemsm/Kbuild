@@ -1,4 +1,3 @@
--include $(srctree)/../vendor/lenovo/sm8750-devicetrees/qcom/dts-overlay-compat.mk
 ifeq ($(CONFIG_ARCH_QTI_VM), y)
 dtbo-y += lemans/lemans-quin-vm-securemsm.dtbo
 dtbo-y += monaco/monaco-quin-vm-securemsm.dtbo

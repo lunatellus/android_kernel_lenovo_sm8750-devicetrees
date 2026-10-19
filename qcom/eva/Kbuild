@@ -1,4 +1,3 @@
--include $(srctree)/../vendor/lenovo/sm8750-devicetrees/qcom/dts-overlay-compat.mk
 ifneq ($(CONFIG_ARCH_QTI_VM), y)
 
 ifeq ($(CONFIG_ARCH_CANOE), y)
