@@ -36,7 +36,7 @@
 
 &battery_charger {
 	qcom,thermal-mitigation-step = <0x7a120>;
-	#cooling-cells = <0x2>;
+	#cooling-cells = <2>;
 	qcom,wireless-fw-name = "idt9418.bin";
 	qcom,ship-mode-immediate;
 };
@@ -45,8 +45,8 @@
 
 	i2c@106 {
 		reg = <0x106>;
-		#address-cells = <0x1>;
-		#size-cells = <0x0>;
+		#address-cells = <1>;
+		#size-cells = <0>;
 		qcom,bus-type = "i2c";
 
 		qcom,smb1501@68 {

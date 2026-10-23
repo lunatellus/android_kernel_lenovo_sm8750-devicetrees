@@ -10,8 +10,8 @@
 };
 
 &qupv3_se0_i2c {
-	#size-cells = <0x0>;
-	#address-cells = <0x1>;
+	#size-cells = <0>;
+	#address-cells = <1>;
 	qcom,clk-freq-out = <0xf4240>;
 	status = "disabled";
 

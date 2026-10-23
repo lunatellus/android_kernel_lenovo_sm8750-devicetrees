@@ -6,7 +6,7 @@
 		compatible = "qcom,gpu-dump-skip-cdev";
 		nvmem-cells = <&wr_thermal_flag>;
 		nvmem-cell-names = "wr_thermal_flag";
-		#cooling-cells = <0x2>;
+		#cooling-cells = <2>;
 	};
 };
 
@@ -101,7 +101,7 @@
 		soccp_controller = <&soccp_pas>;
 		dma-coherent;
 		iommus = <&apps_smmu 0x562 0x1>;
-		#interrupt-cells = <0x1>;
+		#interrupt-cells = <1>;
 		interrupt-controller;
 		interrupts = <0x0 0x46 0x4>;
 		status = "ok";

@@ -58,8 +58,8 @@
 
 &qupv3_se5_i2c {
 	status = "ok";
-	#address-cells = <0x1>;
-	#size-cells = <0x0>;
+	#address-cells = <1>;
+	#size-cells = <0>;
 
 	nxp_eusb2_repeater: eusb2_repeater@4f {
 		status = "ok";

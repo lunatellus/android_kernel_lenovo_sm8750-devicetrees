@@ -8,7 +8,7 @@
 		torch-source = <&pm8550_torch0 &pm8550_torch3>;
 		flash-source = <&pm8550_flash0 &pm8550_flash3>;
 		compatible = "qcom,camera-flash";
-		cell-index = <0x1>;
+		cell-index = <1>;
 	};
 
 	qcom,cam-res-mgr {
@@ -30,7 +30,7 @@
 		cam_vaf-supply = <&wl2868c_l5>;
 		cci-master = <0x0>;
 		compatible = "qcom,actuator";
-		cell-index = <0x0>;
+		cell-index = <0>;
 	};
 
 	eeprom_main: qcom,eeprom0 {
@@ -60,7 +60,7 @@
 		cam_vana-supply = <&wl2868c_l4>;
 		cam_vio-supply = <&wl2868c_l7>;
 		compatible = "qcom,eeprom";
-		cell-index = <0x0>;
+		cell-index = <0>;
 	};
 
 	qcom,cam-sensor0 {
@@ -97,7 +97,7 @@
 		sensor-position-roll = <0x5a>;
 		csiphy-sd-index = <0x3>;
 		compatible = "qcom,cam-sensor";
-		cell-index = <0x0>;
+		cell-index = <0>;
 	};
 };
 
@@ -129,7 +129,7 @@
 		cam_vana-supply = <&wl2868c_l3>;
 		cam_vio-supply = <&wl2868c_l7>;
 		compatible = "qcom,eeprom";
-		cell-index = <0x1>;
+		cell-index = <1>;
 	};
 
 	qcom,cam-sensor1 {
@@ -163,7 +163,7 @@
 		sensor-position-roll = <0x10e>;
 		csiphy-sd-index = <0x4>;
 		compatible = "qcom,cam-sensor";
-		cell-index = <0x1>;
+		cell-index = <1>;
 	};
 };
 
