@@ -6,33 +6,15 @@
 	interrupt-controller;
 	#interrupt-cells = <0x4>;
 
-	pm8010_m: qcom,pm8010@c {
-		compatible = "qcom,spmi-pmic";
-		reg = <0xc 0x0>;
-		#address-cells = <0x1>;
-		#size-cells = <0x0>;
+#include "pm8010.dtsi"
+};
 
-		pm8010m_tz: pm8010m-temp-alarm@2400 {
-			compatible = "qcom,spmi-temp-alarm";
-			reg = <0x2400>;
-			interrupts = <0xc 0x24 0x0 0x3>;
-			#thermal-sensor-cells = <0x0>;
-		};
-	};
+&pm8010_m {
+	/delete-node/ pmic-ecid@100;
+};
 
-	pm8010_n: qcom,pm8010@d {
-		compatible = "qcom,spmi-pmic";
-		reg = <0xd 0x0>;
-		#address-cells = <0x1>;
-		#size-cells = <0x0>;
-
-		pm8010n_tz: pm8010n-temp-alarm@2400 {
-			compatible = "qcom,spmi-temp-alarm";
-			reg = <0x2400>;
-			interrupts = <0xd 0x24 0x0 0x3>;
-			#thermal-sensor-cells = <0x0>;
-		};
-	};
+&pm8010_n {
+	/delete-node/ pmic-ecid@100;
 };
 
 &spmi_bus {
