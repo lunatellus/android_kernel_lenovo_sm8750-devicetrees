@@ -1,0 +1,119 @@
+// SPDX-License-Identifier: GPL-2.0-only
+
+&mdss_mdp {
+	elden_nt36523_csot_3k_dsc_vid: qcom,mdss_dsi_elden_nt36523_csot_3k_dsc_vid {
+		qcom,platform-te-gpio = <&tlmm 0x56 0x0>;
+		qcom,platform-reset-gpio = <&tlmm 0x62 0x0>;
+		qcom,mdss-brightness-max-level = <0xfff>;
+		qcom,mdss-dsi-bl-max-level = <0xfff>;
+		qcom,mdss-dsi-bl-min-level = <0x0>;
+		qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_external";
+		qcom,mdss-dsi-pan-fps-update = "dfps_custom";
+		qcom,mdss-dsi-pan-enable-dynamic-fps;
+		qcom,dsi-supported-dfps-list = <0x78 0xa5 0x90 0x5a 0x3c 0x1e>;
+		qcom,dsi-select-clocks = "pll_byte_clk0", "pll_dsi_clk0";
+		qcom,mdss-dsi-panel-status-check-mode = "te_signal_check";
+		qcom,esd-check-enabled;
+		qcom,ulps-enabled;
+		qcom,mdss-dsi-panel-blackness-level = <0xc9e>;
+		qcom,mdss-dsi-panel-peak-brightness = <0x989680>;
+		qcom,mdss-dsi-panel-hdr-color-primaries = <0x38a4 0x3c8c 0x7d00 0x4268 0x3c8c 0x7530 0x1f40 0xbb8>;
+		qcom,mdss-dsi-panel-hdr-enabled;
+		qcom,mdss-dsi-reset-sequence = <0x0 0xb 0x1 0x1 0x0 0x3 0x1 0xa>;
+		qcom,mdss-dsi-lp11-init;
+		qcom,mdss-pan-physical-height-dimension = <0xbe>;
+		qcom,mdss-pan-physical-width-dimension = <0x76>;
+		qcom,panel-cphy-mode;
+		qcom,mdss-dsi-mdp-trigger = "none";
+		qcom,mdss-dsi-dma-trigger = "trigger_sw";
+		qcom,mdss-dsi-lane-2-state;
+		qcom,mdss-dsi-lane-1-state;
+		qcom,mdss-dsi-lane-0-state;
+		qcom,mdss-dsi-bllp-eof-power-mode;
+		qcom,mdss-dsi-bllp-power-mode;
+		qcom,mdss-dsi-traffic-mode = "burst_mode";
+		qcom,mdss-dsi-bpp = <0x1e>;
+		qcom,mdss-dsi-stream = <0x0>;
+		qcom,mdss-dsi-virtual-channel-id = <0x0>;
+		qcom,dsi-phy-num = <0x0 0x1>;
+		qcom,dsi-ctrl-num = <0x0 0x1>;
+		qcom,mdss-dsi-panel-type = "dsi_video_mode";
+		qcom,mdss-dsi-panel-name = "nt36523 3k fhd plus 165Hz CPHY video panel";
+
+		qcom,mdss-dsi-display-timings {
+
+			timing@0 {
+				qcom,default-topology-index = <0x0>;
+				qcom,display-topology = <0x2 0x2 0x2>;
+				qcom,mdss-dsi-panel-phy-timings = [00 00 00 00 23 23 08 19 08 02 04 00 00 00];
+				qcom,mdss-dsc-block-prediction-enable;
+				qcom,mdss-dsc-bit-per-pixel = <0x8>;
+				qcom,mdss-dsc-bit-per-component = <0xa>;
+				qcom,mdss-dsc-slice-per-pkt = <0x2>;
+				qcom,mdss-dsc-slice-width = <0x1dc>;
+				qcom,mdss-dsc-slice-height = <0x14>;
+				qcom,mdss-dsc-version = <0x12>;
+				qcom,compression-mode = "dsc";
+				qcom,mdss-dsi-off-command = <0x5010000 0x128 0x5010000 0x110>;
+				qcom,mdss-dsi-on-command-state = "dsi_lp_mode";
+				qcom,mdss-dsi-on-command = <0x39010000 0x2ff 0x20390100 0x2 0xfb013901 0x0 0x2305039 0x1000000 0x2ff23 0x39010000 0x2fb 0x1390100 0x2 0x89a43901 0x0 0x2ff2639 0x1000000 0x2fb01 0x39010000 0x4cd 0x8fa90039 0x1000000 0x4ce8c 0xa9003901 0x0 0x2ff2739 0x1000000 0x2fb01 0x39010000 0x279 0x22390100 0x2 0xd0313901 0x0 0x3d10808 0x39010000 0x2d2 0x8390100 0x2 0xffd03901 0x0 0x2fb0139 0x1000000 0x20031 0x39010000 0x209 0xee390100 0x2 0x1c773901 0x0 0x21d0739 0x1000000 0x2ffe0 0x39010000 0x2fb 0x1390100 0x2 0xbb003901 0x0 0x2fff039 0x1000000 0x2fb01 0x39010000 0x2e6 0x2390100 0x2 0xff103901 0x0 0x2fb0139 0x1000000 0xa3b03 0x4e1a0404 0x1803636 0x39010000 0x260 0x390100 0x3 0x90030039 0x1000000 0x1191ab 0xa80014d2 0x1 0xb9000605 0x7a05b839 0x1000000 0x39210 0xe0390100 0x3 0xb2918039 0x1000000 0x2b340 0x5010000 0x69000111 0x5010000 0x28000129>;
+				qcom,mdss-dsi-panel-framerate = <0x78>;
+				qcom,mdss-dsi-panel-clockrate = <0x2d381490>;
+				qcom,mdss-dsi-v-pulse-width = <0x4>;
+				qcom,mdss-dsi-v-front-porch = <0x1a>;
+				qcom,mdss-dsi-v-back-porch = <0x14a>;
+				qcom,mdss-dsi-h-sync-skew = <0x0>;
+				qcom,mdss-dsi-h-pulse-width = <0x10>;
+				qcom,mdss-dsi-h-back-porch = <0x10>;
+				qcom,mdss-dsi-h-front-porch = <0x8a>;
+				qcom,mdss-dsi-panel-height = <0xbe0>;
+				qcom,mdss-dsi-panel-width = <0x3b8>;
+			};
+		};
+
+		qcom,dfps-timings {
+
+			dtiming@0 {
+				fps = <0x78>;
+				vfp = <0x1a>;
+				vbp = <0x14a>;
+				hfp = <0x8a>;
+			};
+
+			dtiming@1 {
+				fps = <0x3c>;
+				vfp = <0xd62>;
+				vbp = <0x14a>;
+				hfp = <0x8a>;
+			};
+
+			dtiming@2 {
+				fps = <0x1e>;
+				vfp = <0x27f2>;
+				vbp = <0x14a>;
+				hfp = <0x8a>;
+			};
+
+			dtiming@3 {
+				fps = <0x90>;
+				vfp = <0x1e1>;
+				vbp = <0x32>;
+				hfp = <0x32>;
+			};
+
+			dtiming@4 {
+				fps = <0xa5>;
+				vfp = <0x1a>;
+				vbp = <0x32>;
+				hfp = <0x32>;
+			};
+
+			dtiming@5 {
+				fps = <0x5a>;
+				vfp = <0x1a>;
+				vbp = <0x32>;
+				hfp = <0x14a>;
+			};
+		};
+	};
+};
