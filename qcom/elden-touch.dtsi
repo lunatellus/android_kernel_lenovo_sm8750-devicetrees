@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-/* stock fragment@37 */
+
 &qupv3_se4_spi {
 	#address-cells = <0x1>;
 	#size-cells = <0x0>;
@@ -60,7 +60,6 @@
 	};
 };
 
-/* stock fragment@66 */
 &qupv3_se4_spi {
 
 	novatek@0 {

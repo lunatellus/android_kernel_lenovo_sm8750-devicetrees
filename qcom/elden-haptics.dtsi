@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-/* stock fragment@30 */
+
 &tlmm {
 
 	vib_reset_l: vib_reset_l {
@@ -29,7 +29,6 @@
 	};
 };
 
-/* stock fragment@31 */
 &qupv3_se6_i2c {
 	status = "ok";
 	qcom,clk-freq-out = <0xf4240>;

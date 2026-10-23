@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-/* stock fragment@0 */
+
 &spmi_bus {
 	#address-cells = <0x2>;
 	#size-cells = <0x0>;
@@ -35,7 +35,6 @@
 	};
 };
 
-/* stock fragment@2 */
 &spmi_bus {
 	#address-cells = <0x2>;
 	#size-cells = <0x0>;
@@ -258,7 +257,6 @@
 	};
 };
 
-/* stock fragment@4 */
 &spmi_bus {
 	#address-cells = <0x2>;
 	#size-cells = <0x0>;
@@ -401,7 +399,6 @@
 	};
 };
 
-/* stock fragment@6 */
 &spmi_bus {
 	#address-cells = <0x2>;
 	#size-cells = <0x0>;
@@ -557,7 +554,6 @@
 	};
 };
 
-/* stock fragment@8 */
 &spmi_bus {
 	#address-cells = <0x2>;
 	#size-cells = <0x0>;
@@ -634,7 +630,6 @@
 	};
 };
 
-/* stock fragment@10 */
 &spmi_bus {
 	#address-cells = <0x2>;
 	#size-cells = <0x0>;
@@ -909,7 +904,6 @@
 	};
 };
 
-/* stock fragment@12 */
 &spmi_bus {
 	#address-cells = <0x2>;
 	#size-cells = <0x0>;
@@ -1382,7 +1376,6 @@
 	};
 };
 
-/* stock fragment@13 */
 &spmi_bus {
 	#address-cells = <0x2>;
 	#size-cells = <0x0>;
@@ -1413,7 +1406,6 @@
 	};
 };
 
-/* stock fragment@15 */
 &soc {
 
 	reboot_reason {
@@ -1508,57 +1500,46 @@
 	};
 };
 
-/* stock fragment@38 */
 &VRM_S4J {
 	status = "disabled";
 };
 
-/* stock fragment@39 */
 &S4J {
 	status = "disabled";
 };
 
-/* stock fragment@40 */
 &VRM_S5F {
 	status = "ok";
 };
 
-/* stock fragment@41 */
 &S5F {
 	status = "ok";
 };
 
-/* stock fragment@42 */
 &S8F_LEVEL {
 	regulator-name = "pm_v8f_s8_level";
 };
 
-/* stock fragment@43 */
 &S8F_LEVEL_AO {
 	regulator-name = "pm_v8f_s8_level_ao";
 };
 
-/* stock fragment@44 */
 &L1F {
 	regulator-name = "pm_v8f_l1";
 };
 
-/* stock fragment@45 */
 &L1F_AO {
 	regulator-name = "pm_v8f_l1_ao";
 };
 
-/* stock fragment@46 */
 &L1F_SO {
 	regulator-name = "pm_v8f_l1_so";
 };
 
-/* stock fragment@47 */
 &L2F {
 	regulator-name = "pm_v8f_l2";
 };
 
-/* stock fragment@48 */
 &L3F {
 	regulator-name = "pm_v8f_l3";
 };

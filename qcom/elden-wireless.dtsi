@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-/* stock fragment@52 */
+
 &tlmm {
 
 	cnss_pins {
@@ -66,7 +66,6 @@
 	};
 };
 
-/* stock fragment@53 */
 &reserved_memory {
 
 	cnss_wlan_mem: cnss_wlan_region {
@@ -78,7 +77,6 @@
 	};
 };
 
-/* stock fragment@54 */
 &soc {
 
 	wlan_peach: qcom,cnss-peach@b0000000 {
@@ -144,7 +142,6 @@
 	};
 };
 
-/* stock fragment@55 */
 &pcie0_rp {
 
 	cnss_pci0: cnss_pci0 {
@@ -158,7 +155,6 @@
 	};
 };
 
-/* stock fragment@78 */
 &tlmm {
 
 	cnss_bt_sw_ctrl: cnss_wlan_sw_ctrl {
@@ -170,7 +166,6 @@
 	};
 };
 
-/* stock fragment@79 */
 &soc {
 
 	bluetooth: bt_peach {

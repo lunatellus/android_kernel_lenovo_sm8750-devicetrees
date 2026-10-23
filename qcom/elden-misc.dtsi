@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-/* stock fragment@17 */
+
 &soc {
 
 	gpu_dump_skip_cdev: qcom,gpu-dump-skip-cdev {
@@ -10,7 +10,6 @@
 	};
 };
 
-/* stock fragment@19 */
 &soc {
 
 	gpio_keys {
@@ -31,7 +30,6 @@
 	};
 };
 
-/* stock fragment@20 */
 &ufsphy_mem {
 	compatible = "qcom,ufs-phy-qmp-v4-sun";
 	vdda-phy-supply = <&pm_v6j_l1>;
@@ -47,7 +45,6 @@
 	status = "ok";
 };
 
-/* stock fragment@21 */
 &ufshc_mem {
 	vdd-hba-supply = <&gcc_ufs_phy_gdsc>;
 	vcc-supply = <&pm_humu_l17>;
@@ -66,7 +63,6 @@
 	status = "ok";
 };
 
-/* stock fragment@23 */
 &sdhc_2 {
 	status = "ok";
 	vdd-supply = <&pm_humu_l9>;
@@ -89,7 +85,6 @@
 	qcom,uses_level_shifter;
 };
 
-/* stock fragment@56 */
 &soc {
 
 	msm_hw_fence: qcom,hw-fence {

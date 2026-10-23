@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-/* stock fragment@1 */
+
 &thermal_zones {
 
 	pm8010m_tz {
@@ -59,7 +59,6 @@
 	};
 };
 
-/* stock fragment@3 */
 &thermal_zones {
 
 	pm8550_temp_alarm: pm8550_tz {
@@ -139,7 +138,6 @@
 	};
 };
 
-/* stock fragment@5 */
 &thermal_zones {
 
 	pm8550ve_d_temp_alarm: pm8550ve_d_tz {
@@ -259,7 +257,6 @@
 	};
 };
 
-/* stock fragment@7 */
 &thermal_zones {
 
 	pm8550vs_c_temp_alarm: pm8550vs_c_tz {
@@ -437,7 +434,6 @@
 	};
 };
 
-/* stock fragment@9 */
 &thermal_zones {
 
 	pmd802x_temp_alarm: pmd802x_tz {
@@ -469,7 +465,6 @@
 	};
 };
 
-/* stock fragment@11 */
 &thermal_zones {
 
 	pmih010x_temp_alarm: pmih010x_tz {
@@ -694,7 +689,6 @@
 	};
 };
 
-/* stock fragment@14 */
 &thermal_zones {
 
 	pmr735d_temp_alarm: pmr735d_tz {
@@ -726,11 +720,6 @@
 	};
 };
 
-/* stock fragment@16 */
-&thermal_zones {
-};
-
-/* stock fragment@18 */
 &thermal_zones {
 
 	socd {
@@ -902,7 +891,6 @@
 	};
 };
 
-/* stock fragment@35 */
 &soc {
 
 	sys_temp_support {
@@ -913,7 +901,6 @@
 	};
 };
 
-/* stock fragment@36 */
 &thermal_zones {
 
 	ap-therm {

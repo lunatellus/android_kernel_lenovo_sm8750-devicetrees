@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-/* stock fragment@84 */
+
 &soc {
 
 	led_flash_rear: qcom,camera-flash1 {
@@ -17,7 +17,6 @@
 	};
 };
 
-/* stock fragment@85 */
 &cam_cci0 {
 
 	actuator_rear: qcom,actuator0 {
@@ -102,7 +101,6 @@
 	};
 };
 
-/* stock fragment@86 */
 &cam_cci1 {
 
 	eeprom_front: qcom,eeprom1 {
@@ -169,7 +167,6 @@
 	};
 };
 
-/* stock fragment@88 */
 &tlmm {
 
 	cam_ldo_en_gpio: cam_ldo_en_gpio {
