@@ -460,12 +460,9 @@ dtb-y += $(gen3auto-dtb-y)
 SUN_BASE_DTB += sun.dtb sun-v2.dtb sun-tp.dtb sun-tp-v2.dtb
 SUN_APQ_BASE_DTB += sunp.dtb sunp-v2.dtb sunp-tp.dtb sunp-tp-v2.dtb
 
-# The elden overlay already contains the techpack board nodes and is
-# applied only after the SoC techpack overlays have been merged.
 ELDEN_BOARDS := sun-elden-overlay.dtbo
-sun-dtb-$(CONFIG_ARCH_SUN) += $(ELDEN_BOARDS)
-sun-overlays-dtb-$(CONFIG_ARCH_SUN) += $(SUN_BASE_DTB) $(SUN_APQ_BASE_DTB) $(ELDEN_BOARDS)
-dtb-y += $(sun-dtb-y) $(sun-overlays-dtb-y)
+sun-dtb-$(CONFIG_ARCH_SUN) += $(SUN_BASE_DTB) $(SUN_APQ_BASE_DTB) $(ELDEN_BOARDS)
+dtb-y += $(sun-dtb-y)
 
 PINEAPPLE_BASE_DTB += pineapple.dtb pineapple-v2.dtb
 PINEAPPLE_APQ_BASE_DTB += pineapplep.dtb pineapplep-v2.dtb
@@ -1245,10 +1242,6 @@ dtb-y += $(autogvm-dtb-y)
 
 endif
 endif
-
-# Keep the inline dtb.img within vendor_boot: elden ships only sun bases
-# and its complete board overlay, not the reference-board combinations.
-dtb-y := $(SUN_BASE_DTB) $(SUN_APQ_BASE_DTB) $(ELDEN_BOARDS)
 
 always-y        := $(dtb-y)
 subdir-y        := $(dts-dirs)
