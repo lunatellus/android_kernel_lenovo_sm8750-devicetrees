@@ -1139,8 +1139,8 @@
 	};
 
 	quiet-therm {
-		polling-delay-passive = <0x0>;
-		polling-delay = <0x0>;
+		polling-delay-passive = <0x3e8>;
+		polling-delay = <0x3e8>;
 		thermal-sensors = <&pmk8550_vadc 0x14b>;
 
 		trips {
